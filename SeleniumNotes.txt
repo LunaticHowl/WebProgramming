@@ -1,0 +1,32 @@
+Selenium notes
+
+http://docs.seleniumhq.org/
+
+
+Add ids to any element you want to interact with. If you don't want an id you will need to manually set a css selector
+	the css selector set by default uses class which angular changes a lot and is way too brittle
+To easily set a test: rt click on an element in the browser, at the bottom of the context menu there will be some suggestions to pick from for the command/target
+'verifyText' will log error and continue. 'assertText' will log error and stop
+'keyPress' is deprecated. Use the 'sendKeys' command instead.
+'type' command inserts text into DOM
+'sendKeys' emulates the user typing in text
+'sendKeys' does not respect the maxLength attribute (as of 4-6-2014). 'text' however; does respect maxLength
+Running at full speed causes lots of false positives. Need to give angular a chance to update DOM.
+	One or two speeds slower than max seems to work.
+	Console log slows things down so don't use it
+Put a 'testResults' element on the DOM that you can write to and test with 'verifyText' / 'assertText'
+	instead of using console log to show results
+To add a delay use 'pause' not 'setTimeout'. For 'pause' command put the delay in *target* not value
+To run single command
+	select command and press 'X'
+Or
+	double click command
+
+http://blog.reallysimplethoughts.com/2013/09/25/using-special-keys-in-selenium-ide-part-1/
+Adding hot keys eg Ctrl+F1
+	<td>sendKeys</td>
+	<td>id=some-elm</td>
+	<td>${KEY_ALT}${KEY_F1}</td>
+
+--- possible article
+http://dotnet.dzone.com/articles/selenium-nodejs-and-mocha

@@ -1,0 +1,561 @@
+========================================
+resources
+  https://github.com/jmcunningham/AngularJS-Learning
+    angular js learning resources
+
+  angular newsletter
+    http://www.ng-newsletter.com/posts/
+
+  http://thomasstreet.net/blog/spreadsheet.html?utm_source=javascriptweekly&utm_medium=email
+    Building a Spreadsheet in 20 Minutes with Angular.js
+
+  https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub
+    google's newest recommended directory structure for angular apps
+
+  https://www.youtube.com/watch?v=L4FJ_kuO9Rc
+    using angular filters to make a dataset of 300K records performant.
+    All data in in memory but only show the top N in the browser
+========================================
+jqLite docs:
+  http://docs.angularjs.org/api/ng/function/angular.element
+========================================
+Dynamic class setting
+========================================
+Should be able to use ng-class
+Had trouble with ng-class as its value is expected to be a property in the controler and I wanted to set the class with an expression and filter
+Both of the following work
+
+angular.module('phonecatFiltersB', []).filter('anotherfil', function() {
+  return function(input) {
+    return input ? 0 : 1;
+  };
+});
+
+<dd class='ng-binding {{["hey-green", "hey-red"][ (phone.hardware.accelerometer | anotherfil) ]}} ' >{{phone.hardware.accelerometer | checkmark}}</dd>
+
+
+angular.module('phonecatFiltersB', []).filter('anotherfil', function() {
+  return function(input) {
+    return input ? 'green' : 'red';
+  };
+});
+
+<dd class='ng-binding hey-{{phone.hardware.accelerometer | anotherfil}}' >{{phone.hardware.accelerometer | checkmark}}</dd>
+
+----------------------------------------
+using the ng-class with an object literal
+this works with "==" but get an error with "==="
+  ng-class="{selected: selectedFolder==folder, folderItem: 1}"
+
+note also:
+    trick of "folderItem:1" says the class folderItem is always set (1==true)
+
+========================================
+angular data in ng-repeat
+
+this should work but doesn't
+<li ng-repeat='task in tasks'>
+  <p> {{task.name}}
+  <button ng-click="removeTask({{task.id}})">remove</button>
+
+need to do this
+<li ng-repeat='task in tasks'>
+  <p> {{task.name}}
+  <button ng-click="removeTask(task.id)">remove</button>   <-- note there is are no handlebars around "task.id"
+
+http://stackoverflow.com/questions/17039926/adding-parameter-to-ng-click-function-inside-ng-repeat-seems-not-to-work
+    says: Angular makes 'sub scope' for each ng-repeat - therefore this binding without {{}} is possible.
+
+========================================
+http://dailyjs.com/2013/06/20/localstorage/
+  mentions some angular apps that use local storage including
+    https://github.com/IgorMinar/foodme
+  creates a localStorage service which basically just wraps
+  window.localStorage so it can be loaded with dependency injection.
+
+========================================
+http://markdalgleish.com/2013/06/using-promises-in-angularjs-views
+  callback vs promise based angular service
+
+========================================
+ng-mouseenter vs ng-mouseover
+  ng-mouseenter throws error
+  ng-mouseover works
+
+========================================
+access element attributes with getAttribute(), HTMLElement.dataset object or Angular's $compile.directive.Attributes object
+
+getAttribute()
+  need to specify as shown in the mark up
+    eg:  <input data-testit='somevalue' >
+    elm.getAttribute('testit') -> null
+    elm.getAttribute('data-testit') -> somevalue
+
+HTMLElement.dataset
+  specify property with out 'data-' prefix
+    eg:  <input data-testit='somevalue' >
+    elm.dataset.testit -> somevalue
+    elm.dataset['data-testit'] -> undefined
+  when writing a new attribute the 'data-' prefix is added automatically eg: dataset.newone = 'anothervalue' is written to the DOM as ... data-newone='anothervalue'
+
+angular $compile.directive.Attributes object
+  contains both standard and normalized prefixed attributes
+    eg:  <input data-testit='somevalue' pattern='[01]?' >
+    attr will look like { testit:'somevalue', pattern:'[01]?' }
+  This means there is a possibility for collisions eg
+    eg:  <input data-pattern='somevalue' pattern='[01]?' >
+    attr will look like { pattern:'somevalue' }
+  the $attr property of the attr object contains a mapping from the normalized attribute to the non-normalized attribute
+    eg:  <input data-testit='somevalue' pattern='[01]?' >
+    attr.$attr will look like { testit:'data-testit', pattern:'pattern' }
+
+========================================
+Enumerate all scopes on a page
+========================================
+you can see all of the scopes on the page using this CSS selector
+  .ng-scope { border: 1px solid red; }
+
+and all of the bindings:
+  .ng-binding { border: 1px solid red; }
+
+You can then retrieve them by converting the DOM element into selector
+
+var selector = angular.element(some_dom_element);
+
+Then use the selector to retrive the scope/controller/injector
+
+var scope = selector.scope();
+var controller = selector.controller();
+var injector = selector.injector();
+
+
+  $scope.enumScope = function() {
+    var elms = document.getElementsByClassName('ng-scope');
+    for (var i=0; i < elms.length; i += 1) {
+        console.log(angular.element(elms[i]).scope().$id, i, elms[i] );
+    }
+  }
+
+
+ie to get the scope of the element with id 'delete_mail'
+both of these appear to be equivalent
+ var scope = $('#delete_mail').scope();
+ var scope = angular.element(document.getElementById('delete_mail')).scope();
+
+========================================
+forms <form>
+http://docs.angularjs.org/api/ng.directive:form
+Angular prevents the default action (form submission to the server) unless the <form> element has an action attribute specified.
+
+Since the role of forms in client-side Angular applications is different than in classical roundtrip apps,
+it is desirable for the browser not to translate the form submission into a full page reload that sends the data to the server.
+Instead some javascript logic should be triggered to handle the form submission in an application-specific way.
+
+If the form has the name attribute set then it is available as a property by that name on its scope as an instance of FormController
+You can give the form its own scope or use the parent scope
+    It appears that:
+        when the FormController is accessed on the forms containing (parent) scope more info is available ie all the child elements
+        when the FormController is accessed on its own scope you can not see the child elements and need to pass back info by setting ng-model on the children
+example:
+    <form name='photoUploadForm' ng-submit='submitPhoto()' >
+        <input type='text', ng-model='photoName' name='aPhotoName', placeholder='Name' required />
+        <input type='file', ng-model='photoFile' name='aPhotoFile' required />
+        input type='submit', value='Upload'/>
+    </form>
+    this.photoName and this.fileName are made available by ng-model
+    this.aPhotoName and this.aPhotoFile are visible on the parent's but not the forms own scope
+
+Naming input elements on the form is not required to retrieve the data since you can access it via the ng-model setting
+however; if the elements are not named the browser can not save the MRU for then elements
+
+========================================
+Examples of different ways to define AngularJS controllers, factories, services, filters, and directives.
+  http://weblogs.asp.net/dwahlin/archive/2013/12/01/structuring-angularjs-code.aspx
+
+========================================
+$compile example
+
+  // htmlText - simple text eg; <div><span>{{somevar}}</span></div>
+  // element - container element that will hold compiled elements
+
+  Single line version:
+    element.empty();
+    element.append($compile(angular.element(htmlText || '<div></div>'))(scope));
+
+  The expanded version of the above is:
+    var elmBefore, fn, elmAfter;
+
+    if (!htmlText) htmlText = '<div></div>';    // Make sure have a valid template
+    var elmBefore = angular.element(htmlText);  // elmBefore - jqLite wrapped unbound DOM element eg; elmBefore[0] contains <div><span>{{somevar}}</span></div>
+    var fn = $compile(elmBefore);               // fn - Linking function
+    var elmAfter = fn(scope);                   // elmAfter - jqLite wrapped DOM element that has angular classes and is bound to the scope eg; elmBefore[0] contains <div class="ng-scope"><span class="ng-binding">ReplacedValue</span></div>
+
+    element.empty();          // Clear existing DOM elements
+    element.append(elmAfter); // Append the new angular bound DOM elments
+
+  Note:
+    You get an error if there is just raw text in the template string. eg 'just some text'
+    At very least wrap in a span. eg '<span>just some text</span>'
+
+========================================
+Working with scope variables in a directive using a non-isolate scope (scope = true)
+  assume the attribute 'show' eg
+    <div show='dlgShow' ... >
+  and the initial value
+    $scope.dlgShow = 'initial value';
+  you can read/write the value simply as
+    console.log( scope[attrs.show] );
+    scope.$parent[attrs.show] = 'newValue';
+
+  * however; *
+  if the angular expression in the attribute is an object property then you need to use $eval and $parse
+  assume the attribute 'show' eg
+    <div show='firstObj.secondObj.dlgShow' ... >
+  and the initial value
+    $scope.firstObj = {secondObj: {dlgShow: 'initial value'}};
+  then you need to read/write the value using $eval and $parse
+    console.log(scope.$eval(attrs.show));
+    $parse(attrs.show).assign(scope.$parent, 'newValue');
+
+  The second method using $eval and $parse works with both the above cases
+  Unless you are sure the attribute references a primitive on the scope and not an object you should use $eval and $parse
+
+========================================
+Simple directive that gets a function reference from the attribute.
+From Anugulajs-ui project. original code had bug.
+
+/**
+ * Bind an event to the 'return' keypress
+ * @param keyCode {number} The number keycode to watch (ex: 13 is the return key)
+ * @param callback {function} The callback function to fire upon keypress. Takes an 'event' param
+ **/
+ // example usage <input type='text' ui-keypress='13, someFun' value='wth'/>
+ // Assumes there is a function 'someFun' on the scope
+angular.module('temp', []).directive('uiKeypress', [function(){
+    return function(scope, elm, attrs) {
+        var params = scope.$eval( '[' + attrs.uiKeypress + ']' );
+        params[1] = params[1] || angular.noop;
+        elm.bind('keypress', function(event){
+            if (event.keyCode == params[0]){
+                params[1](event);
+                scope.$apply();
+            }
+        });
+    };
+}]);
+
+========================================
+two ways to define a generic directive that will be used in multiple modules
+------------------------
+-- create a separate module for the directive then require it
+
+var myDirectives = angular.module('myDirectives', []);
+myDirectives.directive('someDirective', function factory() {
+...
+
+var myApp = angular.module('myApp', ['myDirectives']);
+
+------------------------
+OR just put the generic directive on the 'ng' module
+
+angular.module('ng').directive('someDirective', function factory() {
+...
+
+========================================
+ng-style is a huge pain in the balls
+
+This works:
+scope.biteMe = {color: 'red'} // Needs to be an object
+<div ng-style='biteMe'></div>
+
+Anything like this does NOT work
+<div ng-style='color:{{someVar}}'></div>
+
+something like this with straight style not ng-style seems to work sometimes and not others
+<div style='color:{{someVar}}'></div>
+
+========================================
+module / directive syntax
+for these 3 examples module in html would be:
+    ng-app='dwcComponents'
+
+1)
+  var someVar = angular.module('dwcComponents', []); // include any required modules in array (second param)
+
+  someVar.directive('dwcGrid', function($defer) { // inject with parms to function ie $defer
+  ...
+  }
+
+  someVar.directive('dwcField', function() {
+  ...
+  }
+
+2)
+  angular.module('dwcComponents', []); // include any required modules in array (second param)
+
+  angular.module('dwcComponents').directive('dwcGrid', function($defer) { // notice call to angular.module() without the second param returns an existing module instead of creating a new one
+  ...
+  }
+
+  angular.module('dwcComponents').directive('dwcField', function() {
+  ...
+  }
+
+3)
+  var dwcComponents = angular.module('dwcComponents', []); // include any required modules in array (second param)
+
+  angular.module('moduleOne', []).directive('dwcGrid', function() {
+  ...
+  }
+
+  angular.module('secondModule', []).directive('dwcField', function() {
+  ...
+  }
+
+  angular.module('dwcComponents', ['moduleOne', 'secondModule'])
+
+========================================
+-----------------------------
+Inner directive communication
+-----------------------------
+How to share data between multiple directives on the same element using the controller of one of the directives.
+Do same to communicate between parent/child directives. (syntax of require is different)
+
+-- HTML --
+  <body ng-app='myApp'>
+    <div my-d1 my-d2 some-data='first instance'>one</div>
+    <div my-d1 my-d2 some-data='another instance'>two</div>
+  </body>
+
+-- JS --
+var myApp = angular.module('myApp', [])
+
+myApp.directive('myD1', function factory() {
+    var directiveDefinitionObject = {
+    restrict: 'A',
+    scope: {},
+    controller: function($element, $attrs, $scope) {
+      this.someInitalValue = 'find me!';
+      console.log('1 - In D1 controller constructor');
+    },
+    // Notice: you have access to the controller of this directive (myCntrlr) without using require
+    link: function(scope, element, attrs, myCntrlr) {
+      console.log('1 - In D1 link. Data from my controller ->', myCntrlr);
+    }
+  }
+
+  return directiveDefinitionObject;
+});
+
+myApp.directive('myD2', function factory() {
+  var directiveDefinitionObject = {
+    restrict: 'A',
+    // scope: {}, // Will get an error if try and have multiple directives on the same element with multiple new scopes
+    require: 'myD1',
+    link: function(scope, element, attrs, d1Cntrlr) {
+      console.log("2 - link function of D2. Data from other directive's controller ->", d1Cntrlr);
+      d1Cntrlr.fromD2 = attrs.someData;
+    }
+  }
+
+  return directiveDefinitionObject;
+});
+
+-- Console output --
+1 - In D1 controller constructor
+2 - link function of D2. Data from other directive's controller -> Object { someInitalValue="find me!"}
+1 - In D1 link. Data from my controller -> Object { someInitalValue="find me!", fromD2="first instance"}
+
+1 - In D1 controller constructor
+2 - link function of D2. Data from other directive's controller -> Object { someInitalValue="find me!"}
+1 - In D1 link. Data from my controller -> Object { someInitalValue="find me!", fromD2="another instance"}
+
+========================================
+bug version 1.0.1
+angular expects all <option> elements to be wrapped in a <select>
+Problem with a <datalist>
+
+<!doctype html>
+<html lang="en" ng-app>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error</title>
+
+    <script src="angular.js"></script>
+    <script>
+        'use strict';
+        function myDataModel($scope) {
+            $scope.someValue = 'Test';
+        }
+    </script>
+  </head>
+
+  <body ng-controller='myDataModel'>
+    <div>test {{someValue}}</div>
+
+<!-- <select> -->
+     <datalist>
+        <option value='wtf'>
+    </datalist>
+<!-- </select> -->
+
+
+  </body>
+</html>
+
+========================================
+--------------------------------------------------------
+factory Vs service
+Highlights from the google group thread
+https://groups.google.com/forum/#!msg/angular/56sdORWEoqg/HuZsOsMvKv4J
+  What is the difference between module.factory and module.service and how might both be applied?
+see also
+  http://iffycan.blogspot.com/2013/05/angular-service-or-factory.html
+  http://stackoverflow.com/questions/13762228/confused-about-service-vs-factory
+  https://gist.github.com/Mithrandir0x/3639232
+
+--------------------------------------------------------
+Igor Minar
+4/19/12
+
+factory takes a function which is injected and this function returns the instantiated service instance.
+
+myModule.factory('myService', function(dep1, dep2) {
+  //construct the service instance
+  return serviceInstance;
+});
+
+service will instantiate the service instance using the constructor function provided just as if it was called with the new operator, but the constructor gets injected with dependencies:
+
+myModule.service('myService', function(dep1, dep2) {
+  //instantiate "this" just as a constructor would
+});
+
+alternatively you might do something like this:
+
+var MyService = function(dep1, dep2) {
+}
+
+MyService.prototype.protoMethodA = function() {}
+MyService.prototype.protoField = 'some field';
+
+myModule.service('myService', MyService);
+
+
+So the main difference between factory and service is that factory returns some object, while the service creates new instance and returns "this".
+
+--------------------------------------------------------
+Miško Hevery
+8/18/12
+
+Lets look at the simplest scenario
+
+provide.value('a', 123);
+
+function Controller(a) {
+  expect(a).toEqual(123);
+}
+
+in this case the injector simple returns the value as is. But what if you want to compute the value. Then use a factory
+
+provide.factory('b', function(a) {
+  return a*2;
+});
+
+function Controller(b) {
+  expect(a).toEqual(246);
+}
+
+So factory is a function which is responsible for creating the value. Notice that the factory function can ask for other dependencies. But what if you want to be more OO and have a class called Greeter
+
+function Greeter(a) {
+  this.greet = function() {
+    return 'Hello ' + a;
+  }
+}
+
+then to instantiate you would have to write
+
+provide.factory('greeter', function(a) {
+  return new Greeter(a);
+});
+
+Then we could ask for 'greeter' in controller like this
+
+function Controller(greeter) {
+  expect(greeter instanceof Greeter).toBe(true);
+  expect(greeter.greet()).toEqual('Hello 123');
+}
+
+But that is way too wordy a shorter way to write this would be
+provider.service('greeter', Greeter);
+
+But what it we wanted to configure the Greeter class before the injection then we could write
+
+provide.provider('greeter2', function() {
+  var salutation = 'Hello';
+  this.setSalutation = function(s) {
+    salutation = s;
+  }
+
+  function Greeter(a) {
+    this.greet = function() {
+      return salutation + ' ' + a;
+    }
+  }
+
+  this.$get = function(a) {
+    return new Greeter(a);
+  };
+});
+
+we can then do this
+
+angular.module('abc', []).configure(function(greeter2Provider) {
+  greeter2Provider.setSalutation('Halo');
+});
+
+function Controller(greeter2) {
+  expect(greeter.greet()).toEqual('Halo 123');
+}
+
+But it turns out that angular only understands provide.provider, all other ones are derived.
+
+provider.service = function(name, Class) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.instantiate(Class);
+    };
+  });
+}
+
+provider.factory = function(name, factory) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.invoke(factory);
+    };
+  });
+}
+
+provider.value = function(name, value) {
+  provider.factory(name, function() {
+    return value;
+  });
+};
+
+--------------------------------------------------------
+Pete Bacon Darwin
+4/19/12
+
+You use factory if the function you are providing will be called to build the object that you want.  I.E. Angular will do obj = MyFactory() to get the obj.
+You use service if the function you are providing is a constructor for the object that you want. I.E. Angular will do obj = new MyFactory() to instantiate the obj.
+
+--------------------------------------------------------
+Pete Bacon Darwin
+9/30/12
+
+The original driver for the 'service' version was to support things like coffee script classes, which do need to be instantiated rather than simply called.
+
+========================================
+========================================
+========================================

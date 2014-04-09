@@ -1,0 +1,62 @@
+Emmet Notes
+
+http://docs.emmet.io/cheat-sheet/
+
+Custom attributes
+----------------------------------------
+[attr] notation
+----------------------------------------
+You can use [attr] notation (as in CSS) to add custom attributes to your element:
+
+td[title=HelloWorld colspan=3]
+
+You don’t have to specify attribute values:
+  td[colspan title]
+will produce
+  <td colspan="" title="">
+with tabstops inside each empty attribute
+
+
+----------------------------------------
+Text: {}
+----------------------------------------
+You can use curly braces to add text to element:
+
+a{Click me}
+
+<a href="">Click me</a>
+
+----------------------------------------
+input tag shortcuts (lots more)
+----------------------------------------
+input:b  <input type="button" value="">
+input:t  <input type="text" name="" id="">
+input:p  <input type="password" name="" id="">
+input:c  <input type="checkbox" name="" id="">
+
+----------------------------------------
+Item numbering: $
+----------------------------------------
+ul>li.item$*5
+<ul>
+    <li class="item1"></li>
+    <li class="item2"></li>
+    ...
+
+You can use multiple $ in a row to pad number with zeroes:
+
+ul>li.item$$$*5
+<ul>
+    <li class="item001"></li>
+    <li class="item002"></li>
+    ...
+
+----------------------------------------
+Emmet steals the
+ctrl+u ctrl+up and ctrl+down keys
+see:
+	D:\Notes\AssortedSoftware\SublimeText\sublimeNotes.txt
+for details on how to fix it
+
+----------------------------------------
+----------------------------------------

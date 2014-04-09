@@ -1,0 +1,40 @@
+BrowserStack
+Test account with 30 minutes time
+   Only 3 minutes left
+
+https://www.browserstack.com/users/sign_in
+
+user mobiusvortex
+PW planBBe4me
+E-Mail MobiusVortex@gmail.com
+
+when log in use the username. Login box says 'user name or e-mail' but need user name
+
+http://mobiusvortex.browserstack.com/gridProto.html
+
+BrowserStack works well. Interface is a little sluggish and switching between browsers / OSs is a little slow but over all excellent service.
+Rolled back snapshot. If want to use browserstack with a local pipeline will need to reinstall java and javaFX
+
+Notes from quick testing
+Chrome
+  Hit key to start editing and the key is doubled ie type "Smity" it enters edit mode ok but get "SSmith"
+  hit space abr to enter edit in a pick list and it jumps unless its the last row
+
+Opera train wreck
+  after refresh looks ok
+  lots of errors in dragonfly about invalid attributes
+
+Safari
+  Same 2 issues as Chrome
+  The hilighted cell in grid looks odd in zebra striping. Out line of active indication is messed up every other row
+
+On some tests the grid data was visible without scroll (all but firefox?)
+
+Opera 11.6 supports ES5
+
+Installing Java
+  Java   94 M
+  JavaFX 33 M
+        127 M
+Actual disk use in C: 130 M
+None on D:

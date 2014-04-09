@@ -1,0 +1,202 @@
+issue 174
+  organize angular app
+    http://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/?utm_source=javascriptweekly&utm_medium=email
+
+issue 173
+  flexbox in modern browsers. ready for prime time
+    http://www.planningforaliens.com/blog/2014/03/11/real-world-flexbox/
+
+issue 172
+  browser debug techniques
+    http://amasad.me/2014/03/09/lesser-known-javascript-debugging-techniques/
+
+  Express mods from 3 to 4
+    http://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0
+
+  Excellent article on angular authentication
+    https://medium.com/opinionated-angularjs/7bbf0346acec
+
+  selector language for JSON (VERY! cool)
+    http://jsonselect.org/
+
+  obfuscates javascript. The JS on the page will stop running when a debugger is opened.
+    http://thenextweb.com/dd/2014/03/14/jscrambler-gives-javascript-self-defence-skills-fight-exploits/
+
+issue 170
+  An Overview of AngularJS for Managers
+    http://fifod.com/an-overview-of-anagularjs-for-managers/
+
+issue 169
+  Dealing with rounding error in javascript
+    http://flippinawesome.org/2014/02/17/what-every-javascript-developer-should-know-about-floating-points/
+
+issue 164
+  angular talk
+    http://javascriptweekly.us1.list-manage.com/track/click?u=0618f6a79d6bb9675f313ceb2&id=26c4a9c5fb&e=a6a37fd740
+
+issue 163
+  http://nathanleclaire.com/blog/2014/01/04/5-smooth-angularjs-application-tips/
+    using angular service to do some post processing after an ajax call
+
+issue 155
+  https://github.com/airbnb/javascript
+    style guide I agree with
+  http://www.nearform.com/nodecrunch/release-the-kracken-how-paypal-is-being-revolutionized-by-node-js-and-lean-ux
+    PayPal conversion from java to node. Bottom lists modules that PayPal opensourced.
+    Kraken-js is built on top of the tried and true Express webapp framework, and further streamlines it
+    Lusca Out-of-the-box application security. Lusca is middleware that can be deployed over Express, and configured to plug common attack vectors.
+  http://teropa.info/blog/2013/11/03/make-your-own-angular-part-1-scopes-and-digest.html
+    Series on how to build angular from ground up. Starts with how to build scopes and the digest cycle.
+    ** BUY THIS BOOK **
+  http://davidwalsh.name/javascript-objects
+    Series of 3 articles on JS prototype/inheritance and how the concept does not fit JS and we should quit forcing it
+  http://blog.getify.com/tale-of-two-ends/
+    *excellent* post on ways to handle session id for a SPA (actual post's intent is diff than that but the background for the post is what I found of interest)
+
+issue 154
+http://stsc3000.github.io/blog/2013/10/26/a-tale-of-frankenstein-and-binding-to-service-values-in-angular-dot-js/
+  service / controller and digest loop
+http://blog.scalyr.com/2013/10/31/angularjs-1200ms-to-35ms/
+  optimize angular app with thousands of bound elements
+
+issue 150
+  http://toddmotto.com/ultimate-guide-to-learning-angular-js-in-one-day/
+    covers alot of angular concepts in one LONG post
+
+  http://blog.smartbear.com/programming/five-free-javascript-libraries-to-add-text-editing-to-your-web-application/
+    5 Free JavaScript Libraries to Add Text Editing to Your Web Application
+
+issue 146
+  http://www.thinkster.io/pick/GUIDJbpIie/angularjs-tutorial-learn-to-build-modern-web-apps
+    long tutorial on mean stack using fantasy football app. Looks good. Deals with secure login
+
+  http://tomdale.net/2013/09/progressive-enhancement-is-dead/
+    excellent rank on how progressive enhancement is dead and its ok to require JS
+
+  http://flippinawesome.org/2013/09/03/the-angular-way/
+    example of how to organize angular code with angular module and css naming convention
+
+  http://amitgharat.wordpress.com/2013/06/08/the-hitchhikers-guide-to-the-directive/
+    long article on building directives in angular 6/8/13. didnt read but looks good
+
+  http://raventools.com/blog/create-a-modal-dialog-using-css-and-javascript/
+    old article on modal dlgs with just css and js (link from article on not using jquery ui for dialogs)
+
+  http://tutorialzine.com/2013/08/learn-angularjs-5-examples/
+    5 examples of angular concepts with code you can edit on the page itself
+
+issue 143
+  http://nbubna.github.io/HTML/
+  Lightweight alternative to jQuery for DOM manipulation. Requires modern browser.
+  This HTML javascript library will not be about AJAX or JSON or CSS.
+  It is about interacting with your document's HTML structure in javascript.
+
+issue 142
+  http://tech.pro/tutorial/1453/7-javascript-basics-many-developers-aren-t-using-properly
+
+issue 1??
+    http://thomasstreet.net/blog/spreadsheet.html?utm_source=javascriptweekly&utm_medium=email
+
+issue 126
+    http://www.infoq.com/presentations/AngularJS-Demo?utm_source=javascriptweekly&utm_medium=email
+        Miško Hevery fast intro to angular. 54 minutes (41 minutes then questions)
+
+issue 125
+    https://github.com/mgonto/restangular
+        Restangular is an AngularJS service that simplifies common GET, DELETE, and UPDATE requests with a minimum of client code. It's a perfect fit for any WebApp that consumes data from a RESTful API. (requires Lodash (or Underscore))
+
+issue 119
+    http://www.ustream.tv/recorded/29297101
+        Parallel.js is a tiny library for multi-core processing in Javascript using web workers
+
+issue 118
+    https://frontendmasters.com/
+        online classes w/ crockford and Misko Hevery $40 / month. currently limited courses
+    http://blog.teamtreehouse.com/using-web-workers-to-speed-up-your-javascript-applications
+        web workers
+
+issue 117
+    http://ericleads.com/
+    http://freshbrewedcode.com/jimcowart/2013/02/07/client-side-messaging-essentials/
+        observer pattern vs mediator
+    http://www.alexrothenberg.com/2013/02/11/the-magic-behind-angularjs-dependency-injection.html
+        The "Magic" behind AngularJS Dependency Injection
+
+issue 116
+    https://github.com/warpech/jquery-handsontable
+    Handsontable is a minimalistic approach to Excel-like table editor in HTML & jQuery. Requires jQuery 1.7+.
+
+issue 115
+    http://twitter.github.com/flight/demo/
+        nice component-based JavaScript framework from Twitter
+        good demo
+        clean event based design by Angus Croll
+    https://tutsplus.com/course/30-days-to-learn-jquery/
+        30 jQuery video course
+        lesson on deferreds is excellent
+
+
+issue 114
+    http://blog.flowdock.com/2013/01/22/functional-reactive-programming-with-bacon-js/?utm_source=javascriptweekly&utm_medium=email
+        intro to bacon.js library to tame event driven programming "functional reactive programming"
+    http://parsleyjs.org/documentation.html
+        lib that deals w/ form validation w/ straight html ie
+        <input type="text" id="email" name="email" data-trigger="change" data-required="true" data-type="email" />
+    http://www.taffydb.com
+        js lib to take an array of js objects and treat it as a db with search filter etc
+    http://egghead.io/
+        angular.js examples
+
+issue 113
+    http://briantford.com/blog/huuuuuge-angular-apps.html?utm_source=javascriptweekly&utm_medium=email
+        angularJs stuff including optimization
+    http://briantford.com/blog/huuuuuge-angular-apps.html?utm_source=javascriptweekly&utm_medium=email
+        part of a series on testing w/ jasmine
+    http://briantford.com/blog/huuuuuge-angular-apps.html?utm_source=javascriptweekly&utm_medium=email
+        laces.js the M in MVC may be useful for dynamic JS wrapper around data
+    http://briantford.com/blog/huuuuuge-angular-apps.html?utm_source=javascriptweekly&utm_medium=email
+        jQuery paged grid w/ virtual scrolling and rendering, inline editing
+    http://briantford.com/blog/huuuuuge-angular-apps.html?utm_source=javascriptweekly&utm_medium=email
+        excellent angular talk by Misko on angular best practices
+
+issue 112
+    http://www.adobe.com/devnet/html5/articles/using-form-elements-and-css3-to-replace-javascript.html?utm_source=javascriptweekly&utm_medium=email
+    tabbed display w/ straight css
+
+issue 110
+    https://github.com/ifandelse/machina.js?utm_source=javascriptweekly&utm_medium=email
+    js finite state machine ties into js message bus
+
+
+    douglas crockford
+    http://www.youtube.com/watch?v=dkZFtimgAcM
+    excellent talk monads and promises
+
+
+    recommended book Effective JavaScript - David Herman
+
+issue 109
+    http://syzygy.st/javascript-coroutines/?utm_source=javascriptweekly&utm_medium=email
+    Awesome article on co-routines JS 1.7 for event loops and state machines
+
+issue 105
+    http://www.nczonline.net/blog/2012/11/13/javascript-apis-youve-never-heard-of/
+    good talk on various usefull recent dom api additions. Talk is SLOW could be done in 1/4 of the time
+
+issue 104
+    http://ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects/
+    long running loop using setTimeout to do manuall cooperative multitasking.
+
+issue 103
+    http://toc.oreilly.com/2012/10/bookjs-turns-your-browser-into-a-print-typesetting-engine.html
+    http://bookjs.net/
+    JS lib to turn html content into formatted pdf
+
+issue 101
+    http://www.adobe.com/devnet/html5/articles/categorizing-values-in-javascript.html
+    by Dr. Axel Rauschmayer
+    long artical on determining the type of something in JS using [[Class]], typeof, instanceof and Array.isArray()
+
+issue 98
+  JS string lib with list of others
+    http://stringjs.com/?utm_source=javascriptweekly&utm_medium=email

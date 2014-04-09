@@ -1,0 +1,2435 @@
+=============================================================================
+javascript style guides
+http://javascript.crockford.com/code.html
+http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+  indent: crockford 4 space, google 2 space. Seems the community consensus is 2 spaces
+https://github.com/airbnb/javascript
+http://seravo.fi/2013/javascript-the-winning-style
+  comparison of different style guides
+
+
+keyboard navigation
+https://developer.mozilla.org/en/Accessibility/Keyboard-navigable_JavaScript_widgets
+
+=============================================================================
+Possible book
+  JavaScript Web Applications
+  jQuery Developers' Guide to Moving State to the Client
+
+  By                   Alex MacCaw
+  Publisher:           O'Reilly Media
+  Print:               September 2011 (est.)
+  Early Release Ebook: April 2011
+
+=============================================================================
+Resources
+  http://devdocs.io/
+    api doc browser
+
+  http://javascriptweekly.com/archive/
+
+  http://superherojs.com/
+    collection of the best articles, videos and presentations
+
+  http://www.jsdb.io
+    directory of JS librarys
+
+  jQuery resource
+  http://jqfundamentals.com/book/index.html
+
+  google articles to optimize web
+  http://code.google.com/speed/articles/
+
+  google video classes for html/css/JS
+  http://code.google.com/edu/submissions/html-css-javascript/
+
+  crockford on ecmascript 5 features (1 hr)
+  http://channel9.msdn.com/events/MIX/MIX11/EXT13
+
+  function expression vs declaration
+  https://developer.mozilla.org/en/JavaScript/Reference/Functions_and_function_scope
+
+  let statement
+  https://developer.mozilla.org/en/JavaScript/New_in_JavaScript/1.7#Block_scope_with_let_%28Merge_into_let_Statement%29
+
+  object creation
+  http://stackoverflow.com/questions/1595611/how-to-properly-create-a-custom-object-in-javascript
+  http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/
+
+  js quirks and gotchas
+  http://bonsaiden.github.com/JavaScript-Garden/           <<<< Most excellent resource
+  http://stackoverflow.com/questions/2628672/what-should-every-javascript-programmer-know/2629004#2629004
+  http://perfectionkills.com/javascript-quiz/
+
+  Good info on Keyboard-navigable in JavaScript widgets
+  https://developer.mozilla.org/en/Accessibility/Keyboard-navigable_JavaScript_widgets
+
+  regular expressions
+  http://regexlib.com/
+  http://lawrence.ecorp.net/inet/samples/regexp-intro.php
+
+  promise api
+  http://blogs.msdn.com/b/ie/archive/2011/09/11/asynchronous-programming-in-javascript-with-promises.aspx
+
+  http://raventools.com/blog/create-a-modal-dialog-using-css-and-javascript/
+    Create a Modal Dialog Using CSS and Javascript
+
+  http://w2ui.com/web/blog/7/JavaScript-Grid-with-One-Million-Records
+    max div height (for viewport) in various browers
+
+  http://slimerjs.org/
+    A scriptable browser for Web developers
+    for testing. similar to PhantomJS but uses gecko
+
+  http://maryrosecook.com/post/little-lisp-interpreter
+    Little Lisp is an interpreter writtern to show how easy it is to write an interpreter. The code is 116 lines of JavaScript.
+
+=============================================================================
+Libraries
+  http://ace.c9.io
+    ace editor. Browser embeddable code editor written in JavaScript
+=============================================================================
+CoffeeScript is very cool
+  It is a simple little language based on Python and Ruby that compiles to JavaScript.
+  It is essentially a JavaScript code generator.
+  Runs in a server side JavaScript environment ie Rhino (java) or Node.js (unix)
+  Can run in windows.
+    http://jashkenas.github.com/coffee-script/
+    https://github.com/jashkenas/coffee-script/
+    https://github.com/alisey/CoffeeScript-Compiler-for-Windows
+
+=============================================================================
+JavaScript primitive types:
+  Numbers, such as 42 or 3.14159
+  Logical (Boolean) values, either true or false
+  Strings, such as "Howdy!"
+  null, a special keyword denoting a null value; null is also a primitive value.
+  undefined, a top-level property whose value is undefined; undefined is also a primitive value.
+  Objects
+  functions
+
+Special Operators
+  conditional operator
+  comma operator
+  delete
+  in
+  instanceof
+  new
+  this
+  typeof
+  void
+
+=============================================================================
+Gotchas:
+Do not confuse the primitive boolean values true and false with the true and false values of the Boolean object.
+For example:
+  var b = new Boolean(false);
+  if (b) // this condition evaluates to true
+
+=============================================================================
+An expression is any valid unit of code that resolves to a value.
+
+Expressions are evaluated to produce a value,
+but statements are executed to make something happen.
+
+JavaScript statements are terminated with semicolons
+
+=============================================================================
+note placement of semicolon (or lack therof)
+
+function getData() { }
+
+var getData = function() { };
+
+It is easier to remember where not to put them.
+Dont put them immediately after a { or } except when creating objects with the {} syntax or functions with the name = function () {} syntax.
+Dont put them on an otherwise blank line. Do not put two in a row. If you write a command or instruction, you should put a semicolon.
+
+These are examples of where you should put a semicolon:
+  var myvariable = 'sugar';
+  document.myform.submit();
+  document['myimage'].src = myStoredImage.src;
+
+=============================================================================
+  var v;
+                  console.log('unassigned var', v? '-> truthy': '-> falsy'); // unassigned var -> falsy
+  v = null;       console.log('null', v? '-> truthy': '-> falsy');           // null -> falsy
+  v = 1;          console.log('1', v? '-> truthy': '-> falsy');              // 1 -> truthy
+  v = 0;          console.log('0', v? '-> truthy': '-> falsy');              // 0 -> falsy
+  v = 'x';        console.log('single char', v? '-> truthy': '-> falsy');    // single char -> truthy
+  v = ' ';        console.log('single blank', v? '-> truthy': '-> falsy');   // single blank -> truthy
+  v = '';         console.log('empty string', v? '-> truthy': '-> falsy');   // empty string -> falsy
+  v = [1];        console.log('[1]', v? '-> truthy': '-> falsy');            // [1] -> truthy
+  v = [];         console.log('[]', v? '-> truthy': '-> falsy');             // [] -> truthy
+  v = {x:1};      console.log('{x:1}', v? '-> truthy': '-> falsy');          // {x:1} -> truthy
+                  console.log('{x:1}.x', v.x? '-> truthy': '-> falsy');      // {x:1}.x -> truthy
+  v = {};         console.log('{}', v? '-> truthy': '-> falsy');             // {} -> truthy
+                  console.log('{}.x', v.x? '-> truthy': '-> falsy');         // {}.x -> falsy
+  v = true;       console.log('true', v? '-> truthy': '-> falsy');           // true -> truthy
+  v = false;      console.log('false', v? '-> truthy': '-> falsy');          // false -> falsy
+
+  Objects evaluate to true
+  Undefined evaluates to false
+  Null evaluates to false
+  Booleans evaluate to the value of the boolean
+  Numbers evaluate to false if +0, -0, or NaN, otherwise true
+  Strings evaluate to false if an empty string '', otherwise true
+
+
+== Test for null or unassigned ==
+from http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/
+// unnecessary
+var missing =  (myVar === undefined || myVar === null);
+
+// better Note: '==' *not* '==='
+var missing = (myVar == null);
+
+null and undefined are == to themselves and each other
+  var myVar, missing;
+  missing = (myVar === undefined || myVar === null);  console.log(missing); // true
+  missing = (myVar === undefined);                    console.log(missing); // true
+  missing = (myVar === null);                         console.log(missing); // false
+  missing = (myVar == undefined || myVar == null);    console.log(missing); // true
+  missing = (myVar == undefined);                     console.log(missing); // true
+  missing = (myVar == null);                          console.log(missing); // true
+
+=============================================================================
+Test for existance of object property:
+  If the property will never be falsy you can just test:
+    if (obj.prop) ...
+
+  If the property CAN be falsy (ie blank string bool) then you need:
+    if ('prop' in obj) ...
+  or
+    if (obj.hasOwnProperty('prop')) ...
+  or
+    if (typeof obj.prop !== 'undefined') ...
+
+=============================================================================
+See: Standard DOM methods to get groups of elements
+in D:\Notes\WebProgramming\DOMNotes.txt
+for list of Standard DOM methods to get groups of elements ie getElementById(), querySelector()
+=============================================================================
+Two ways to get all children elements
+elm.querySelectorAll('*')
+elm.getElementsByTagName('*')
+=============================================================================
+node.parentNode vs node.parentElement ???
+  Node.parentNode - Returns the parent. The parent of an element is an Element node, a Document node, or a DocumentFragment node (DOM level 2)
+  Node.parentElement - Returns the DOM node's parent Element, or null if the node either has no parent, or its parent isn't a DOM Element (DOM level 4)
+
+=============================================================================
+Test if one node contains another
+  parent.contains(child) // returns true if child is contained by parent
+ie
+  someNode.contains(document.activeElement)) // test if someNode contains the currently focused element
+
+=============================================================================
+variable declaration:
+The var declaration allows you to chain definitions in a comma separated list
+what’s more that list can reference variables declared earlier in the same list.
+This:
+  var el = document.getElementById("my-element");
+  var elWidth = el.offsetWidth;
+  var elHeight = el.offsetHeight;
+  var elArea = elWidth * elHeight;
+
+is equivalent to:
+  var el = document.getElementById("my-element"),
+      elWidth = el.offsetWidth,
+      elHeight = el.offsetHeight,
+      elArea = elWidth * elHeight;
+
+=============================================================================
+Variable hoisting
+-----------------
+
+"use strict";
+
+// A var declaration is hoisted to the top of the function but is initialized where it is declared
+// So this...
+function testThis() {
+  console.log(x); // undefined
+  x = 123;
+  console.log(x); // 123
+  var x = 456;
+  console.log(x); // 456
+}
+
+// Is the same as this...
+function testThat() {
+  var x;
+  console.log(x); // undefined
+  x = 123;
+  console.log(x); // 123
+  x = 456;
+  console.log(x); // 456
+}
+
+
+// Hoisting function Statements vs function Expressions
+//   With a function statement both the var declaration (function name) and its definition are hoisted
+function testThis() {
+  inFun(); // Function has been hoisted and can be called
+  console.log(inFun); // prints "inFun()"
+  function inFun() {
+    console.log('Hello from inner function');
+  }
+  inFun();
+  console.log(inFun); // prints "inFun()"
+}
+
+//   With a function expression only the var declaration is hoisted and the definition does not exist until it is declared
+function testThat() {
+  //inFun(); // Get error "inFun is not a function"
+  console.log(inFun); // prints "undefined"
+  var inFun = function() {
+    console.log('Hello from inner function');
+  }
+  inFun();
+  console.log(inFun); // prints "function()"
+}
+
+=============================================================================
+Plus (+) operator vs comparison
+
+function testThis() {
+  // The conversion rules for + give priority to string concatenation: if either of the operands is a string or
+  // an object that converts to a string, the other operand is converted to a string and concatenation is performed.
+  // The + operator has left-to-right associativity
+  var s;
+  s = 1 + 2 + ' Blind mice'; // 3 Blind Mice
+  console.log(s);
+  s = 1 + (2 + ' Blind mice'); // 12 Blind Mice
+  console.log(s);
+
+  // * This next bit is just silly *
+  // Both the + operator and the comparison operators behave differently for numeric and
+  // string operands. + favors strings: it performs concatenation if either operand is a string.
+  // The comparison operators favor numbers and only perform string comparison if both
+  // operands are strings:
+  console.log(1 + 2)       // Addition. Result is 3.
+  console.log("1" + "2")   // Concatenation. Result is "12".
+  console.log("1" + 2)     // Concatenation. 2 is converted to "2". Result is "12".         ** inconsistent with mixed types
+  console.log(11 < 3)      // Numeric comparison. Result is false.
+  console.log("11" < "3")  // String comparison. Result is true.
+  console.log("11" < 3)    // Numeric comparison. "11" converted to 11. Result is false.    ** inconsistent with mixed types
+  console.log("one" < 3)   // Numeric comparison. "one" converted to NaN. Result is false.
+}
+
+=============================================================================
+2.toString(); // raises SyntaxError
+
+There are a couple of workarounds which can be used in order make number literals act as objects too.
+
+2..toString();  // the second point is correctly recognized
+2 .toString();  // note the space left to the dot
+(2).toString(); // 2 is evaluated first
+
+=============================================================================
+string to int cast
+i = parseInt(s); // stop on first non numeric char
+i = +s; // if s is not numeric returns NaN
+
+int to string cast
+var n = 123;
+var s = n.toString(); // explicit makes it clear what you are doing
+OR
+var s = n + ''; // relies on type coercion and is not as clear
+
+cast to boolean
+var s = 'test';
+var b = !!s;
+=============================================================================
+from A Drip of Javascript
+09/17/2013 - JS Drip #36: The Problem with Testing for NaN in JavaScript
+
+ECMAScript 6 creates a new function for the specific purpose of checking whether a value is NaN.
+Number.isNaN()
+
+NaN is the only value in JavaScript that is not equal to itself. We can take advantage of that fact.
+Currently the best way to check whether a value is NaN is to check whether it is not equal to itself.
+
+  var divisionByZod = 42 / "General Zod";
+
+  // This can only be true if the value is NaN
+  var valueIsNaN = (divisionByZod !== divisionByZod);
+
+  // Outputs: true
+  console.log(valueIsNaN);
+
+=============================================================================
+some helpful object helper functions
+
+function cloneObj(obj) {
+    var result = {};
+    Object.keys(obj).forEach(function(key) { result[key] = obj[key] });
+    return result;
+}
+
+// In mergeObj() note how test if existance is "key in obj2" instead of "obj2[key]". This allows for copying 'falsy' values correctly
+function mergeObj(obj1, obj2) { // add any properties from obj1 that are missing in obj2
+    Object.keys(obj1).forEach(function(key) { if (!(key in obj2)) obj2[key] = obj1[key] });
+}
+
+function resetObj(obj1, obj2) { // write properties of obj1 into obj2
+    Object.keys(obj1).forEach(function(key) { obj2[key] = obj1[key] });
+}
+
+=============================================================================
+Optimize loops
+
+Loops can become very slow if you don’t do them right.
+One of the most common mistake is to read the length attribute of an array at every iteration:
+
+  var names = ['George','Ringo','Paul','John'];
+  for(var i = 0; i < names.length; i++){
+    doSomeThingWith(names[i]);
+  }
+
+This means that every time the loop runs, JavaScript needs to read the length of the array.
+You can avoid that by storing the length value in a different variable:
+  var names = ['George','Ringo','Paul','John'];
+  for(var i = 0, j = names.length; i < j; i++){
+    doSomeThingWith(names[i]);
+  }
+
+=============================================================================
+Truncate array. Test for existence of content in array
+
+var ary = [];
+console.log(ary);
+ary.push('test');
+ary.push('this');
+console.log(ary);
+console.log(1 in ary); // true array has an item at index 1
+console.log(ary.indexOf('test')); // returns 0
+console.log(ary.indexOf('missing')); // Returns -1
+ary.length = 0;   // truncate in place. Do this instead of ary = []; to avoid breaking any existing references to the array.
+console.log(ary);
+
+=============================================================================
+remove empty objects from array
+ary = ary.filter(function(e){return e;})
+if element is falsy then 'return e' will return false and the element is excluded
+be careful: this will also remove false booleans and zeros as well as empty strings
+
+=============================================================================
+array.indexOf vs in
+  array.indexOf()
+    Returns the first index at which a given element can be found in the array, or -1 if it is not present
+    Use to test if a value is in the array
+    There is also lastIndexOf()
+
+  idx in ary
+    Test if the index idx exists in the array
+
+=============================================================================
+Array remove single element:
+  delete ary[3]; // Sets ary[3] to undefined. Array remains same length
+  ary.splice(3, 1); // Remove element 3 (fourth element). Array length is reduced by 1.
+
+=============================================================================
+Array truncation:
+If you set the length to 0 it truncates the array. ie
+  ary.length = 0;
+If there are other references to the array they will still be valid which is not the case if you create a new array ie
+  ary = [];
+
+=============================================================================
+4 ways to make a copy of an array (ordered fastest to slowest according to http://jsperf.com/copy-array-slice-vs-concat/5)
+    ary2 = ary1.slice(0); // can also call slice() with no args
+    ary2 = ary1.concat();
+    ary2 = [].concat(ary1);
+    ary2 = JSON.parse(JSON.stringify(ary1));
+
+=============================================================================
+array tips
+    Use slice to convert "Array-Like" Objects to true array
+    ie:
+      var argsArr = Array.prototype.slice.call(arguments); // changes arguments to "true" array
+
+    Clone an array:
+      var clone = myArray.slice(0);
+
+    using Array.push() to merge arrays
+    The following examples assume the two arrays:
+      var mergeTo = [4,5,6],
+        mergeFrom = [7,8,9];
+
+      mergeTo.push(mergeFrom);
+      console.log(mergeTo); // [4, 5, 6, [7, 8, 9] ]
+
+      // Use apply to merge individual array elements instead of simply pushing on a second array
+      [].push.apply(mergeTo, mergeFrom);
+      console.log(mergeTo); // [4, 5, 6, 7, 8, 9]
+
+    // remove duplicates from array
+    function removeDups(aryIn) {
+      return aryIn.filter(function(val, idx, ary) { return ary.indexOf(val) == idx } );
+    }
+
+=============================================================================
+array iteration methods
+    map -- returns array with the same number of elements as original but usually different elements                 callback args: element, index and Array
+    filter -- returns a sub-set of the original array. Return true to keep element. unassigned elements are skipped. callback args: element, index and Array
+    reduce -- reduces an array to a single value. You can pass in the initial value after the callback.              callback args: previousValue, currentValue, index and Array
+    every -- reduces an array to boolean. return bool in callback. unassigned elements are skipped.                  callback args: element, index and Array
+    some  -- reduces an array to boolean. return bool in callback. unassigned elements are skipped.                  callback args: element, index and Array
+    forEach -- itterates over array                                                                                  callback args: element, index and Array
+    see also
+        reduceRight
+
+    reduce returns a single value however that value can be a new array ie:
+        return arr.reduce(function(result, item, idx) { if (item === target) result.push(idx); return result; }, []);
+    trick is to pass in an empty array for initial value and return the array each time in the callback
+
+=============================================================================
+array methods on 'array like' objects
+    [].call.slice vs Array.prototype.call.slice
+    according to
+        http://jsperf.com/bbarr-new-array-vs-literal/3
+    there is a *tiny* performance edge to Array.prototype.call.slice
+    caching the method and re-using it is actually slower (based on jsperf)
+
+=============================================================================
+//------------------
+// Array Iteration
+// Iteration
+//------------------
+
+  // note added 12-14-2013
+  // http://martinrinehart.com/frontend-engineering/engineers/javascript/arrays/array-loops.html?utm_source=javascriptweekly&utm_medium=email
+  // Excellent article on why contrary to popular knowledge you should itterate arrays with for / in instead of a C style loop
+
+  // using for in to iterate over an array
+  // In general its not a good idea:
+  // 1) for in Loops over all own and inherited properties of the array object.
+  //    that means if someone adds properties to Array.prototype,
+  //    for in will pick it up. You can get around this with hasOwnProperty().
+  // 2) Not guaranteed to preserve element ordering
+  // 3) Slower because you have to walk all properties of the array object and its prototype chain.
+
+  // use ES5 array.forEach(callback[, thisArg])
+  // See this article for good info on ES5 array iteration:
+  //   http://stackoverflow.com/questions/2641347/javascript-array-foreach-howto-break
+
+  // for in loop iterates over index in an array
+
+  var a = ["this", 'is', 'a', 'test'];
+
+  // these 2 appear to be equivalent if its not a sparse array. Order is not guaranteed.
+  for (var i = 0; i < a.length; i++) {
+    console.log(i, a[i]);
+  }
+
+  for (var i in a) {
+    console.log(i, a[i]);
+  }
+  // 0 this
+  // 1 is
+  // 2 a
+  // 3 test
+
+  // ------------------------------------------
+  // example with sparse array
+  var a = [];
+  a[3] = 'test';
+
+  for (var i = 0; i < a.length; i++) {
+    console.log(i, a[i]);
+  }
+  // 0 undefined
+  // 1 undefined
+  // 2 undefined
+  // 3 test
+
+  for (var i in a) {
+    console.log(i, a[i]);
+  }
+  // 3 test
+
+//------------------
+// Iterate an "array like" object
+//------------------
+Iterate a nodeList like an array
+
+    nodeList = document.querySelectorAll('...');
+
+    Array.prototype.forEach.call(nodeList, function(elm) { ... } );
+    or
+    [].forEach.call(nodeList, function(elm) { ... } );
+
+//------------------
+// Using Array.some as a forEach with a short circuit exit
+//------------------
+// return true to stop iteration
+columns.some( function(col){runningWidth += col.width; if (runningWidth > maxWidth) return true; maxLockable += 1; } );
+// You can do the same thing with Array.every and exit loop by returning false
+// Using Array.some is easier since if you dont return an explicit value the function will return undefined which is falseie
+
+//------------------
+// Object Iteration
+// Iteration
+//------------------
+
+  // for in loop iterates over key in an object
+  // Order is not guaranteed. Objects are unordered collection.
+
+  var o = {this:"value", isa:"another", test:25};
+
+  for (var k in o)
+  {
+    console.log(k, ':', o[k]);
+  }
+  // this : value
+  // isa : another
+  // test : 25
+
+=============================================================================
+generator yield
+    you can not use yield in a callback ie forEach.
+    If you want to yield while iterating an array then use a traditional for loop
+
+    'yield' may not be used in the body of a regular function.
+
+If you want to use `yield` in nested functions you will have to use yield* to and your nested functions need to be generators
+
+    // Generator friendly forEach for arrays
+    function* each(array, callback) {
+      for (var i = 0, l = array.length; i < l; i++) {
+        yield* callback(array[i]);
+      }
+    }
+
+    suspend(function* (resume) {
+        var contents = yield fs.readFile('idList.json', 'utf8', resume);
+        yield* each(contents.split('\n'), function* (id) {
+            var info = yield request.get('http://www.example.com?id='+id, resume);
+        });
+    })();
+
+=============================================================================
+Passing by reference:
+When passing arguments of type Number, String, or Boolean, JavaScript will pass them in by value.
+To pass by reference you need to wrap them in an object.
+
+  function accidentalFall(count) {
+      count -= 1; // Remove one
+  }
+  var greenBottles = 10;
+  console.log(greenBottles);    // greenBottles is 10
+  accidentalFall(greenBottles); // Pass by value
+  console.log(greenBottles);    // greenBottles still 10
+--------------------------------------------------
+
+  function accidentalFall(obj) {
+      obj.count -= 1; // Remove one
+  }
+  var greenBottles = { count: 10 };
+  console.log(greenBottles.count); // 10
+  accidentalFall(greenBottles);    // Pass by reference
+  console.log(greenBottles.count); // 9
+
+=============================================================================
+apply vs call
+fun.apply(thisArg[, argsArray])
+  thisArg == The value of this provided for the call to fun
+  argsArray == Array like object, specifying the arguments with which fun should be called, or null or undefined if no arguments
+
+fun.call(thisArg[, arg1[, arg2[, ...]]])
+  thisArg == The value of this provided for the call to fun
+  arg1, arg2, ... == Arguments for the object
+
+=============================================================================
+To pass an array of values to any function that normally expects them to be separate parameters, use Function.apply
+ie to pass an array of deferreds into $when()
+
+$.when.apply($, my_array);
+
+=============================================================================
+3 ways to Create object
+  var o = new Object();
+  var o = {};
+  var o = Object.create(Object.prototype);  // ECMA5 only
+
+2 ways to Create array
+  var a = new Array();
+  var a = [];
+
+=============================================================================
+variable shadowing
+
+var someVar1 = 'this is someVar1'
+
+function testIt1() {
+  var someVar1; // shadows the global someVar1
+  console.log(someVar1); // undefined
+}
+
+function testIt2() {
+  console.log(someVar1); // undefined
+  var someVar1; // gets hoisted to top and shadows the global someVar1
+}
+
+function testIt3(anotherVar) {
+  var anotherVar; // does *not* shadow the parameter anotherVar. This statement is a noop
+  console.log(anotherVar); // original value
+}
+
+
+=============================================================================
+JavaScript closures have the same problem as Python closures when you define a closure inside a loop
+
+// This does not work right
+  function constfuncs() {
+    var funcs = [];
+    for(var i = 0; i < 10; i++)
+      funcs[i] = function() { return i; };
+    return funcs;
+  }
+  var funcs = constfuncs();
+  console.log(funcs[5]()); // Returns 10
+
+// This is fix number 1. Use an external function call to get closure
+  function constfunc(v) { return function() { return v; }; }
+
+  var funcs = [];
+  for(var i = 0; i < 10; i++) funcs[i] = constfunc(i);
+
+  console.log(funcs[5]()); // Returns 5
+
+// This is fix 2 that uses the let keyword. as of FireFox 4 this requires the Script tag of:
+//  <script type="text/javascript;version=1.7">  to avoid the error "missing ; before statement"
+  function constfuncs() {
+    var funcs = [];
+    for(var i = 0; i < 10; i++) {
+      let l = i;
+      funcs[i] = function() { return l; };
+    }
+    return funcs;
+  }
+  var funcs = constfuncs();
+  console.log(funcs[5]()); // Returns 5
+
+=============================================================================
+Very clean example of closure in a loop
+  function makeSortable(table) {
+    var headers = table.getElementsByTagName("th");
+    for(var i = 0; i < headers.length; i++) {
+      (function(n) {  // Nested funtion to create a local scope
+        headers[i].onclick = function() { sortrows(table, n); };
+      }(i));          // Assign value of i to the local variable n
+    }
+  }
+
+=============================================================================
+More examples of closure. One fail example and 2 valid ones
+
+var items = ['one', 'two', 'three', 'four'];
+var tasks = [];
+
+// build function in loop. All 4 functions close around the final value of 'items' and 'idx'
+for(var idx in items) {
+    var task = function() {
+        console.log(items[idx], idx);
+    }
+    tasks.push(task);
+}
+
+console.log('try one (fail)');
+tasks.forEach(function(item) { item(); });
+
+tasks = [];
+
+// Use immediately executing function and pass in vars to close around
+for(var idx in items) {
+    var task = (function(item, idx) {
+        return function() {
+            console.log(item, idx);
+        }
+    })(items[idx], idx);
+    tasks.push(task);
+}
+
+console.log('try two (success)');
+tasks.forEach(function(item) { item(); });
+
+tasks = [];
+
+// forEach builds proper closures
+items.forEach(function(item, idx) {
+    var task = function() {
+        console.log(item, idx);
+    }
+    tasks.push(task);
+});
+
+console.log('try three with forEach (success)');
+tasks.forEach(function(item) { item(); });
+
+=============================================================================
+http://stackoverflow.com/questions/954252/javascript-closures-and-memory-leaks
+
+best definition of a closure
+  http://jibbering.com/faq/notes/closures/
+
+A closure is formed when an inner function is made accessible outside of the function
+in which it was contained, so that it may be executed after the outer function has returned.
+
+=============================================================================
+// simple web page that lets you test javascript code
+<!doctype html>
+<html>
+  <head>
+    <title>Run Script</title>
+    <script type="text/javascript;version=1.7">
+      function runScript() { eval(document.getElementById("idScript").value); };
+    </script>
+  </head>
+  <body>
+    <h1>Run Script</h1>
+      <textarea id="idScript" rows="15" cols="80"></textarea><br/>
+      <input type="button" value='Run Script' onclick='runScript()'/>
+  </body>
+</html>
+
+=============================================================================
+element.innerHTML vs element.textContent
+Very similar. Normally use innerHTML. If you want to get text that may include special chars use element.textContent.
+from https://developer.mozilla.org/en/DOM/element.innerHTML:
+  Note: If a <div>, <span>, or <noembed> node has a child text node that includes the
+  characters (&), (<), or (>), innerHTML returns these characters as &amp, &lt and &gt respectively.
+  Use element.textContent to get a correct copy of these text nodes' contents.
+
+FireFox does not support the non-standard IE innerText. Use textContent instead.
+
+Which one to use may depend on if you are getting or setting text.
+  Assume the text:
+     var content = '<div>whats up?</div>'
+
+  using innerHTML ie
+    document.getElementById('someElementId').innerHTML = content;
+  inserts a div into the element
+  using textContent ie
+    document.getElementById('someElementId').textContent = content;
+  inserts the literal text into the element giving the contents "&lt;div&gt;whats up?&lt;/div&gt;"
+
+Example:
+--------
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>innerHTML vs textContent</title>
+        <script>
+            'use strict';
+            function someFun() {
+                var content = '<div>whats up?</div>';
+                document.getElementById('someElementId').innerHTML = content;
+                console.log(document.getElementById('someElementId').innerHTML);
+                console.log(document.getElementById('someElementId').textContent);
+            }
+            function someFun2() {
+                var content = '<div>whats up?</div>';
+                document.getElementById('someElementId').textContent = content;
+                console.log(document.getElementById('someElementId').innerHTML);
+                console.log(document.getElementById('someElementId').textContent);
+            }
+        </script>
+    </head>
+
+    <body>
+        <input type='button' value='innerHTML' onclick='someFun()'/>
+        <input type='button' value='textContent' onclick='someFun2()'/>
+        <div id ='someElementId'>hey</div>
+    </body>
+</html>
+
+=============================================================================
+Copy text to clipboard in firefox.
+    function CopyToClipboard() {
+      var el;
+      el = document.getElementById('scriptCode');
+      netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+      const gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+      //gClipboardHelper.copyString(el.innerHTML); // this converts the text '<<<' to '&lt;&lt;&lt;'
+      gClipboardHelper.copyString(el.textContent);
+    }
+
+In order for this to work you need to set permissions
+In address bar enter "about:config"
+filter on "signed"
+
+set:
+  signed.applets.codebase_principal_support
+to true
+
+=============================================================================
+ES3 Dynamically Generated Accessor methods
+you can create a dynamic class which takes in a set of properties in the constructor and dynamically
+generates Accessor and/or Mutation methods. Original object passed in is hidden in closure.
+  http://theburningmonk.com/2011/01/javascript-dynamically-generating-accessor-and-mutation-methods/
+  http://www.codesnipp.it/javascript/javascript-dynamically-generated-accessor-methods
+
+function DynamicClass(properties) {
+  for (var i in properties) {
+    (function (_this, i) {
+      // create access method
+      _this["get" + i] = function () {
+        return properties[i];
+      };
+
+      // and mutation method, delete to make the class immutable
+      _this["set" + i] = function (value) {
+        properties[i] = value;
+      }
+    })(this, i);
+  }
+}
+
+var obj = new DynamicClass({
+  Name: "Dusty",
+  Breed: "Highland Terrier",
+  Age: 2
+});
+
+console.log(obj);
+console.log(obj.getAge(), obj.getBreed(), obj.getName());
+
+=============================================================================
+Getter / Setter in object literals
+
+var Book = {
+  title: "The JavaScript Cookbook",
+  get booktitle() {
+    return this.title;
+  },
+  set booktitle(val) {
+    this.title = val;
+  }
+};
+console.log(Book.booktitle);
+Book.booktitle = "Learning JavaScript";
+console.log(Book.booktitle);
+
+=============================================================================
+[[prototype]] vs Object.prototype
+
+As of 9-1-2011 the following code on:
+  https://developer.mozilla.org/en/JavaScript/Guide/Inheritance_Revisited
+is dead wrong!
+  Update 1/31/2014 the docs are update to correctly show
+    B.prototype = Object.create(A.prototype, {
+
+function A(a){
+  this.varA = a;
+}
+A.prototype = {
+  varA : null,
+  doSomething : function(){
+    // ...
+  }
+}
+function B(a, b){
+  A.call(this, a);
+  this.varB = b;
+}
+B.prototype = Object.create(A, {
+  varB : { value: null, enumerable: true, configurable: true, writable: true },
+  doSomething : { value: function(){ // override
+       A.prototype.doSomething.apply(this, arguments); // call super
+       // ...
+    }, enumerable: true, configurable: true, writable: true }
+})
+
+var b = new B();
+b.doSomething();
+
+At first glance the prototype chain appears to work but it does not.
+Add another function to A.prototype and dont override it in B.
+Now try and call the function you added to A from an instance of B.
+You get undefined.
+The problem is B inherits from A *not* from A.prototype.
+
+Mixing new and Object.create is just plain wrong.
+The key to understanding the difference is knowing that the internal [[prototype]] and Object.prototype are *not* the same.
+What B = new F() does is:
+  Sets the internal [[prototype]] of B to F.prototype to establish the prototype chain.
+What B = Object.create(F) does is:
+  Sets the internal [[prototype]] of B to F to establish the prototype chain.
+
+To 'fix' the above code you need to change
+  B.prototype = Object.create(F, {...
+to
+  B.prototype = Object.create(new F, {...
+or
+  B.prototype = Object.create(F.prototype, {...
+
+Now A.prototype is in the [[prototype]] chain of F.
+However: the real fix is dont mix new and Object.create
+
+=============================================================================
+class hierarchy in clasic OO vs prototype based:
+  http://steve-yegge.blogspot.com/2008/10/universal-design-pattern.html
+  http://en.wikipedia.org/wiki/Prototype-based
+  recommended book about CS in general: Gödel, Escher, Bach: An Eternal Golden Braid
+
+Assume this class hierarchy;
+
+  animal
+    warmBlood = true
+    nocturnal = false
+    species = ''
+
+  mammal : animal
+    domesticated = false
+
+  domesticAnimal : mammal
+    domesticated = true
+
+  dog : domesticAnimal
+    species = 'dog'
+
+  cat : domesticAnimal
+    nocturnal = true
+    species = 'cat'
+
+In an OO language the instance of dog or cat would have the following properties that are local to each instance:
+  warmBlood
+  nocturnal
+  species
+  domesticated
+Each OO object instance is 2 pointers; one to its data and a second to the code. Any overridden code will be found using some sort of V table lookup.
+
+An object instance in a prototype based language is structured differently.
+The data and code use the same read/write/delete mechanisms.
+Read:
+  The lookup (data or code) starts with the object then traverses the prototype chain until the property is found or the prototype chain ends.
+Write:
+  When you write a property the mechanism is different. If the local object has the property it is modified else the property is *added* to the local object. You can't traverse the prototype chain to set a property because you would change it for any object that inherits that prototype.
+Delete:
+  Deleting the property is different as well. Once again you can't delete the property in the prototype chain and you also can't delete any existing property in the local object since the next look up would traverse the chain. Instead you need to set a special property on the local object that indicates that the property has been deleted. The look up would see that special property and return 'undefined'.
+
+An instance of the 'dog' object from above has a single local property 'species' all other look ups require traversing the prototype chain. The 'cat' object has 2 local properties 'species' and 'nocturnal'.
+
+If you were to change a property in a prototype that change would cascade through all desendents that have not already overridded the property. ie if you change animal.warmBlood = false then all cats and dogs are now cold blooded. This is where freezing a prototype object can avoid problems.
+
+-------------------------
+"use strict";
+
+var animal = Object.create({}, {
+  species: {
+    value: '',
+    writable: true,
+    enumerable: true
+  },
+  warmBlood: {
+    value: true,
+    writable: true,
+    enumerable: true
+  },
+  nocturnal: {
+    value: false,
+    writable: true,
+    enumerable: true
+  }
+});
+
+var mammal = Object.create(animal, {
+  domesticated: {
+    value: false,
+    writable: true,
+    enumerable: true
+  }
+});
+
+var domesticAnimal = Object.create(mammal, {
+  domesticated: {
+    value: true,
+    enumerable: true
+  }
+});
+
+var dog = Object.create(domesticAnimal, {
+  species: {
+    value: 'dog',
+    enumerable: true
+  }
+});
+
+var cat = Object.create(domesticAnimal, {
+  species: {
+    value: 'cat',
+    enumerable: true
+  },
+  nocturnal: {
+    value: true,
+    enumerable: true
+  }
+});
+
+var c = cat;
+var d = dog;
+console.log(c);
+console.log(d);
+
+console.log(c.warmBlood);
+animal.warmBlood = false;
+console.log(c.warmBlood);
+
+=============================================================================
+Attempt to get my head around a class hierarchy in a module using ECMAScript 5 features instead of all the bazaar old school ways.
+Using accessor functions for 'size' property.
+See below for how to hide the var used to store the current value of 'size' to prevent tampering.
+
+"use strict";
+
+var module = ( function() {
+  var shape = Object.create({}, {
+    size: {
+      get: function () { return this.sizeVal || 1; },
+      set: function (val) {
+        if (val < 1 || val > 9) {
+          throw new Error('size must be between 1 and 9');
+        }
+        this.sizeVal = val;
+      }
+    },
+    char: {
+      value: 'x',
+      writable: true
+    },
+    draw: {
+      value: function () {
+        var lines = this.getLines();
+        for (var i = 0, j = lines.length; i < j; i++) {
+          console.log(lines[i]);
+        }
+      }
+    }
+  });
+
+  var square = Object.create(shape, {
+    getLines: {
+      value: function () {
+        var ary = [],
+            sLine = '',
+            size = this.size;
+        for (var i = 0; i < size; i++) {
+          sLine += this.char;
+        }
+        for (var i = 0; i < size; i++) {
+          ary.push(sLine);
+        }
+        return ary;
+      }
+    }
+  });
+
+  var triangle = Object.create(shape, {
+    getLines: {
+      value: function () {
+        var ary = [],
+            sLine = '';
+        for (var i = 0, j = this.size; i < j; i++) {
+          sLine += this.char;
+          ary.push(sLine);
+        }
+        return ary;
+      }
+    }
+  });
+
+  var circle = Object.create(shape, {
+    getLines: {
+      value: function () {
+        var ary = [],
+            sLine = [],
+            sFullLine = [],
+            size = this.size;
+        for (var i = 0; i < size; i++) {
+          sFullLine.push(this.char);
+        }
+        for (var i = Math.floor((size - 1) / 2); i > 0; i-- ) {
+          sLine = sFullLine.slice(0);
+          for (var j = 0; j < i; j++ ) {
+            sLine[j] = ' ';
+            sLine[sLine.length - 1 - j] = ' ';
+          }
+          ary.push(sLine.join(''));
+        }
+        ary.push(sFullLine.join(''));
+        for (var i = Math.floor(size / 2) - 1; i >= 0; i-- ) {
+          ary.push(ary[i]);
+        }
+        return ary;
+      }
+    }
+  });
+
+  return {
+    square: function () { return Object.create(square); },
+    triangle: function () { return Object.create(triangle); },
+    circle: function () { return Object.create(circle); }
+  };
+}());
+
+var s;
+s = module.square();
+s.char='?'
+s.size = 3;
+s.draw();
+
+var s2;
+s2 = module.square();
+s2.draw();
+
+s = module.triangle();
+s.size = 5;
+s.char='.'
+s.draw();
+
+s = module.circle();
+s.size = 4;
+s.char='@'
+s.draw();
+
+s2.draw();
+
+=============================================================================
+'two level' module that has data shared between instances of objects created by module.
+
+var module = (function () {
+    'use strict';
+
+    var sharedvar; // shared across all instances on this page
+
+    function moduleItem(options) {
+
+        function init() {
+            console.log('call init');
+            sharedvar = sharedvar || initSharedvar();
+        }
+
+        function initSharedvar() {
+            console.log('initSharedvar');
+            return 'value of sharedvar';
+        }
+
+        function hey() {
+            console.log('hey', options.hey, sharedvar);
+        }
+
+        function de() {
+            console.log('de', options.de);
+        }
+
+        function ho(arg) {
+            console.log('ho', options.ho, arg);
+        }
+
+        init();
+
+        self = {
+            hey:hey,
+            de:de,
+            ho:ho
+        };
+        return self;
+    }
+
+    return {
+        moduleItem:moduleItem
+    };
+
+})();
+
+-------------------
+demo it
+    function someFun() {
+        var item1 = module.moduleItem({hey:123, de:'this is de', ho:true});
+        item1.hey();
+        item1.de();
+        item1.ho('call ho');
+        console.log('------------------------');
+        var item2 = module.moduleItem({hey:999, de:'second call', ho:false});
+        item2.hey();
+        item2.de();
+        item2.ho('call ho again');
+        console.log('------------------------');
+    }
+
+=============================================================================
+ES5 Hiding data used by getters and setters (accessor functions)
+
+In order to hide the data used internally by accessor functions you need to resolve some conflicting requirements:
+  You would like the accessor functions to be at the prototype level.
+  The instance data needs to be at the object instance level.
+  Conflict: The closure required to hide the internal data requires both the instance data and the accessor functions.
+
+To hide the data value you need to set up the property during object initialization using Object.defineProperty() inside a closure.
+See below for a full example (search for: "var person = BaseObject.extend")
+
+--------------------------
+Example 1 does just that.
+
+"use strict";
+
+var module = ( function () {
+  var base = Object.create({}, {
+    init: {
+      value: function(size) {
+        var sizeVal;
+        Object.defineProperty(this, 'size', {
+          get: function() { return sizeVal; },
+          set: function(val) {
+            if (val < 1 || val > 9) {
+              throw new Error('size must be between 1 and 9');
+            }
+            sizeVal = val;
+          }
+        });
+        this.size = size;
+        return this;
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  var child = Object.create(base, {
+    dumpObj: {
+      value: function () {
+        console.log('dumpObj', this.size);
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  return {
+    child: function (size) { return Object.create(child).init(size); }
+  };
+})();
+
+var o1 = module.child(1);
+var o2 = module.child(2);
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 3;
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 10;
+
+--------------------------
+The down side of Example 1 is the accessor functions are defined in each object instance.
+Example 2 has a single copy of the accessor functions and simply calls them from inside the closure.
+
+"use strict";
+
+var module = ( function () {
+  var base = Object.create({}, {
+    getSize: {
+      value: function (val) {
+        // any get logic here
+        return val;
+      }
+    },
+    setSize: {
+      value: function (val) {
+        if (val < 1 || val > 9) {
+          throw new Error('size must be between 1 and 9');
+        }
+        return val;
+      }
+    },
+    init: {
+      value: function(size) {
+        var sizeVal;
+        Object.defineProperty(this, 'size', {
+          get: function() { return this.getSize(sizeVal); },
+          set: function(val) { sizeVal = this.setSize(val); }
+        });
+        this.size = size;
+        return this;
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  var child = Object.create(base, {
+    dumpObj: {
+      value: function () {
+        console.log('dumpObj', this.size);
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  return {
+    child: function (size) { return Object.create(child).init(size); }
+  };
+})();
+
+var o1 = module.child(1);
+var o2 = module.child(2);
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 3;
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 10;
+
+--------------------------
+Example 2 has the accessor functions visible to the end user when they don't need to be. (They wont work as expected either since they are called outside the closure)
+Example 3 is similar to Example 2 but hides the accessor functions by pulling them outside the object but inside the module.
+
+"use strict";
+
+var module = ( function () {
+  var getSize = function (val) {
+    // any get logic here
+    return val;
+  };
+
+  var setSize = function (val) {
+    if (val < 1 || val > 9) {
+      throw new Error('size must be between 1 and 9');
+    }
+    return val;
+  };
+
+  var base = Object.create({}, {
+    init: {
+      value: function(size) {
+        var sizeVal;
+        Object.defineProperty(this, 'size', {
+          get: function() { return getSize(sizeVal); },
+          set: function(val) { sizeVal = setSize(val); }
+        });
+        this.size = size;
+        return this;
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  var child = Object.create(base, {
+    dumpObj: {
+      value: function () {
+        console.log('dumpObj', this.size);
+      },
+      writable : true,
+      enumerable : true,
+      configurable : true
+    }
+  });
+
+  return {
+    child: function (size) { return Object.create(child).init(size); }
+  };
+})();
+
+var o1 = module.child(1);
+var o2 = module.child(2);
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 3;
+o1.dumpObj();
+o2.dumpObj();
+o1.size = 10;
+
+=============================================================================
+Another syntax to set up accessor closure using an anonymous, self-invoking function:
+from:
+  http://net.tutsplus.com/tutorials/javascript-ajax/whats-new-in-javascript-1-8-5/
+
+Object.defineProperty(my_dog, "age", (function () {
+    var human_years;
+
+    return {
+        set : function (age) { human_years = age * 7; },
+        get : function () { return human_years / 7; },
+        enumerable : true
+    };
+
+}()));
+
+=============================================================================
+Lightweight class to clean up syntax for object creation using ES5 Object.create().
+
+This is a hybrid of the techniques presented at:
+  http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/
+    (code) https://gist.github.com/838778
+  http://www.2ality.com/2011/06/prototypes-as-classes.html
+    (code) https://github.com/rauschma/proto-js
+
+I dropped the "convenience method" to call the overridden method (super) since neither approach was all that convenient.
+
+File: classFix.js
+
+var BaseObject = {
+  new: function() {
+    var instance = Object.create(this);
+    instance.constructor.apply(instance, arguments);
+    return instance;
+  },
+
+  extend: function(properties, propertyDescriptors) {
+    propertyDescriptors = propertyDescriptors || {};
+
+    if (properties) {
+      Object.getOwnPropertyNames(properties).forEach(function(propName) {
+        propertyDescriptors[propName] = Object.getOwnPropertyDescriptor(properties, propName);
+      });
+    }
+    return Object.create(this, propertyDescriptors);
+  },
+
+  constructor: function () {}
+};
+
+Usage:
+======
+"use strict";
+
+var base = BaseObject.extend({
+  constructor: function (val) {
+    this.baseVar = val;
+    console.log('base class constructor', val);
+  },
+  doSomething: function (funVal) {
+    console.log('base class doSomething', funVal, this.baseVar);
+  }
+});
+
+var child = base.extend({
+  constructor: function (val1, val2) {
+    this.childVar = val2;
+    console.log('Child class constructor A', val1, val2);
+    base.constructor.call(this, val1);
+    console.log('Child class constructor B', val1, val2);
+  },
+  doSomething: function (funVal1, funVal2) {
+    console.log('Child class doSomething A', funVal1, funVal2, this.baseVar, this.childVar);
+    base.doSomething.call(this, funVal1);
+    console.log('Child class doSomething B', funVal1, funVal2, this.baseVar, this.childVar);
+  }
+});
+
+var obj = child.new('from base', 'from child');
+obj.doSomething(123, 'test');
+
+=============================================================================
+Various ways to define static and instance properties in ES5
+
+"use strict";
+
+// Accessor / Mutator methods
+var setNumericOnly = function(val) {
+  if (typeof(val) !== 'number') {
+    throw new Error('property must be numeric');
+  }
+  return val;
+};
+
+var setNumericOnlySilent = function(val, origVal) {
+  if (typeof(val) !== 'number') {
+    return origVal;
+  }
+  return val;
+};
+
+var genericAccessor = function(val) { return val; };
+
+// Properties defined with defineAccessor() inside object.init() are unique to each instance and end user can not bypass the mutator method.
+var defineAccessor = function(obj, propName, initVal, funSet, funGet) {
+  var dataVal;
+  Object.defineProperty(obj, propName, {
+    get: function() {return funGet(dataVal, propName) },
+    set: function(val) {dataVal = funSet(val, dataVal, propName) }
+  });
+  obj[propName] = initVal;
+};
+
+// Test object definition
+var testObj = Object.create( {}, {
+  static1: { // shared by all instances. read only.
+    value: 1,
+    writable: false
+  },
+  static2: { // shared by all instances. read only. Data var hidden in closure.
+    get: function() {return 2},
+    set: function(val) {} // silently ignore attempt to set
+  },
+  static3: (function () {
+    var hidie; // shared by all instances. read/write.
+    return {
+      get: function() { return hidie; },
+      set: function(val) { hidie = val }
+    }
+  }()),
+  static4: (function () {
+    var hidie; // shared by all instances. write once then read only. Data var hidden in closure.
+    return {
+      get: function() { return hidie; },
+      set: function(val) { hidie = hidie || val } // only allow setting once
+    }
+  }()),
+  static5: { // shared by all instances. read/write. End user can access testObj.dynoProp directly bypassing accessor methods.
+    get: function() { return testObj.dynoProp; },
+    set: function(val) { testObj.dynoProp = val }
+  },
+  prop1: { // Unique to each instance. Accept any data type.
+    value: 1,
+    writable: true
+  },
+  prop2: { // Unique to each instance. Accept any data type.
+    get: function() {return this.prop2Val || 2}, // prop2Val is visible to end user and can be modified directly without the mutator method.
+    set: function(val) {this.prop2Val = val}
+  },
+  prop3: { // Unique to each instance. Mutator method will accept only numeric.
+    get: function() {return this.prop3Val || 3}, // prop3Val is visible to end user and can be modified directly without the mutator method.
+    set: function(val) {
+      if (typeof(val) !== 'number') {
+        throw new Error('property must be numeric');
+      }
+      this.prop3Val = val;
+    }
+  },
+  init: { // Unique to each instance. Mutator method will accept only numeric. Can not bypass Mutator method.
+    value: function(initVal) {
+      defineAccessor(this, 'prop4', initVal, setNumericOnly, genericAccessor);
+    }
+  }
+});
+
+var o1 = Object.create(testObj);
+var o2 = Object.create(testObj);
+
+console.log('--- static1 ---');
+console.log(o1.static1);
+try {
+  o1.static1 = 'fail';
+} catch (e) {
+  console.log('Error: Set o1.static1 fails (silently without strict mode)');
+}
+console.log(o1.static1);
+console.log(o2.static1);
+
+console.log('--- static2 ---');
+console.log(o1.static2);
+o1.static2 = 'silent fail';
+console.log(o1.static2);
+console.log(o2.static2);
+
+console.log('--- static3 ---');
+o1.static3 = 'Shared by all instances';
+console.log(o1.static3);
+console.log(o2.static3);
+o2.static3 = 'Modifed by different instance';
+console.log(o1.static3);
+console.log(o2.static3);
+
+console.log('--- static4 ---');
+o1.static4 = 'only accept first call to set. Shared by all instances';
+console.log(o1.static4);
+console.log(o2.static4);
+o1.static4 = 'silent fail';
+console.log(o1.static4);
+console.log(o2.static4);
+
+console.log('--- static5 ---');
+o1.static5 = 'Shared by all instances. (Stored at prototype)';
+console.log(o1.static5);
+console.log(o2.static5);
+o2.static5 = 'Modifed by different instance. (Stored at prototype)';
+console.log(o1.static5);
+console.log(o2.static5);
+testObj.dynoProp = 'Can set directly bypassing accessor method.';
+console.log(o2.static5);
+
+console.log('--- prop1 ---');
+console.log(o1.prop1);
+o1.prop1 = 'takes any data type';
+o2.prop1 = 'each instance is unique';
+console.log(o1.prop1);
+console.log(o2.prop1);
+o1.prop1 = true;
+o2.prop1 = ['this', 1, 'is an array'];
+console.log(o1.prop1);
+console.log(o2.prop1);
+
+console.log('--- prop2 ---');
+console.log(o1.prop2);
+o1.prop2 = 'takes any data type';
+o2.prop2 = 'each instance is unique';
+console.log(o1.prop2);
+console.log(o2.prop2);
+o1.prop2 = true;
+o2.prop2 = ['this', 1, 'is an array'];
+console.log(o1.prop2);
+console.log(o2.prop2);
+
+console.log('--- prop3 ---');
+console.log(o1.prop3);
+try {
+  o1.prop3 = 'does *not* take non numeric data';
+} catch (e) {
+  console.log('Error: Set o1.prop3 fails if not numeric');
+}
+o2.prop3 = 333.33;
+console.log(o1.prop3);
+console.log(o2.prop3);
+o1.prop3Val = 'can set data val directly bypassing accessor method!';
+console.log(o1.prop3);
+
+// Instance data inside closures require calling an init() method for each instance.
+o1.init(4);
+o2.init(4.44);
+
+console.log('--- prop4 ---');
+try {
+  o1.prop4 = 'does *not* take non numeric data';
+} catch (e) {
+  console.log('Error: Set o1.prop4 fails if not numeric');
+}
+console.log(o1.prop4);
+console.log(o2.prop4);
+console.log(o1.prop4Val);
+o1.prop4Val = 'can *not* set data val directly bypassing accessor method. Creates new property.';
+console.log(o1.prop4Val);
+console.log(o1.prop4);
+console.log(o2.prop4);
+
+=============================================================================
+Full example using techniques from above
+Uses classFix.js from above
+
+/*
+Object Hierarchy
+
+        person {name, sex}
+          /           \
+         /             \
+        /               \
+     student {GPA}   employee {dept, salary}
+                         |
+                         |
+                     manager {manages[]}
+*/
+
+"use strict";
+
+var module = (function () {
+
+  var personGetSex = function (val) {
+    return (val) ? 'M': 'F';
+  };
+
+  var personSetSex = function (val) {
+    var bErr = true;
+    if (typeof(val) === 'string') {
+      val = val.toUpperCase();
+      if (val === 'M' || val === 'F') {
+        bErr = false;
+      }
+    }
+    if (bErr) {
+      throw new Error("sex must be 'M' or 'F'");
+    }
+    return (val === 'M') ? true: false;
+  };
+
+  var studentSetGpa = function (val) {
+    if (typeof(val) !== 'number' || val < 0.0 || val > 4.0) {
+      throw new Error('gpa must be a number between 0.0 and 4.0');
+    }
+    return val;
+  };
+
+  var managerSetManages = function (val) {
+    var bErr = true;
+    if (Array.isArray(val)) {
+      bErr = false;
+      for (var i = 0, j = val.length; i < j; i++) {
+        if (! employee.isPrototypeOf(val[i])) {
+          bErr = true;
+          break;
+        }
+      }
+    }
+    if (bErr) {
+      throw new Error('manages must be an array of employees');
+    }
+    return val;
+  };
+
+  var genericAccessor = function(val) { return val; };
+
+  var setNonNegativeNumber = function (val, dataVal, propName) {
+    if (typeof(val) !== 'number' || val < 0.0) {
+      throw new Error(propName + ' must be a non negative number');
+    }
+    return val;
+  };
+
+  var setNonBlankString = function (val, dataVal, propName) {
+    if (typeof(val) !== 'string' || val === '') {
+      throw new Error(propName + ' must be a non blank string');
+    }
+    return val;
+  };
+
+  // Properties defined with defineAccessor() inside constructor() are unique to each instance and end user can not bypass the mutator method.
+  var defineAccessor = function(obj, propName, initVal, funSet, funGet) {
+    var dataVal;
+    Object.defineProperty(obj, propName, {
+      get: function() {return funGet(dataVal, propName) },
+      set: function(val) {dataVal = funSet(val, dataVal, propName) }
+    });
+    obj[propName] = initVal;
+  };
+
+  var person = BaseObject.extend(null , {
+    constructor: {
+      value: function (name, sex) {
+        defineAccessor(this, 'sex', sex, personSetSex, personGetSex);
+        defineAccessor(this, 'name', name, setNonBlankString, genericAccessor);
+      }
+    },
+    toString: {
+      value: function () {
+        return this.name + ' (' + this.sex + ')';
+      }
+    }
+  });
+
+
+  var student = person.extend(null, {
+    constructor: {
+      value: function(name, sex, gpa) {
+        person.constructor.call(this, name, sex);
+        defineAccessor(this, 'gpa', gpa, studentSetGpa, genericAccessor);
+      }
+    },
+    toString: {
+      value: function () {
+        return person.toString.call(this) + ' [gpa: ' + this.gpa + ']';
+      }
+    }
+  });
+
+  var employee = person.extend( null, {
+    constructor: {
+      value: function(name, sex, dept, salary) {
+        person.constructor.call(this, name, sex);
+        defineAccessor(this, 'dept', dept, setNonBlankString, genericAccessor);
+        defineAccessor(this, 'salary', salary, setNonNegativeNumber, genericAccessor);
+      }
+    },
+    toString: {
+      value: function () {
+        return person.toString.call(this) + ' [dept: ' + this.dept + ' salary: ' + this.salary + ']';
+      }
+    }
+  });
+
+  var manager = employee.extend(null, {
+    constructor: {
+      value: function(name, sex, dept, salary, manages) {
+        employee.constructor.call(this, name, sex, dept, salary);
+        defineAccessor(this, 'manages', manages, managerSetManages, genericAccessor);
+      }
+    },
+    toString: {
+      value: function () {
+        var sResult = employee.toString.call(this);
+        for (var i = 0, j = this.manages.length; i < j; i++) {
+          sResult = sResult + '\n       ' + this.manages[i].toString();
+        }
+        return sResult;
+      }
+    }
+  });
+
+  return {
+    student: student,
+    employee: employee,
+    manager: manager
+  };
+})();
+
+var stu = module.student.new('Stuey', 'm', 3.1);
+var emp1;
+try {
+  emp1 = module.employee.new('Jonny Punchclock', 'm', 'Janitorial', 'error here');
+} catch(e) {
+  console.log('Error: passed string for salary field to constructor');
+}
+emp1 = module.employee.new('Jonny Punchclock', 'm', 'Janitorial', 5.50);
+var emp2 = module.employee.new('Sally Sixpack', 'F', 'Sales', 12500);
+var man;
+try {
+  man = module.manager.new(123, 'm', 'Managment', 53500, [emp1, emp2]);
+} catch(e) {
+  console.log('Error: passed numeric for name to constructor');
+}
+try {
+  man = module.manager.new('Manny M Anager', 'OK', 'Managment', 53500, [emp1, emp2]);
+} catch(e) {
+  console.log('Error: passed invalid data for sex to constructor');
+}
+try {
+  man = module.manager.new('Manny M Anager', 'm', [], 53500, [emp1, emp2]);
+} catch(e) {
+  console.log('Error: passed array for dept to constructor');
+}
+try {
+  man = module.manager.new('Manny M Anager', 'm', 'Managment', 'INVALID', [emp1, emp2]);
+} catch(e) {
+  console.log('Error: passed string for salary field to constructor');
+}
+try {
+  man = module.manager.new('Manny M Anager', 'm', 'Managment', 53500, 'INVALID');
+} catch(e) {
+  console.log('Error: passed string instead of array to constructor');
+}
+
+man = module.manager.new('Manny M Anager', 'm', 'Managment', 53500, [emp1, emp2]);
+
+console.log(stu.toString());
+console.log(emp1.toString());
+console.log(emp2.toString());
+console.log(man.toString());
+
+emp1.salary = 5.75;
+emp1.dept = 'Mail Room';
+emp2.name = 'Sally T Welvepack';
+try {
+  emp1.dept = 123;
+} catch(e) {
+  console.log('Error: passed numeric for dept');
+}
+console.log(man.toString());
+
+=============================================================================
+//---------------------------
+// More fun with constructors
+//---------------------------
+  // Different ways to write a constructor that will be used with 'new'
+
+  // Traditional constructor. Everything is public. The data is initialized in the constructor and is unique to each instance.
+  // The code is in the prototype and shared by each instance of the object.
+  function ConA(args) {
+    this.v1 = args.one;
+    this.v2 = args.two;
+  }
+
+  ConA.prototype = {
+    dump: function() {
+      console.log(this.v1, this.v2);
+    }
+  }
+
+  var o = new ConA({one:'standard', two:123});
+  o.dump();          // standard 123
+  console.log(o.v1); // standard
+
+//--------------------------------------------
+  // Constructor that has private members. Code is duplicated for each instance of the object instead of being shared code stored in the prototype.
+  function ConB(args) {
+    var v1 = args.one;
+    var v2 = args.two;
+
+    this.dump = function() {
+      console.log(v1, v2);
+    }
+  }
+
+  var o = new ConB({one:'private', two:234});
+  o.dump();          // private 234
+  console.log(o.v1); // undefined
+
+//--------------------------------------------
+  // The slick grid author (Michael Leibman) uses the style above quite a bit and writes it as follows:
+  function ConC(args) {
+    var v1;
+    var v2;
+
+    this.init = function() {
+      v1 = args.one;
+      v2 = args.two;
+    }
+
+    this.dump = function() { // leave off "this." if you want function to be privare
+      console.log(v1, v2);
+    }
+
+    this.init();
+  }
+
+  var o = new ConC({one:'slick', two:345});
+  o.dump();          // slick 345
+  console.log(o.v1); // undefined
+
+//--------------------------------------------
+  // Slick grid author (Michael Leibman) also uses this style where the data and code are both in the constructor but returns
+  // an object of methods that becomes the exposed public interface. Similar to containing code in a module or namespace.
+  // Note: this style has little use for "this" since everything is in a closure.
+  function ConD(args) {
+    var v1 = args.one;
+    var v2 = args.two;
+
+    function dump() {
+      console.log(v1, v2);
+    }
+
+    return {
+      'dump': dump
+    };
+  }
+
+  var o = new ConD({one:'slick two', two:456});
+  o.dump();          // slick 456
+  console.log(o.v1); // undefined
+
+//--------------------------------------------
+  // Expand on example above and use some code defined in the prototype
+  function ConE(args) {
+    var self = this;   // \ There is no point to saving a reference to "this" unless you define a prototype.
+                       // / "this" is just an empty object passed in by "new" and doesnt get returned.
+    var v1 = args.one; // \  All three of these are private.
+    var v2 = args.two; //  | v3 is visible to the code in the prototype. v1 and v2 are
+    self.v3 = v2 * 2;  // /  not visible to prototype and must be passed explicitly.
+
+    function dump() {
+      console.log(v1, v2);
+    }
+
+    function helper() {
+      self.helper(v1, v2)
+    }
+
+    return {
+      'dump': dump,
+      'helper': helper
+    };
+  }
+
+  ConE.prototype = {
+    helper: function(a, b) {
+      console.log(a, b, this.v3);
+    }
+  }
+
+  var o = new ConE({one:'real weird', two:567});
+  o.dump();   //  real weird 567
+  o.helper(); //  real weird 567 1134
+
+
+=============================================================================
+Closure vs proper objects
+
+Closures are an easy was to hide data but it's a lazy way to do it. Every function in a closure is redefined for each instance of the closure.
+
+var closureway = (function () {
+
+    var instanceCnt = 0; // 'class' variable that is shared by all instances
+
+    function ClosureWay(dat) {
+
+        function internal() {
+            console.log('closure>', dat, instanceCnt);
+        }
+
+        function init() {
+            instanceCnt += 1;
+            // any initialization here
+        }
+
+        function testit() {
+            internal();
+        }
+
+        function modfun() {
+            internal = function () { console.log('YOU HAVE BEEN CHANGED!', dat, instanceCnt); };
+        }
+
+        init();
+
+        return {
+            testit: testit,
+            modfun: modfun
+        }
+    }
+
+    return {
+        ClosureWay: ClosureWay
+    }
+
+}());
+
+var objectway = (function () {
+
+    var instanceCnt = 0; // 'class' variable that is shared by all instances
+
+    function internal(self) {
+        console.log('Object>', self.dat, instanceCnt);
+    }
+
+    function constructor(v) {
+        this.dat = v;
+        instanceCnt += 1;
+        // any initialization here
+    }
+
+    function testit() {
+        internal(this);
+    }
+
+    function modfun() {
+        internal = function (self) { console.log('YOU HAVE BEEN CHANGED!', self.dat, instanceCnt); };
+    }
+
+    var ObjectWay = BaseObject.extend({
+        constructor: constructor,
+        testit: testit,
+        modfun: modfun
+    });
+
+    return {
+        ObjectWay: ObjectWay
+    }
+
+}());
+
+-------
+test it
+-------
+var o1 = closureway.ClosureWay('this is a closure');
+o1.testit();                                               // closure> this is a closure 1
+
+var o2 = closureway.ClosureWay('another closure');
+o2.testit();                                               // closure> another closure 2
+
+console.log('------------------------');                   // ------------------------
+console.log('same?', o1.testit===o2.testit);               // same? false                << Not the same function. Each instance has its own code
+o1.modfun();
+
+o1.testit();                                               // YOU HAVE BEEN CHANGED! this is a closure 2  << Only changes a single instance
+o2.testit();                                               // closure> another closure 2                  << Other instance retains original code
+
+console.log('============================');               // ============================
+
+var o3 = objectway.ObjectWay.new('this is NOT a closure');
+o3.testit();                                               // Object> this is NOT a closure 1
+var o4 = objectway.ObjectWay.new('also NOT a closure');
+o4.testit();                                               // Object> also NOT a closure 2
+
+console.log('------------------------');                   // ------------------------
+console.log('same?', o3.testit===o4.testit);               // same? true                   << Same function. Each instance shares code
+o3.modfun();
+o3.testit();                                               // YOU HAVE BEEN CHANGED! this is NOT a closure 2  << Both instances change
+o4.testit();                                               // YOU HAVE BEEN CHANGED! also NOT a closure 2     << since they share code
+
+=============================================================================
+"use strict";
+
+/*
+  Traditional JS inheritance.
+  Revisited this when had to extend a 3rd party object that used the old school style with "new" and "prototype".
+  Got hung up since the original constructor took an object as a parameter.
+  Problem came when setting the prototype on the new object. (see below).
+  I have no idea how you would do this without Object.create() or its polyfill.
+*/
+function ConA(args) {
+  // If this function doesn't get args, it will throw when trying and access args...
+  this.v1 = args.one;
+  this.v2 = args.two;
+}
+
+ConA.prototype.dump = function() {
+  console.log('base dump()', this.v1, this.v2);
+}
+
+ConA.prototype.baseFun = function() {
+  console.log('base baseFun()', this.v1, this.v2);
+}
+
+function ConB(moreargs, origargs) {
+  ConA.call(this, origargs);
+  this.v3 = moreargs;
+}
+
+ConB.prototype = Object.create(ConA.prototype); // works!
+// ConB.prototype = new ConA({});        // This works in this example but it is not a generic solution
+// ConB.prototype = Object.create(ConA); // fails: "o2.baseFun is not a function"
+// ConB.prototype = new ConA();          // fails: in ConA constructor w/ "args is undefined"
+// ConB.prototype = new ConA;            // fails: in ConA constructor w/ "args is undefined"
+// ConB.prototype = ConA;                // fails: "o2.baseFun is not a function"
+// ConB.prototype = ConA.prototype;      // anything added to child proto also ends up on base proto. IOW Base functions are not overridden but replaced
+
+ConB.prototype.dump = function() {
+  console.log('"overridden" by child dump()', this.v1, this.v2, this.v3);
+}
+ConB.prototype.childFun = function() {
+  console.log('child childFun()', this.v1, this.v2, this.v3);
+}
+
+console.log('base class ==========');
+var o = new ConA({one:'base class', two:123});
+o.dump();          // base dump() base class 123
+o.baseFun();       // base baseFun() base class 123
+console.log(o.v1); // base class
+
+console.log(' ');
+console.log('child class ==========');
+var o2 = new ConB('child args', {one:'passed to base', two:999});
+o2.dump();          // "overridden" by child dump() passed to base 999 child args
+o2.baseFun();       // base baseFun() passed to base 999
+o2.childFun();      // child childFun() passed to base 999 child args
+console.log(o2.v1, '<>', o2.v2, '<>', o2.v3); // passed to base <> 999 <> child args
+
+console.log(' ');
+console.log("child doesn't step on base class ==========");
+
+o.dump();          // base dump() base class 123
+console.log('o.childFun should be undefined', o.childFun); // it is
+
+/*
+Other notes:
+** DON'T ** use this style of adding to the prototype:
+  ChildObj.prototype = {
+    someFun: function() {
+      ...
+    },
+    otherFun: function() { ...
+  };
+
+Instead do this:
+  ChildObj.prototype.someFun = function() {
+    ...
+  }
+  ChildObj.prototype.otherFun...
+
+The first form does not augment the prototype but it replaces it.
+In this example the child class will no longer have the baseFun() function
+
+Object.create polyfill:
+  http://javascript.crockford.com/prototypal.html
+  Object.create = function (o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+  };
+*/
+
+=============================================================================
+self===this (at least in Firefox)
+
+function someFun() {
+  console.log('this', this);                // this Window state.html
+  console.log('self', self);                // self Window state.html
+  console.log('self===this', self===this);  // self===this true
+}
+
+=============================================================================
+ES5 bind() example
+
+var tooltip = { text: "Click here to . . . " },
+    overlay = { text: "Please enter the number of attendees" };
+
+function show_text () {
+    // really, do something more useful here
+    console.log(this.text);
+}
+
+tooltip.show = show_text.bind(tooltip);
+tooltip.show();
+
+overlay.show = show_text.bind(overlay);
+
+overlay.show();
+
+
+=============================================================================
+Hit testing. Test if an element is visible (not scrolled out of view)
+document.elementFromPoint() is the key
+
+    // Test if $testElm is fully visible and not scrolled out of view
+    // Will need to correct .position() for any viewport or window scrolling to get true X/Y position
+    upX = $testElm.position().left;
+    upY = $testElm.position().top;
+    dnX = upX + $testElm.width();
+    dnY = upY + $testElm.height();
+    hitElmUL = document.elementFromPoint(upX, upY); // test upper left corner
+    hitElmBR = document.elementFromPoint(dnX, dnY); // test lower right corner
+    console.log('hit?', hitElmUL === $testElm[0], hitElmBR === $testElm[0] );
+
+=============================================================================
+which element has current focus
+currently focused element
+  document.activeElement
+
+Returns the currently focused element, that is, the element that will get keystroke events if the user types any. This attribute is read only.
+
+=============================================================================
+Position of an element relative to document
+See "Position of an element" in D:\Notes\WebProgramming\JavaScriptvsJQuery.txt
+
+=============================================================================
+Prevent text selection after double click
+1) catch mousedown event and prevent default
+2) use user-select css
+  Note: user-select is not currently part of any W3C CSS specification.
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+Using method 2) totally prevents select text. Method 1)  prevents if when you double click but you can still drag over the text to select it.
+In either case will also want to set css of "cursor: default;"
+
+=============================================================================
+mouseenter vs mouseover
+mouseenter does not bubble and works better in most cases. mouseover will fire
+as a mouse move in and out of descendant elements. mouseenter will only fire once
+when the mouse enters the main container element
+
+Pair mouseenter with mouseleave
+
+=============================================================================
+Key trapping
+if you need to detect a particular typed character, only the keypress event will do.
+If you want to detect physical keystrokes (ie arrow keys), only keyup and keydown will do.
+
+=============================================================================
+/**
+    Recursively empty an object.
+        numbers set to 0
+        boolean set to false
+        string set to blank
+        array length set to 0
+        function is ignored
+
+        Date() is currently ignored
+ */
+function emptyObject(obj) {
+    var type;
+
+    for (var key in obj) {
+        type = typeof(obj[key]);
+
+        if (type === 'object') {
+            if (Array.isArray(obj[key])) {
+                obj[key].length = 0;
+            } else if (obj[key] !== null) {
+                emptyObject(obj[key]);
+            }
+        } else if (type === 'string') {
+            obj[key] = '';
+        } else if (type === 'boolean') {
+            obj[key] = false;
+        } else if (type === 'number') {
+            obj[key] = 0;
+        }
+    }
+}
+
+=============================================================================
+For notes on JSHint see
+  D:\Notes\AssortedSoftware\Notepad++\Notepad++Notes.txt
+
+=============================================================================
+line break in string literal
+  var string = "hello\
+  world!";
+
+  However, this does not create a line break in the string, as it must be an explicit
+  \n or \r\n escape sequence. This would actually become helloworld.
+
+  Doing:
+    var string = "hello"
+    + "world"
+  would be much cleaner
+
+=============================================================================
+enumerate object
+
+var obj = { first: "John", last: "Doe", age: 32 };
+// Visit non-inherited enumerable keys
+Object.keys(obj).forEach(function(key) {
+    console.log(key, obj[key]);
+});
+
+=============================================================================
+two ways to do a replace all
+    someStr = someStr.replace(/\s+/g, '');
+    or
+    someStr = someStr.split(' ').join('');
+
+=============================================================================
+void expression
+This operator allows inserting expressions that produce side effects into places where an expression that evaluates to undefined is desired.
+
+void(0) // is equivalent to "void 0"
+
+can use in a place where an expression is required ie
+    sometest ? dosomething() : void(0);
+
+=============================================================================
+Test if a variable is defined
+assume "iDontKnowThisVariable" is not defined
+
+typeof iDontKnowThisVariable === 'undefined' // true
+iDontKnowThisVariable === undefined // ReferenceError: iDontKnowThisVariable is not defined
+
+=============================================================================
+string continuation
+line continuation
+
+To create a multi-line string
+var ms = "\
+This\
+is a\
+Multi line\
+String\
+"
+
+There is some argument whether this is allowed by the ECMA standard. You end up with an ugly code block.
+
+=============================================================================
+REST web service resources
+  http://www.xfront.com/REST-Web-Services.html
+  http://www.ajaxonomy.com/2008/xml/web-services-part-1-soap-vs-rest
+  http://www.25hoursaday.com/weblog/2008/08/17/ExplainingRESTToDamienKatz.aspx
+  http://donnieknows.com/blog/soap-vs-restful-web-services
+  http://diveintopython3.org/http-web-services.html
+
+=============================================================================
+-- jsHint --
+Top fo file settings
+/*jshint forin:true,noarg:true,noempty:true,eqeqeq:true,bitwise:true,strict:true,undef:true,curly:true,latedef:true,newcap:true,immed:true,indent:2,maxerr:50 */
+
+suppress missing var warning
+/*global angular */
+
+ignore section of code (*)
+  /* jshint ignore:start */
+  ...
+  /* jshint ignore:end */
+
+ignore single line (*)
+  ...; // jshint ignore:line
+
+(*) === requires version >= Oct 2013
+=============================================================================

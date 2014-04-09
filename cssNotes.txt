@@ -1,0 +1,434 @@
+==========================================================================================
+Articles on naming css conventions:
+  http://blog.ricky-stevens.com/css-element-naming-conventions/
+  http://thudjs.tumblr.com/post/449622966/css-organisation-hyphenate-classes-and-ids-use-short
+
+Authors have different points of view.  I feel css should look like css with hyphens instead of camel case. When the css is used as an attribute in html it is obvious that it is css.
+==========================================================================================
+selectors
+  http://www.w3.org/TR/selectors/#selectors
+
+#one -- id = 'one'
+.one -- class = 'one'
+.one, .two -- class = 'one' OR 'two'
+.one.two -- class = 'one two'  << requires both classes
+li.someclass -- list item with class of 'someclass'
+
+* == all elements
+a { color: red; }       \ target all elements on a page
+ul { margin-left: 0; }  / according to their type
+
+#container * == every element that is a child of the #container div
+li a ==  descendant selector. Anchor within list items
+#container > ul == Select direct children (more specific than descendant selector)
+
+sibling selectors
+ul + p { color: red; } == Adjacent sibling selector. The elements represented by the two sequences share the same parent and the element represented by the first sequence immediately precedes the element represented by the second one. In this case, only the first paragraph after each ul will have red text.
+h1 ~ pre == General sibling selector. The two elements share the same parent and the element represented by the first sequence precedes (not necessarily immediately) the element represented by the second one. In this case, a pre element following an h1.
+
+#header .callout -- notice space == Select all elements with the class name 'callout' that are decendents of the element with an ID of 'header'.
+#header.callout  -- no space == Select the element which has an ID of 'header' and also a class name of 'callout'.
+
+must have both clsA and clsB
+$('.clsA.clsB').addClass('show-red');
+
+have either clsA or clsB
+$('.clsA, .clsB').addClass('show-red');
+
+have clsB is contained by clsA
+$('.clsA .clsB').addClass('show-red');
+
+[action] == elements that have the attribute 'action'
+[action="ok"] == elements that have the attribute 'action' set equal to 'ok'
+
+--------------------------------------------
+attribute starts with, contains or ends with
+--------------------------------------------
+[attribute^=value] a[src^="https"]     Every anchor element whose src attribute begins with "https"
+[attribute$=value] a[src$=".pdf"]      Every anchor element whose src attribute ends with ".pdf"
+[attribute*=value] a[src*="w3schools"] Every anchor element whose src attribute contains the substring "w3schools"
+
+div[class$="test"] == all div elements that have a class attribute that ends with "test"
+
+also works with user defined attributes
+  .slick-row[row$="1"], .slick-row[row$="3"], .slick-row[row$="5"], .slick-row[row$="7"],	.slick-row[row$="9"] {
+      background: #fafafa;
+  }
+Each element that has the class '.slick-row' and the attribute 'row=nn' where the last digit of nn is odd
+ie:
+  <div class="slick-row odd" style="top:275px" row="11">
+
+--------------------------------------------
+:not(X) negation pseudo-class CSS3
+--------------------------------------------
+The negation pseudo-class, :not(X), is a functional notation taking a simple selector X as an argument.
+It matches an element that is not represented by the argument.
+X must not contain another negation selector, or any pseudo-elements.
+
+The specificity of the :not pseudo-class is the specificity of its argument.
+The :not pseudo-class does not add to the selector specificity, unlike other pseudo-classes.
+
+examples:
+  .someclass:not([locked]) -- Element has class 'someclass' but does not have attribute 'locked'
+  .someclass:not([locked="left"]) -- Element has class 'someclass' but does not have attribute 'locked' with value 'left'
+  p:not(.classy) -- paragraphs without class 'classy'
+==========================================================================================
+color charts:
+http://www.somacon.com/p142.php
+http://herohog.com/CSScolorChart.html
+http://www.december.com/html/spec/color1.html
+
+==========================================================================================
+asterisk css ie
+*border-bottom-width
+
+hack to apply styles only to older versions of IE
+
+Versions 7 and below of Internet Explorer recognize properties which are preceded by non-alphanumeric characters
+except an underscore or a hyphen (after discarding the prefix). All other browsers ignore such properties as invalid.
+Therefore, a property that is preceded by an non-alphanumeric character other than an underscore or a hyphen, such as
+an asterisk, is applied exclusively in Internet Explorer 7 and below.
+
+==========================================================================================
+automatically position a div centered in screen like for a dialog.
+Will not work if you want to do drag N drop of the div
+
+  z-index:10000;
+  position: absolute;
+  /* Center the dialog */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+==========================================================================================
+
+Good resource on css positioning.
+Play with "position:..." to see how inline, block and inline-block differ.
+
+http://dev.opera.com/articles/view/36-static-and-relative-positioning/
+http://dev.opera.com/articles/view/37-css-absolute-and-fixed-positioning/
+
+.testthis {
+    display: inline-block;
+    width: 100px;
+    background: yellow;
+}
+
+.testrel {
+    position: relative;
+    left: 50px;
+    top: 25px;
+}
+
+
+    <div>
+        <span class='testthis'>a span</span>
+        <div class='testthis testrel'>a div</div>
+        <span class='testthis'>a span</span>
+        <span class='testthis'>a span</span>
+        <span class='testthis'>a span</span>
+        <div class='testthis'>a div</div>
+        <div class='testthis'>a div</div>
+        <span class='testthis'>a span</span>
+    </div>
+
+-----------------------------------
+summary of above opera.com articles
+-----------------------------------
+
+static, relative, absolute and fixed.
+
+static and relative are closely related
+absolute and fixed  are closely related
+
+Static positioning:
+    This is really a misnomer. Boxes with position:static are not really 'positioned' at all in the CSS sense. They are simply laid out in the order they occur in the markup and take up as much room as they need. This is the default behavior if you don't apply any CSS
+
+Relative positioning
+    An element with position:relative is first laid out just like any static element; block-level or inline. But then the generated box is shifted according to the top, bottom, left and right properties.
+    The thing to remember about relative positioning is that it's only the generated box that is shifted. The element still remains where it was in the static document flow. That's where it 'takes up space' as far as other elements are concerned.
+
+Absolute positioning
+    Absolutely positioned elements are removed entirely from the document flow. That means they have no effect at all on their parent element or on the elements that occur after them in the source code.
+    Top, right, bottom and left properties specify the distances from the element's edges to their corresponding containing block edges.
+
+Fixed positioning
+    Just a specialized form of absolute positioning; elements with fixed positioning are fixed relative to the viewport/browser window rather than the containing element; if the page is scrolled, they stay in the same position in the browser window.
+
+Containing blocks
+    An essential concept when it comes to absolute positioning is the containing block: the block box that the position and dimensions of the absolutely positioned box are relative to.
+    For static boxes and relatively positioned boxes the containing block is the nearest block-level ancestor, the parent element in other words. For absolutely positioned elements however it's a little more complicated. In this case the containing block is the nearest positioned ancestor. By 'positioned' I mean an element whose position property is set to relative, absolute or fixed—in other words, anything except normal static elements.
+    It is common to set a block to relative and not change its offset to make an element the containing block for its absolutely positioned descendants.
+
+==========================================================================================
+issues with inline-block
+resource:
+  vertical lineup inline blocks
+    http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/
+  vertical center text
+    http://phrogz.net/css/vertical-align/index.html
+
+li {
+    display: inline-block;
+    /*vertical-align: top;*/
+    height: 50px;
+    /*line-height: 50px;*/
+    width: 250px;
+    background: silver;
+}
+
+<ul>
+    baseline
+    <li>one</li>
+    <li></li>
+    <li>three</li>
+</ul>
+
+This markup has some issues. The second box which has no text does not line up with the other 2 boxes.
+
+                       ------------
+                       |          |
+                       |          |
+         ------------  |          |  ------------
+baseline |one       |  ------------  |three     |
+         |          |                |          |
+         |          |                |          |
+         ------------                ------------
+
+Fix is to add "vertical-align: top;". The default for vertical-align is baseline.
+To get the text to center vertically set "line-height: 50px;" where the line height is the same as the block height.
+
+You now have this:
+         ------------  ------------  ------------
+baseline |          |  |          |  |          |
+         |one       |  |          |  |three     |
+         |          |  |          |  |          |
+         ------------  ------------  ------------
+
+Notice the white space between the blocks.
+This is the correct behavior for inline elements.
+"Since the elements are rendered inline, white-space in your HTML code will affect the rendering. If we have space
+between the LI elements in our code example, it will render a 4 pixel margin to the right of each element."
+You can fix this by removing the white space between the li elements. Change the markup to:
+
+<ul>
+    baseline
+    <li>one</li><li></li><li>three</li>
+</ul>
+
+You now have this:
+         ------------------------------------
+baseline |          ||          ||          |
+         |one       ||          ||three     |
+         |          ||          ||          |
+         ------------------------------------
+
+==========================================================================================
+Less
+http://lesscss.org
+
+To compile less to css:
+  There are various standalone apps to do this for diff platforms. Requires a JS engine. Looks like a hassle.
+  Easy way is to allow the browser compile the .less to .css then extract the css code using firebug.
+  The less.js file allows compile .less -> .css when page is loaded to allow serving up the .less file in place
+  of the .css file. Need to do the same thing then manually save the .css. Be aware of the cross domain restrictions
+  when running on local drive. Need the .less files to be in same dir or sub-dir as the .html file.
+  Example:
+
+Example Files:
+
+testLess.html
+-------------
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Comple less to css</title>
+        <link rel="stylesheet/less" href="variables.less" />
+        <link rel="stylesheet/less" href="mixins.less" />
+        <link rel="stylesheet/less" href="accordion.less" />
+
+        <script src="less-1.3.0.min.js"></script>
+    </head>
+
+    <body>
+        <h1>Nothing to see here</h1>
+    </body>
+</html>
+
+accordion.less
+-------------
+@import "variables.less";
+@import "mixins.less";
+
+.accordion {
+  margin-bottom: @baseLineHeight;
+}
+
+/* Comments using standard */
+/* CSS comment style survive and */
+/* end up in the generated css */
+
+// This style of comment get stripped
+.accordion-group {
+  margin-bottom: 2px;
+  border: 1px solid @black;
+  .border-radius(4px);
+}
+
+mixins.less
+-------------
+// Border Radius
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+variables.less
+-------------
+@black:                 #000;
+@baseLineHeight:        18px;
+
+
+Load the page with firebug enabled. Firebug console should show some messages generated by less compile.
+Go to the HTML tab, in head find the <style> with generated css. Will look like:
+  <style type="text/css" media="screen" id="less:file-D-Temp-accordion">
+Rt click on style tag and pick "Copy innerHTML". Will get the generated css ie:
+
+.accordion {
+  margin-bottom: 18px;
+}
+/* Comments using standard */
+/* CSS comment style survive and */
+/* end up in the generated css */
+.accordion-group {
+  margin-bottom: 2px;
+  border: 1px solid #000000;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+*NOTES*:
+  If you go to the CSS tab in firebug you can select the css 'file' ie "testLess.html #3".
+  This is the css after firefox processes it. Any settings firefox does not recognize will be
+  stripped ie: "-webkit-border-radius"
+
+  mixins that dont take params can be defined like:
+    .some-mixin {...}
+  OR
+    .some-mixin() {...}
+
+  The first syntax will require you to @import any variables required by the mixin.
+  The second syntax makes it clear that it is a mixin and not a simple class definition and does not require the @import if the variables have already been loaded.
+
+==========================================================================================
+Sample less code
+http://coding.smashingmagazine.com/2011/09/09/an-introduction-to-less-and-comparison-to-sass/
+---------------
+  @blue: #00c;
+  @light_blue: @blue + #333;
+  @dark_blue: @blue - #333;
+
+---------------
+.border-radius( @radius: 3px ) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+In this case, the .border-radius class has a default radius of 3 pixels, but you can pass whatever value you like to get a rounded corner of that radius. Something like .border-radius(10px) will round the corners by 10 pixels.
+
+---------------
+color functions ie lighten
+@blue: #369;
+
+.submit {
+    padding: 5px 10px;
+    border: 1px solid @blue;
+    background: -moz-linear-gradient(top, lighten(@blue, 10%), @blue 100%); /*Moz*/
+    background: -webkit-gradient(linear, center top, center bottom, from(lighten(@blue, 10%)), color-stop(100%, @blue)); /*Webkit*/
+    background: -o-linear-gradient(top, lighten(@blue, 10%) 0%, @blue 100%); /*Opera*/
+    background: -ms-linear-gradient(top, lighten(@blue, 10%) 0%, @blue 100%); /*IE 10+*/
+    background: linear-gradient(top, lighten(@blue, 10%) 0%, @blue 100%); /*W3C*/
+    color: #fff;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+}
+
+---------------
+variable scope
+@color: #00c; /* blue */
+
+#header {
+	@color: #c00; /* red */
+
+	border: 1px solid @color; /* will have a red border */
+}
+
+#footer {
+	border: 1px solid @color; /* will have a blue border */
+}
+
+---------------
+JavaScript eval
+
+@string: `'howdy'.toUpperCase()`; /* @string becomes 'HOWDY' */
+
+/* You can also use the previously mentioned interpolation: */
+@string: 'howdy';
+@var: ~`'@{string}'.topUpperCase()`; /* becomes 'HOWDY' */
+
+/* Here we access part of the document */
+@height = `document.body.clientHeight`;
+
+---------------
+==========================================================================================
+Using border settings to make simple arrow heads. Ripped off from bootstrap.js
+The original bootstrap 'caret' uses the additional styles:
+  display: inline-block;
+  vertical-align: top;
+May be necessary if there are alignment issues
+
+html
+    <div class='test-container'><span class='navarrow'></span></div>
+    <div class='test-container'><span class='navarrow navdn'></span></div>
+    <div class='test-container'><span class='navarrow navup'></span></div>
+    <div class='test-container'><span class='navarrow navrt'></span></div>
+    <div class='test-container'><span class='navarrow navlf'></span></div>
+
+CSS
+
+.test-container {
+    width: 25px;
+    height: 25px;
+    border: 1px solid red;
+}
+
+.navarrow {
+    width:0;
+    height:0;
+    display: block;
+    border: 10px solid black;
+}
+
+.navarrow.navdn {
+    border-color: black transparent transparent transparent;
+    margin: 7px 0 0 2px;
+}
+
+.navarrow.navup {
+    border-color: transparent transparent black transparent;
+    margin: -3px 0 0 2px;
+}
+
+.navarrow.navlf {
+    border-color: transparent transparent transparent black;
+    margin: 3px 0 0 8px;
+}
+
+.navarrow.navrt {
+    border-color: transparent black transparent transparent;
+    margin: 3px 0 0 -4px;
+}
+
+==========================================================================================

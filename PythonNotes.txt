@@ -1,0 +1,788 @@
+Python Ternary Operator (2.5+)
+a if b else c
+  First b is evaluated, then either a or c is returned based on the truth value of b
+===================================================================================================
+Built-in objects
+----------------
+Object type                   Example literals/creation
+Numbers                       1234, 3.1415, 3+4j, Decimal, Fraction
+Strings                       'spam', "guido's", b'a\x01c'
+Lists                         [1, [2, 'three'], 4]
+Dictionaries                  {'food': 'spam', 'taste': 'yum'}
+Tuples                        (1, 'spam', 4, 'U')
+Files                         myfile = open('eggs', 'r')
+Sets                          set('abc')
+Sets 3.0                      {'a', 'b', 'c'}
+Other core types              Booleans, types, None
+Program unit types            Functions, modules, classes
+Implementation-related types  Compiled code, stack tracebacks
+
+===================================================================================================
+Python expression operators and precedence
+------------------------------------------
+Operators                     Description
+yield x                       Generator function send protocol
+lambda args: expression       Anonymous function generation
+x if y else z                 Ternary selection (x is evaluated only if y is true)
+x or y                        Logical OR (y is evaluated only if x is false)
+x and y                       Logical AND (y is evaluated only if x is true)
+not x                         Logical negation
+x in y, x not in y            Membership (iterables, sets)
+x is y, x is not y            Object identity tests
+x < y, x <= y, x > y, x >= y  Magnitude comparison, set subset and superset;
+x == y, x != y                Value equality operators
+x | y                         Bitwise OR, set union
+x ^ y                         Bitwise XOR, set symmetric difference
+x & y                         Bitwise AND, set intersection
+x << y, x >> y                Shift x left or right by y bits
+x + y                         Addition, concatenation
+x – y                         Subtraction, set difference
+x * y                         Multiplication, repetition
+x % y                         Remainder (modulus), format
+x / y, x // y                 Division: true and floor
+-x, +x                        Negation, identity
+˜x                            Bitwise NOT (inversion)
+x ** y                        Power (exponentiation)
+x[i]                          Indexing (sequence, mapping, others)
+x[i:j:k]                      Slicing
+x(...)                        Call (function, method, class, other callable)
+x.attr                        Attribute reference
+(...)                         Tuple, expression, generator expression
+[...]                         List, list comprehension
+{...}                         Dictionary, set, set and dictionary comprehensions
+
+===================================================================================================
+Common string literals and operations
+-------------------------------------
+Operation                   Interpretation
+S = ''                      Empty string
+S = "spam's"                Double quotes, same as single
+S = 's\np\ta\x00m'          Escape sequences
+S = """..."""               Triple-quoted block strings
+S = r'\temp\spam'           Raw strings
+S = b'spam'                 Byte strings in 3.0
+S = u'spam'                 Unicode strings in 2.6 only
+S1 + S2                     Concatenate
+S * 3                       Repeat
+S[i]                        Index
+S[i:j]                      Slice
+len(S)                      Length
+"a %s parrot" % kind        String formatting expression
+"a {0} parrot".format(kind) String formatting method in 2.6 and 3.0
+S.find('pa')                Search
+S.rstrip()                  Remove whitespace
+S.replace('pa', 'xx')       Replacement
+S.split(',')                Split on delimiter
+S.isdigit()                 Content test
+S.lower()                   Case conversion
+S.endswith('spam')          End test
+'spam'.join(strlist)        Delimiter join
+S.encode('latin-1')         Unicode encoding, etc.
+'spam' in S                 Membership
+for x in S: print(x)        Iteration
+[c * 2 for c in S]          Iteration
+map(ord, S)                 Mapping
+
+There is no string.reverse() but you can do it with slice
+[begin:end:step] - by leaving begin and end off and specifying a step of -1, it reverses a string.
+    'hello world'[::-1]
+    
+string.format() mini language
+http://docs.python.org/2/library/string.html#formatstrings
+
+===================================================================================================
+Common list literals and operations
+-----------------------------------
+Operation                     Interpretation
+L = []                        An empty list
+L = [0, 1, 2, 3]              Four items: indexes 0..3
+L = ['abc', ['def', 'ghi']]   Nested sublists
+L = list('spam')              Lists of an iterable’s items
+L = list(range(-4, 4))        List of successive integers
+L[i]                          Index
+L[i][j]                       Index of index
+L[i:j]                        Slice
+len(L)                        Length
+L1 + L2                       Concatenate
+L * 3                         Repeat
+for x in L: print(x)          Iteration
+3 in L                        Membership
+L.append(4)                   Methods: growing
+L.extend([5,6,7])
+L.insert(I, X)
+L.index(1)                    Methods: searching
+L.count(X)
+L.sort()                      Methods: sorting, reversing, etc.
+L.reverse()
+del L[k]                      Methods, statement: shrinking
+del L[i:j]
+L.pop()
+L.remove(2)
+L[i:j] = []
+L[i] = 1                      Index assignment
+L[i:j] = [4,5,6]              Slice assignment
+L = [x**2 for x in range(5)]  List comprehensions and maps
+L = [float(w) for w in selText.split() if is_number(w)]
+list(map(ord, 'spam'))
+
+------------------
+clear a list
+------------------
+l = [] # creates new list
+del l[:] # clears list in place
+l[:] = [] # clears list in place
+
+------------------
+extend vs append
+------------------
+# append adds an object to list
+l = ['this', 1, 'is a', 'test']
+l.append([2,'more'])
+l # >>> ['this', 1, 'is a', 'test', [2, 'more']]
+
+# extend concatenates 2 lists
+l = ['this', 1, 'is a', 'test']
+l.extend([2,'more'])
+l # >>> ['this', 1, 'is a', 'test', 2, 'more']
+
+-----------------------
+various list iterations
+-----------------------
+http://www.saltycrane.com/blog/2008/04/how-to-use-pythons-enumerate-and-zip-to/
+
+enumerate - Iterate over indices and items of a list
+alist = ['a1', 'a2', 'a3']
+for i, a in enumerate(alist):
+    print i, a
+yields:
+0 a1
+1 a2
+2 a3
+
+zip - Iterate over two lists in parallel
+alist = ['a1', 'a2', 'a3']
+blist = ['b1', 'b2', 'b3']
+for a, b in zip(alist, blist):
+    print a, b
+yields:
+a1 b1
+a2 b2
+a3 b3
+
+enumerate with zip. Iterate over two lists and their indices using enumerate together with zip:
+alist = ['a1', 'a2', 'a3']
+blist = ['b1', 'b2', 'b3']
+for i, (a, b) in enumerate(zip(alist, blist)):
+    print i, a, b
+yields:
+0 a1 b1
+1 a2 b2
+2 a3 b3
+
+===================================================================================================
+Common dictionary literals and operations
+-----------------------------------------
+Operation                           Interpretation
+D = {}                              Empty dictionary
+D = {'spam': 2, 'eggs': 3}          Two-item dictionary
+D = {'food': {'ham': 1, 'egg': 2}}  Nesting
+D = dict(name='Bob', age=40)        Keywords
+D = dict(zip(keyslist, valslist))   Zipped pairs
+D = dict.fromkeys(['a', 'b'])       key lists
+D['eggs']                           Indexing by key
+D['food']['ham']
+'eggs' in D                         Membership: key present test
+D.keys()                            Methods: keys
+D.values()                          Values
+D.items()                           Keys+values
+D.copy()                            Copies
+D.get(key, default)                 Defaults
+D.update(D2)                        Merge
+D.pop(key)                          Delete, etc.
+len(D)                              Length: number of stored entries
+D[key] = 42                         Adding/changing keys
+
+------------------
+Iterate dictionary
+------------------
+d = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':6, 'g':7}
+print(d) # {'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6}
+
+for i in d: print(i, end='|')                 # a|c|b|e|d|g|f|
+for i in d.keys(): print(i, end='|')          # a|c|b|e|d|g|f|
+for i in d.values(): print(i, end='|')        # 1|3|2|5|4|7|6|
+for i in d.items(): print(i, end='|')         # ('a', 1)|('c', 3)|('b', 2)|('e', 5)|('d', 4)|('g', 7)|('f', 6)|
+for (i, j) in d.items(): print(i, j, end='|') # a 1|c 3|b 2|e 5|d 4|g 7|f 6|
+
+===================================================================================================
+Common tuple literals and operations
+------------------------------------
+Operation                    Interpretation
+()                           An empty tuple
+T = (0,)                     A one-item tuple (not an expression)
+T = (0, 'Ni', 1.2, 3)        A four-item tuple
+T = 0, 'Ni', 1.2, 3          Another four-item tuple (same as prior line)
+T = ('abc', ('def', 'ghi'))  Nested tuples
+T = tuple('spam')            Tuple of items in an iterable
+T[i]                         Index
+T[i][j]                      Index of index
+T[i:j]                       Slice
+len(T)                       Length
+T1 + T2                      Concatenate
+T * 3                        Repeat
+for x in T: print(x)         Iteration
+'spam' in T                  Membership
+[x ** 2 for x in T]
+T.index('Ni')                Methods in 2.6 and 3.0: search, count
+T.count('Ni')
+
+===================================================================================================
+Common file operations
+----------------------
+Operation                           Interpretation
+output = open(r'C:\spam', 'w')      Create output file ('w' means write)
+input = open('data', 'r')           Create input file ('r' means read)
+input = open('data')                Same as prior line ('r' is the default)
+aString = input.read()              Read entire file into a single string
+aString = input.read(N)             Read up to next N characters (or bytes) into a string
+aString = input.readline()          Read next line (including \n newline) into a string
+aList = input.readlines()           Read entire file into list of line strings (with \n)
+output.write(aString)               Write a string of characters (or bytes) into file
+output.writelines(aList)            Write all line strings in a list into file
+output.close()                      Manual close (done for you when file is collected)
+output.flush()                      Flush output buffer to disk without closing
+anyFile.seek(N)                     Change file position to offset N for next operation
+for line in open('data'): use line  File iterators read line by line
+open('f.txt', encoding='latin-1')   Python 3.0 Unicode text files (str strings)
+open('f.bin', 'rb')                 Python 3.0 binary bytes files (bytes strings)
+
+===================================================================================================
+A raw string cannot end in a single backslash, because the backslash escapes the following quote character
+you still must escape the surrounding quote character to embed it in the string.
+That is, r"...\" is not a valid string literal.
+If you need to end a raw string with a single backslash, you can:
+  r'1\nb\tc\\'[:-1] # use two and slice off the second
+  r'1\nb\tc' + '\\' # tack one on manually
+  '1\\nb\\tc\\'     # Skip the raw string syntax and just double up the backslashes in a normal string
+All three of these forms create the same eight character string '1\nb\tc\'.
+
+===================================================================================================
+' # close quote so rest of this text file will display as py code
+===================================================================================================
+# Multi line strings
+# Triple quotes include line breaks
+# \naaaa\nbbbb\ncccc
+s = '''
+aaaa
+bbbb
+cccc'''
+
+# String concatination is implied. No + is necessary.
+# aaaabbbbcccc
+s = ('aaaa'
+     'bbbb'
+     'cccc')
+
+===================================================================================================
+case insensive string replace:
+string.replace is case sensitive ie
+  s = 'old OlD OLD'.replace('old', 'new')
+  print(s) # new OlD OLD
+
+fix is to use regular expression
+  pattern = re.compile('old', re.IGNORECASE)
+  s = pattern.sub('new', 'old OlD OLD')
+  print(s) # new new new
+
+===================================================================================================
+a = a + b VS a += b
+For immutable there is not difference both make a copy.
+for mutable however there is a difference; python will use the fastest method available to it.
+For a list this means += uses append() or extend() and changes the object in place.
+
+L = [1, 2]
+M = L                  # L and M reference the same object
+L = L + [3, 4]         # Concatenation makes a new object
+print(L, M)            # [1, 2, 3, 4] [1, 2] - Changes L but not M
+
+L = [1, 2]
+M = L
+L += [3, 4]            # But += really means extend
+print(L, M)            # [1, 2, 3, 4] [1, 2, 3, 4) - Changes both L and M
+
+===================================================================================================
+>>> S = 'test'
+>>> dir(S) # gives list of all the attributes available for a given object
+
+>>> help(S.replace) # Help on built-in function replace
+
+===================================================================================================
+chain multiple comparisons
+The expression (A < B < C) tests whether B is between A and C; it is equivalent to the Boolean test (A < B and B < C)
+>>> X < Y < Z  # Same as: X < Y and Y < Z
+>>> 1 == 2 < 3 # Same as: 1 == 2 and 2 < 3
+
+===================================================================================================
+X / Y # Python 3.0 performs true division, always keeping remainders regardless of types. (avail in 2.6 from import future...)
+X // Y # Floor division. Added in Python 2.2 always truncates fractional remainders down to their floor
+
+===================================================================================================
+Decimal Type
+Python 2.4 introduced a new core numeric type: the decimal object
+Decimals are fixed-precision floating-point values.
+
+>>> 0.1 + 0.1 + 0.1 - 0.3
+5.5511151231257827e-17
+
+>>> from decimal import Decimal
+>>> Decimal('0.1') + Decimal('0.1') + Decimal('0.1') - Decimal('0.3')
+Decimal('0.0')
+
+Other tools in the decimal module can be used to set the precision of all decimal numbers,
+set up error handling, and more
+
+>>> import decimal
+>>> decimal.Decimal(1) / decimal.Decimal(7)
+Decimal('0.1428571428571428571428571429')
+
+>>> decimal.getcontext().prec = 4
+>>> decimal.Decimal(1) / decimal.Decimal(7)
+Decimal('0.1429')
+
+===================================================================================================
+str VS repr Display Formats
+
+>>> num = 1 / 3
+>>> repr(num) # Used by echoes: as-code form
+'0.33333333333333331'
+>>> str(num) # Used by print: user-friendly form
+'0.333333333333'
+
+===================================================================================================
+string format examples
+
+                                       1234567890123456789012345678901234567890
+'{}{:5d}'.format('x', 123)        -> 'x  123'
+'{}{:05d}'.format('x', 123)       -> 'x00123'
+'{}{:15f}'.format('x', 123.45)    -> 'x     123.450000'
+'{}{:15.3f}'.format('x', 123.45)  -> 'x        123.450'
+===================================================================================================
+Does python pass by value or reference?
+There is a lot of bad info on the web.
+
+Often times it looks like the following to demonstrate the difference between pass by value/reference or mutable/immutable:
+
+def fun(var1, var2):
+  var1 = 'new value'
+  var2[1] = 'modified'
+
+def test():
+  s = 'orig value'
+  d = ['1', 'orig', 3]
+  print(s) # orig value
+  print(d) # ['1', 'orig', 3]
+  fun(s, d)
+  print(s) # orig value
+  print(d) # ['1', 'modified', 3]
+
+test()
+
+This does *not* demonstrate the difference between pass by value/reference or mutable/immutable
+it demonstrates the difference between variable assignment and method invocation.
+
+Some give confusing answers like "Python passes a reference by value" while this may be true it is an overly complicated answer.
+
+If you accept the following definitions then python passes by reference
+  by value     === function gets a copy of the object
+  by reference === function gets a shared reference to the object
+
+Everything in python is an object. integer, bool, tuple, dict etc.
+All objects are passed by reference.
+
+The only thing you need to get your head around is the difference mutable and immutable.
+The only thing that make an immutable object immutable, is that it does not have any mutator methods defined on it.
+If the string class defined __add__ or __setitem__ or other mutator methods then string would be mutable.
+
+===================================================================================================
+Launch python with the "-3" command line switch to warn about Python 3.x incompatibilities that 2to3 cannot trivially fix
+
+ie python -3
+===================================================================================================
+exceptions
+----------
+
+try:
+  fetcher(x, 4)
+except: # Catch any exception and recover
+  print('got exception')
+
+---------
+try:
+  fetcher(x, 4)
+except IndexError: # Catch specific exception and recover
+  print('got exception')
+
+---------
+class Bad(Exception): # User-defined exception
+  pass
+
+def doomed():
+  raise Bad() # Raise an instance
+
+try:
+  doomed()
+except Bad: # Catch class name
+  print('got Bad')
+
+---------
+try:
+  doomed()
+except IndexError as e: # alias exception to e
+  print('got Bad')
+
+---------
+Unified try/except/finally (2.5 and above)
+
+try:
+    block-1 ...
+except Exception1:
+    handler-1 ...
+except Exception2:
+    handler-2 ...
+else:
+    else-block
+finally:
+    final-block
+
+The code in block-1 is executed. If the code raises an exception, the various except blocks are tested:
+if the exception is of class Exception1, handler-1 is executed; otherwise if it’s of class Exception2,
+handler-2 is executed, and so forth.
+
+If *no* exception is raised, the else-block is executed.
+
+No matter what happened previously, the final-block is executed once the code block is complete and any
+raised exceptions handled. Even if there’s an error in an exception handler or the else-block and a new
+exception is raised, the code in the final-block is still run.
+
+===================================================================================================
+# different ways to code a closure for a call back that expects a callable
+
+funs = []
+
+# closure
+def makeClosure(i):
+  def f():
+    print('closure', i)
+  return f
+
+del funs[:]
+funs.append(makeClosure(1))
+funs.append(makeClosure(2))
+funs.append(makeClosure(3))
+for f in funs:
+  f()
+
+# make a class callable ie can call cls() instead of cls.fun()
+class cls(object):
+  def __init__(self, i):
+    self.i = i
+  def __call__(self):
+    print('class', self.i)
+
+del funs[:]
+funs.append(cls(1))
+funs.append(cls(2))
+funs.append(cls(3))
+for f in funs:
+  f()
+
+# add an attribute to a function. Still requires a closure. Not sure this is of any use
+def makeAttrbute(i):
+  def f():
+    print('attribute', f.i)
+  f.i = i
+  return f
+
+del funs[:]
+funs.append(makeAttrbute(1))
+funs.append(makeAttrbute(2))
+funs.append(makeAttrbute(3))
+for f in funs:
+  f()
+
+# similar to prior example but sets the attribute in separate step
+def makeAttrbuteB():
+  def f():
+    print('attributeB', f.i)
+  return f
+
+del funs[:]
+f = makeAttrbuteB()
+f.i = 1
+funs.append(f)
+f = makeAttrbuteB()
+f.i = 2
+funs.append(f)
+f = makeAttrbuteB()
+f.i = 3
+funs.append(f)
+for f in funs:
+  f()
+
+===================================================================================================
+differences between adding a method to a class and to an instance.
+
+class Dog():
+  def __init__(self, name):
+    self.name = name
+
+puppy = Dog('Skip')
+spot = Dog('Spot')
+def talk(self):
+  print('Hi, my name is ' + self.name)
+
+Dog.talk = talk # add method to class
+puppy.talk() # Hi, my name is Skip
+spot.talk()  # Hi, my name is Spot
+del Dog.talk # remove method from class
+try:
+  puppy.talk() # won't work anymore
+except Exception as e:
+  print(e) # Dog instance has no attribute 'talk'
+
+import types
+f = types.MethodType(talk, puppy, Dog)
+puppy.talk = f # add method to specific instance
+puppy.talk() # Hi, my name is Skip
+try:
+  spot.talk() # won't work, since we only modified puppy
+except Exception as e:
+  print(e) # Dog instance has no attribute 'talk'
+
+===================================================================================================
+Clean up code with finally or with
+
+finally block executes regardless of whether an exception occurs in the try block
+
+try:
+  ...
+finally:
+  ...
+
+------------------
+with statement
+------------------
+
+The 'with' statement clarifies code that previously would use try...finally blocks to ensure that clean-up code is executed.
+
+with expression [as variable]:
+    with-block
+
+Use with objects that supports the context management protocol (that is, has __enter__() and __exit__() methods.
+The object’s __enter__() is called before with-block is executed and therefore can run set-up code.
+It also may return a value that is bound to the name variable, if given. (Note carefully that variable is not assigned the result of expression.)
+After execution of the with-block is finished, the object’s __exit__() method is called, even if the block raised an exception, and can therefore run clean-up code.
+
+Some standard Python objects support the context management protocol and can be used with the 'with' statement.
+
+with open('/etc/passwd', 'r') as f:
+    for line in f:
+        print line
+        ... more processing code ..
+
+After this statement has executed, the file object in f will have been automatically closed, even if the for loop raised an exception part way through the block.
+Note : In this case, f is the same object created by open(), because file.__enter__() returns self.
+
+===================================================================================================
+Python 2.7 vs 3.x
+
+see:
+  http://sayspy.blogspot.com/2010/08/what-will-forever-be-exclusive-to.html
+  http://docs.python.org/dev/whatsnew/2.7.html
+  http://python3porting.com/
+
+----------------------------------------------------
+Run interpreter with "python -3" to get warnings about P3 incompatibilities
+
+----------------------------------------------------
+use __future__ imports
+  from __future__ import nested_scopes
+  from __future__ import generators
+  from __future__ import division
+  from __future__ import absolute_import
+  from __future__ import with_statement
+  from __future__ import print_function
+  from __future__ import unicode_literals
+  from future_builtins import filter, map, zip
+
+----------------------------------------------------
+Dictionary Changes:
+  In P3 keys(), values(), and items() return a view instead of a fully materialized list.
+  in P2.7 use viewkeys(), viewvalues(), and viewitems() to get the same functionality
+  the 2to3 converter will change them to the standard keys(), values(), and items() methods.
+
+  P3 No longer support relative magnitude comparisons directly-compare manually instead
+  P3 No longer have the D.has_key method-the in membership test is used instead
+
+----------------------------------------------------
+Build ins:
+  In P3 the built-in functions range(), map(), zip(), and filter return iterable objects
+  Use the future_builtins to get same functionality for filter(), map(), zip()
+    from future_builtins import filter, map, zip
+
+  The range() built in is not included in future_builtins but you can use xrange() go
+  get an iterable instead of a list. xrange() is going away in P3 because its redundant
+
+----------------------------------------------------
+Exceptions:
+P2
+  except ZeroDivisionError, e:
+P3
+  except ZeroDivisionError as e:
+
+The new syntax works in 2.7
+
+===================================================================================================
+style guide
+-----------
+Comparisons to singletons like None should always be done with 'is' or 'is not', never the equality operators.
+
+good 2.x code will typically use xrange instead of range
+
+===================================================================================================
+SQLite
+------
+
+Python ships with pySQLite
+pySQLite requires _sqlite3.pyd and sqlite3.dll as well as other *.py files
+    # check version
+    import sqlite3
+    print(sqlite3.version)        # version - pysqlite version
+    print(sqlite3.sqlite_version) # sqlite_version - sqlite version
+
+
+APSW stands for Another Python SQLite Wrapper.
+
+APSW is a Python wrapper for the SQLite embedded relational database engine.
+In contrast to other wrappers such as pysqlite it focuses on being a minimal layer over SQLite.
+APSW has the SQLite code embedded right in the apsw.pyd file so there is no need for sqlite3.dll
+    # check version
+    import apsw
+    print("      Using APSW file", apsw.__file__             ) # from the extension module
+    print("         APSW version", apsw.apswversion()        ) # from the extension module
+    print("   SQLite lib version", apsw.sqlitelibversion()   ) # from the sqlite library code
+    print("SQLite header version", apsw.SQLITE_VERSION_NUMBER) # from the sqlite header file at compile time
+
+pySQLite requires _sqlite3.pyd and sqlite3.dll as well as other *.py files
+APSW ONLY requires apsw.pyd and it can just be dropped in any dir where python will find it
+
+===================================================================================================
+Python unicode
+  http://www.joelonsoftware.com/articles/Unicode.html
+  http://wiki.python.org/moin/UnicodeEncoding
+  http://docs.python.org/library/codecs.html#encodings-overview
+
+Codecs:
+  utf_8   - variable-length encoding. 1-4 bytes. Can hold any unicode code point
+  utf_16  - variable-length encoding. 2-? bytes. Can hold any unicode code point. (*1)
+  ascii   - 1 byte (really 1/2 byte) any char > 127 causes encoding error
+  latin_1 aka ISO-8859-1   - 1 byte. A code page with all ASCII codes and western european chars
+  cp1252  aka windows-1252 - 1 byte. Standard windows code page. Superset of ISO-8859-1 but extra characters in range 0x80-0x9F.
+
+The HTML5 standard requires web browsers to treat the MIME charset ISO-8859-1 as Windows-1252
+Latin-1 (ISO-8859-1) vs. cp1252 (windows-1252)
+  http://en.wikipedia.org/wiki/Windows-1252
+
+There are some python specific 'codecs' that convert a byte stream to something other than an unicode object ie zip.
+
+repr() and unicodedata.name() are useful when working with unicode.
+
+(*1) UTF-16 is a train wreck. http://benlynn.blogspot.com/2011/02/utf-8-good-utf-16-bad_07.html
+     The original Unicode supported exactly 0x10000 code points, making UCS-2 (the precursor to UTF-16) attractive.
+     Each character neatly corresponded to one 16-bit word.
+     The Unicode Consortium decided more code points were needed.
+     There’s no way to squeeze more than 16 bits into UCS-2.
+     Apart from abandoning UCS-2, the only recourse was to reserve a chunk of values for encoding the higher code points.
+     Thus UTF-16 was born.
+     Sadly, various UTF-16 bugs suggest that much code remains unaware UTF-16 is a variable-length encoding.
+===================================================================================================
+Read and write unicode files:
+
+You can manually encode and decode the text as you read/write file
+    codec = 'utf_8_sig'
+
+    for line in open(r'D:\Trash\unicodeFile.txt', 'r'):
+        line = line.decode(codec) # decode line
+        # do something with line
+
+    line = # some unicode text here
+    output = open(r'D:\Trash\Out.txt', 'w')
+    output.write(line.encode(codec)) # encode and write line
+
+A better way is use codecs.open() in place of the standard open() function
+    import codecs
+
+    codec = 'utf_8_sig'
+
+    for line in codecs.open(r'D:\Trash\unicodeFile.txt', 'r', encoding = codec):
+        # do something directly with line
+
+    line = # some unicode text here
+    output = codecs.open(r'D:\Trash\Out.txt', 'w', encoding = codec)
+    output.write(line) # write line directly without call to encode
+
+===================================================================================================
+Walk dir and find all MDF files greater than 1GB
+
+--------------------------------------------------------
+# solution 1
+
+import os
+
+lstLines = []
+
+for dirpath, dirpaths, filenames in os.walk('f:\\'):
+    for filename in filenames:
+        if filename.lower().endswith('.mdf'):
+            curFile = os.path.join(dirpath, filename)
+            fileSize = os.stat(curFile).st_size
+            if fileSize > 1000000000:
+                lstLines.append('{:15,d}  {}'.format(fileSize, curFile))
+
+
+notepad.new()
+editor.setText('\r\n'.join(lstLines))
+
+--------------------------------------------------------
+glob.glob() is close but it does not recurse sub-dirs
+
+import os, glob
+
+for name in glob.glob(r'f:\*\*.mdf'):
+    fileSize = os.stat(name).st_size
+    if fileSize > 1000000000:
+        lstLines.append('{:15,d}  {}'.format(fileSize, name))
+
+--------------------------------------------------------
+# recursive version of glob() (Thanks to Alex Martelli)
+
+import os, fnmatch
+
+def recursive_glob(treeroot, pattern):
+    results = []
+    for base, dirs, files in os.walk(treeroot):
+        goodfiles = fnmatch.filter(files, pattern)
+        results.extend(os.path.join(base, f) for f in goodfiles)
+    return results
+
+lstLines = []
+
+for name in recursive_glob('f:\\', '*.mdf'):
+    fileSize = os.stat(name).st_size
+    if fileSize > 1000000000:
+        lstLines.append('{:15,d}  {}'.format(fileSize, name))
+    
+notepad.new()
+editor.setText('\r\n'.join(lstLines))
+
+===================================================================================================

@@ -1,0 +1,410 @@
+Node.js Notes
+
+install node
+    node-v0.10.20-x86.msi
+    C:\werProgramFiles\nodejs\
+    install all features (default) ~25M
+
+npm
+    installed by *.msi along with node
+    local packages are saved in current dir
+    global packages are saved in 'Appdata\Roaming\npm'
+        Q is there a way to override global dir?
+        A dont think so
+    example of install package locally in cur dir:
+        npm install <module>
+
+    update modules or npm itself
+        update npm
+            npm update npm -g
+
+        update all outdated local packages
+            npm update
+        update all global packages
+            npm update -g.
+
+npm cheatsheet with all commands
+  http://blog.nodejitsu.com/npm-cheatsheet/#Uninstalling_a_package_globally
+
+clear npm cache
+    npm cache clear
+
+npm install fails with node 11.8 (unstable)
+    this may be an issue with all pre-release versions of node. There may be a npm command line "--nodedir=" to workaround
+        see https://github.com/TooTallNate/node-gyp/wiki/Error%3A-%22pre%22-versions-of-node-cannot-be-installed
+    easy work around is keep a stable version of node.exe and use it
+
+
+display node version
+    C:\>node --version
+    v0.10.20
+
+display node's V8 version
+    C:\>node -e console.log(process.versions.v8)
+    3.14.5.9
+
+using generators in node requires min V8 version of 3.19
+    as of 10-30-2013 only unstable versions have that V8
+    need to use the "--harmony" command line switch
+        with node --harmony
+
+browser
+    update firefox to cur version for websockets (ver 11+)
+    update firebug
+
+notepad++
+    associate html w/ notepad
+
+POSIX error codes
+    http://man7.org/linux/man-pages/man3/errno.3.html
+    ENOENT          No such file or directory (POSIX.1)
+    EXDEV           Improper link (POSIX.1)
+
+------------------------------------------------------------------------------------------------
+correct way to deploy a node app. DONT use npm for deployment
+  http://www.letscodejavascript.com/v3/blog/2014/03/the_npm_debacle
+
+------------------------------------------------------------------------------------------------
+Best way to search for a package. npm brings up too many results
+    http://search.npmjs.org/                -- indiscriminate. just dumps any module with keywork. no sorting or ranking
+    https://nodejsmodules.org/              -- better. can sort by diff rankings fast
+    http://eirikb.github.io/nipster/        -- better. can sort. has rankings slow
+    https://npmjs.org/package/npmsearch     -- install and run from command line. has online demo
+
+------------------------------------------------------------------------------------------------
+node's equivalent to window is global
+------------------------------------------------------------------------------------------------
+express
+
+if express is installed globally you can create a skeleton app
+    express newApp
+
+    will create a new dir 'newApp' as the root of project
+    for options type express --help
+------------------------------------------------------------------------------------------------
+__dirname vs  process.cwd()
+If you cd to the dir and run a script in that dir then __dirname == process.cwd()
+ie
+    cd NodeApp
+    NodeApp> node app.js
+
+If you run node with a full path to a script then __dirname != process.cwd()
+ie
+    cd OtherDir
+    OtherDir> node D:\SomeDir\NodeApp\app.js
+then:
+    __dirname -> D:\SomeDir\NodeApp
+    process.cwd() -> D:\OtherDir
+
+__dirname is the path where the *current* script is running from *not* where the main script (ie app.js) is running from
+    ie if you have a file 'someRoute.js' __dirname is set to the dir where 'someRoute.js' is located
+
+Any relative path used for a resource is relative to the script that launched the app (ie app.js) *not* to the path of the currently running script
+    ie if you have a file 'someRoute.js' in a sub dir, any relative path is still relative to the location of 'app.js'
+
+
+The rules for relative path in an html file that rely on
+    app.use(express.static(...
+seem to be different. not sure how that works. appears to ignore any '../' or './' prefix on the relative path
+
+path name for require() is relative to the location of the script calling it
+
+------------------------------------------------------------------------------------------------
+node event listeners
+  Functions can then be attached to objects, to be executed when an event is emitted.
+  These functions are called listeners. Inside a listener function, this refers to the
+  EventEmitter that the listener was attached to.
+
+------------------------------------------------------------------------------------------------
+Turn a function that uses events into a standard node function
+
+turn this:
+    var is = fs.createReadStream('source_file');
+    var os = fs.createWriteStream('destination_file');
+
+    is.pipe(os);
+    is.on('end',function() {
+        //do something here
+    });
+
+into this:
+    function moveFile(from, to, cb) {
+        var is = fs.createReadStream(from),
+            os = fs.createWriteStream(to);
+
+        is.on('error', cb);
+        is.on('end', cb);
+        is.pipe(os);
+    }
+
+------------------------------------------------------------------------------------------------
+when using my circuit lib you can call function that use events in two ways:
+create a wrapper function and use it
+    function moveFile(from, to, cb) {
+        var is = fs.createReadStream(from),
+            os = fs.createWriteStream(to);
+
+        is.on('error', cb);
+        is.on('end', cb);
+        is.pipe(os);
+    }
+
+    function* someAsynchStuff(..., resume, opts) {
+        ...
+        yield moveFile(img.path, path, resume);
+
+or
+call the code directly in the generator
+
+    function* someAsynchStuff(..., resume, opts) {
+        ...
+        var is = fs.createReadStream(img.path),
+            os = fs.createWriteStream(path);
+
+        is.on('error', resume);
+        is.on('end', resume);
+        yield is.pipe(os);
+
+------------------------------------------------------------------------------------------------
+app.route middleware and static files
+    http://stackoverflow.com/questions/12695591/node-js-express-js-how-does-app-router-work
+
+The order that you pass things to app.use() determines the order in which each middleware is given the opportunity to process a request.
+For example, if you have a file called test.html in your static folder and a route:
+    app.get('/test.html', function(req, res) {
+        res.send('Hello from route handler');
+    });
+Which one gets sent to a client requesting http://server/test.html? Whichever middleware is given to use first.
+
+If you do this:
+    app.use(express.static(__dirname + '/public'));
+    app.use(app.router);
+
+Then the file on disk is served.
+If you do it the other way,
+    app.use(app.router);
+    app.use(express.static(__dirname + '/public'));
+
+Then the route handler gets the request, and "Hello from route handler" gets sent to the browse
+
+Usually, you want to put the router above the static middleware so that:
+    1) An accidentally-named file can't override one of your routes.
+    2) You won't hit the hard drive on every single request to see whether or not a file exists.
+
+Note that if you don't explicitly use the router, it is implicitly added by Express at the point you define a route
+(which is why your routes still work even if you comment out app.use(app.router)).
+
+the normal order is:
+app.use(...)
+...
+
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+You definitely need express.bodyParser() above app.router or req.files is undefined when uploading a file
+
+------------------------------------------------------------------------------------------------
+node file IO
+------------
+
+fs.rename
+    using fs.rename to move a file  does not work across drives ie C:... to D:\...
+    this is a windows limitation
+    Use this:
+        var is = fs.createReadStream('source_file');
+        var os = fs.createWriteStream('destination_file');
+
+        is.pipe(os);
+        is.on('end',function() {
+            fs.unlinkSync('source_file');
+        });
+    OR
+        There's a package called fs.extra written by "coolaj86" on npm.
+        fs.move(...)
+
+fs.unlink / fs.unlinkSync
+    delete a file
+
+------------------------------------------------------------------------------------------------
+npm search for 'sql server'
+C:\>npm search sql server
+
+NAME                  DESCRIPTION
+connect-tedious       Connect session store for SQL Server, using Tedious.
+msnodesql             Microsoft Driver for Node.js for SQL Server \ same
+node-sqlserver        Microsoft Driver for Node.js for SQL Server /
+mssql                 An easy-to-use MSSQL database connector for NodeJS.
+mssqlhelper           Microsoft SQL Server database helper.
+mssqlx                NodeJs Microsoft SQL Server Command Line Interface
+sqlcdcmanager         Configuration Manager for MS SQL Server Change Data Captur
+sqlcdcstream          MS SQL Server Change Data Capture For Node
+ssrs                  Wrapper around Sql Server reporting service
+tds                   TDS client for connecting to Microsoft SQL Server
+tds4node              tds is an implementation of the TDS protocol
+tedious               A TDS driver, for connecting to MS SQLServer databases.
+winston-sqlserver     A SQL Server transport for winston
+node-tds              Abandoned (there are 2 projects named node-tds)
+
+some notes on avail drivers
+  https://github.com/play175/mssqlhelper          - Chinese rip off
+  https://github.com/patriksimek/node-mssql       - layer to tedious, node-tds or MS driver
+  https://github.com/WindowsAzure/node-sqlserver  - need to build. 3rd party binarys avail (*1)
+  https://github.com/erhangundogan/sql2mongodb    - convert from sql server to mongodb
+  https://github.com/orenmazor/node-tds           - Abandoned
+
+  git                                   npm                                 Dependencies                Notes
+  https://github.com/cretz/node-tds     https://npmjs.org/package/tds       None                        (*2)
+  https://github.com/pekim/tedious      https://npmjs.org/package/tedious   async, iconv-lite, sprintf  (*3)
+  https://github.com/ttghr/tds          https://npmjs.org/package/tds4node  generic-pool, ansi-color    dead project
+
+(*1)
+  The MS driver has binaries but they don't run on node v1.x + :. need to build yourself or use a binary built by someone else.
+  The project appears to be abandoned
+(*2)
+  Tried this one. its a POS. Failed on simple queries. There are some fixes that have not been pushed out to npm.
+  As of 1-2014 the fixes are 2 years old and still have not been incorporated into the version on npm.
+  There are 2 projects named node-tds
+(*3)
+  node tedious
+  Appears to work well. As of 1-2014 the last update was 6-2013.
+  Returns boolean as true/false instead of 0/1
+  does not handle duplicate column names for you. This is documented "If there are multiple columns with the same name, then this will be an array of the values."
+  could work around this by renaming column to col_N and indexing the array in the results
+  you have to use encryption = true as an option when connecting to sqlserver on Azure.
+
+** NOTE **
+  As of 1-2014 it appears as if all MSSQL driver projects on github are dead. May want to use Edge.js which allows running .Net code from node.
+  The project is currently maintained by a MS employee
+
+http://stackoverflow.com/questions/5156806/node-js-and-microsoft-sql-server
+  list of MS Sql drivers
+  Note there are 2 node-tds projects
+
+notes on ms driver not working on node v 1 +
+  https://github.com/WindowsAzure/node-sqlserver/issues/126
+  http://stackoverflow.com/questions/19661811/unable-to-download-msnodesql-0-2-1-v0-10-x64-msi
+------------------------------------------------------------------------------------------------
+nodeJs NoSQL notes
+MongoDB - runs on windows
+CouchDB - written erlang. requires erlang interperter?
+Redis - Disk-backed in-memory database. Author says does not run on windows and never will. Microsoft Open Tech group develops and maintains an experimental Windows port targeting Win32/64.
+LevelDB - from google. code behind chrome indexed db. may be able to to run on windows. not sure there is an official binary distribution
+Cassandra - Written in Java :. will run on windows
+couchbase - runs on windows
+
+------------------------------------------------------------------------------------------------
+MongoDB
+
+Side by side examples of SQL vs mongo
+  http://docs.mongodb.org/manual/reference/sql-comparison/
+translate SQL concepts to mongo
+  http://docs.mongodb.org/manual/reference/sql-aggregation-comparison/
+
+------------------------------------------------------------------------------------------------
+NeDB (Node embedded database)
+  https://github.com/louischatriot/nedb
+  Embedded persistent database for Node.js, written in Javascript.
+  You can think of it as a SQLite for Node.js projects, which can be used with a simple require statement.
+  The API is a subset of MongoDB's. You can use it as a persistent or an in-memory only datastore.
+
+------------------------------------------------------------------------------------------------
+useful packages
+
+nodemon
+    nodemon will watch the files in the directory that nodemon was started, and if they change, it will automatically restart your node application
+    install:
+        npm install -g nodemon
+    use:
+        nodemon [your node app]
+    ie
+        nodemon server.js
+    delay restarting:
+        nodemon --delay 10 server.js
+    The delay figure is number of seconds to delay before restarting. So nodemon will only restart your app the given number of seconds after the *last* file change.
+
+
+node-inspector
+    https://github.com/node-inspector/node-inspector
+
+    install globally
+        npm install -g node-inspector
+
+    start node in debug mode
+        node --debug app
+    or
+        nodemon --debug app.js
+
+    start inspector in separate command window
+        node-inspector &
+
+    open in Chrome
+        http://127.0.0.1:8080/debug?port=5858
+
+    to stop on the first line of the program use the command line option
+      --debug-brk
+
+    using node-inspector with mocha
+      problem is the tests can run too fast to get a break point in place
+      solutions found on line involve using --debug-brk to pause on the first line of the mocha library, load your file manually then set the breakpoint
+      could not get this to work
+      what does work is:
+        increase the mocha timeout using the "timeout" option eg --timeout 30000 (on command line or in mocha.opts file)
+        put a setTimeout() at the top of the test spec eg
+          test('Slow down the tests', function(done) {
+            setTimeout(function() {
+              done();
+            }, 20000);
+          });
+        You now have 20 seconds to refresh the debugger in chrome, open the spec file and set a break point
+        After you have the breakpoint in place you still need the timeout in the spec file but the delay can
+        be lowered to something like 5 seconds because now you only need enough time to refresh chrome
+
+suspend
+    a generator-based control-flow utility for Node that enables clean, pseudo-synchronous syntax for asynchronous interactions.
+    use circuit instead
+
+mocha
+    test runner
+    installed globally
+    The QUnit interface is much simpler than the default BDD interface
+    BDD and TDD are both too verbose with un-necessary boiler plate
+    The 'Spec' reporter gives more verbose output that the default 'dot' reporter
+    To run mocha with the QUnit interface and Spec reporter:
+        > mocha --ui qunit --reporter spec
+    or shorthand
+        > mocha -u qunit -R spec
+    mocha expects the tests to be in a sub-dir named 'test'
+      to skip a test file prefix it with "." eg ".sometests.js"
+
+    pass node command switches after mocha's ie
+        > mocha -u qunit -R spec --harmony
+
+    can also use an opts file named mocha.opts"" in the test dir ie
+        --ui qunit
+        --reporter spec
+
+        any node switches still need to be passed on the command line
+
+    See example in code base
+
+------------------------------------------------------------------------------------------------
+other interesting packages
+  edge.js - call .net code from node
+
+
+Restify - a simple node module for building RESTful services. It is slimmer than Express.
+  Express is a complete module that has all what you need to create a full-blown browser app.
+  However, Restify does not have additional overhead of templating, rendering etc that would be needed if your app has views.
+
+------------------------------------------------------------------------------------------------
+packages that were installed and discarded
+  karma - test runner from angular team
+  This POS is a PIA on windows
+  requires node-gyp which required python and MS C++ 2010 fuck that!
+  Spent an entire night trying to get this to run. What really pisses me off is all the info on the web just says
+  1 do global install
+  2 done
+  no mention of the dependences required. What a waste of time
+  Both karma and batarang are shit. Its amazing that angular works considering the rest of the tools developed by the group are crap on windows.
+
+------------------------------------------------------------------------------------------------

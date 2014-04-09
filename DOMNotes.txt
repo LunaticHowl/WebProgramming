@@ -1,0 +1,201 @@
+------------
+Key trapping
+------------
+Internet Explorer and a few other browsers store the event information in an event register, which we can access by writing 'window.event'. This is non-standard.
+Before DOM 3 there was not a W3C standard set of keyboard events. All browser except IE have settled on a de-facto standard.
+Tons of issues with key trapping:
+  OS, browser, keyboard type, language.
+
+Sequence of keyboard events:
+  keydown   all key ie alt ctrl
+  keypress  only keys that produce a char
+  keyup     all keys?
+
+DOM 3
+  Returning false from a listener function does not work like it used to in the traditional models. Instead, you must use eventObject.preventDefault()
+  DOM 3 Warning! the keypress event type is defined in this specification for reference and completeness, but this specification deprecates the use of this event type in favor of the textInput event type.
+  Interface TextEvent (introduced in DOM Level 3)
+
+=============================================================================
+Key board events were not standardized by W3C until DOM level 3 at which time the textInput was also added and is the recommended way to trap input as it works with voice, handwriting, keyboard etc.
+Below is working example of trapping for unsigned int.
+As of 1-3-2011 works with Chrome but not FF 3.5.9
+As of 12-19-2011 FF 8.0.1 still does not implement. The event 'input' appears to be close
+This is by FAR the best key trapping I have figured out in 2 days of messing with this. Works with Ctrl Paste and all navigation keys.
+Requires DOM 3 support
+=============================================================================
+-----------
+key handler
+-----------
+function unsignedInt(e)
+{
+  if (/[^0-9]/.test(e.data))
+  {
+    // Some message for user here
+    e.preventDefault();
+  }
+}
+
+-----------
+setup
+-----------
+  document.getElementById('txt3').addEventListener('textInput', unsignedInt); // This works
+  document.getElementById('txt3').textInput = unsignedInt; // This fails silently
+-----------
+inline
+-----------
+  <input type="text" id="txt3" textInput ="unsignedInt(event)" /><br /> // Event handler does *not* get added using in-line syntax
+
+=============================================================================
+
+------------------------------
+moving elements around the DOM
+------------------------------
+  appendChild  -- Move node from current position to new position.
+  replaceChild -- Replaces one child node with another. One node is moved to new position other node is removed from DOM.
+  insertBefore -- Move node from current position to new position.
+  removeChild  -- Remove node from DOM. If you hold a reference to the node you can insert it back into another location.
+
+Example:
+--------
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <script>
+            'use strict';
+
+            function test1() {
+                document.getElementById('container').appendChild(document.getElementById('d1'));
+            }
+
+            function test2() {
+                document.getElementById('container').replaceChild(document.getElementById('d2'), document.getElementById('d1'));
+            }
+
+            function test3() {
+                document.getElementById('container').insertBefore(document.getElementById('d3'), document.getElementById('d2'));
+            }
+
+            function test4() {
+                document.getElementById('container').removeChild(document.getElementById('d2'));
+            }
+        </script>
+    </head>
+
+    <body>
+        Click the buttons in order from left to right<br />
+        <input type='button' value='appendChild' onclick='test1()'/>
+        <input type='button' value='replaceChild' onclick='test2()'/>
+        <input type='button' value='insertBefore' onclick='test3()'/>
+        <input type='button' value='removeChild' onclick='test4()'/>
+        <div id='d1' style="background:yellow; width:50px; height:50px;" >div 1</div>
+        <div id='d2' style="background:orange; width:50px; height:50px;" >div 2</div>
+        <div id='d3' style="background:blue; width:50px; height:50px;"   >div 3</div>
+        <div id="container" style="background:red; width:125px; height:125px;"></div>
+    </body>
+</html>
+
+=============================================================================
+Set the style attribute ie:
+
+  var pos = 123;
+  elm.style.top = pos + 'px';
+
+  need to set style attribute as a string not number
+  Do *not* add a semicolon to the end of the string ie
+  right
+    elm.style.top = '123px';
+  *wrong*
+    elm.style.top = '123px;';
+
+=============================================================================
+Boolean attributes:
+see D:\Notes\WebProgramming\htmlNotes.txt
+=============================================================================
+current focus
+currently focused element
+see D:\Notes\WebProgramming\JavaScriptNotes.txt
+
+=============================================================================
+html element vs node  node vs element
+
+See: http://www.w3schools.com/dom/dom_nodetype.asp
+
+Node is more generic
+Some Node types
+  Document
+  Attr
+  Text
+  Element
+
+Element is a type of node
+  An element can contain other nodes
+  ie
+  <div id='testDiv'>SomeText</div>
+  Is a single div element but a total of 4 nodes
+    an Element node (div)
+    an Attr node (id)
+    2 Text nodes (testDiv) and (SomeText)
+
+=============================================================================
+Standard DOM methods to get groups of elements
+
+document.getElementById           DOM level 1
+document.getElementsByClassName   HTML5
+document.getElementsByName
+document.getElementsByTagName      DOM level 2
+
+element.getElementsByClassName   HTML5
+element.getElementsByTagName      DOM level 2
+
+document.querySelector()          Selectors API (DOM level 3?)
+document.querySelectorAll()       Selectors API (DOM level 3?)
+
+element.querySelector()           Selectors API (DOM level 3?)
+element.querySelectorAll()        Selectors API (DOM level 3?)
+
+Node.childNodes
+
+window.document (since window is default just document)
+  Returns a reference to the document contained in the window
+
+document.body
+  Returns the <body> or <frameset> node of the current document
+
+document.head
+  Returns the <head> element of the current document. If there are more than one <head> elements, the first one is returned.
+
+document.styleSheets
+  Returns a list of stylesheet objects for stylesheets explicitly linked into or embedded in a document.
+
+=============================================================================
+straight javascript DOM selectors
+Same as above. Didn't know was already documented
+
+method                    note
+getElementById()          1
+getElementsByName()       1
+getElementsByClassName()  2
+getElementsByTagName()    2
+getElementsByTagNameNS()  2
+querySelector()           3
+querySelectorAll()        3
+
+Notes:
+1 Only available on Document
+2 Available on Document and Element
+3 Available on Document, DocumentFragment, and Element
+
+=============================================================================
+Element.getAttribute(), HTMLElement.dataset
+see "access element attributes" in angularJSNotes.txt for notes on getAttribute and dataset
+
+=============================================================================
+bootstrap app run after dom finishes loading
+
+window.onload = function() {
+    ...
+}
+
+=============================================================================

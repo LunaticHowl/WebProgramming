@@ -1,0 +1,471 @@
+Straight javascript VS jQuery
+-----------------------------
+
+---------
+resources
+---------
+http://youmightnotneedjquery.com/
+http://net.tutsplus.com/tutorials/javascript-ajax/from-jquery-to-javascript-a-reference/
+http://sharedfil.es/js-48hIfQE4XK.html
+
+in: D:\Notes\WebProgramming\DOMNotes.txt
+  see also "straight javascript DOM selectors"
+
+-----------------------------------
+Code that runs after page has finished loading
+-----------------------------------
+JS
+window.onload = function() {
+    ...
+}
+
+JQ
+$(document).ready(function() {
+    ...
+}
+
+----------------
+get body element
+----------------
+JS
+  document.body...
+or
+  document.querySelectorAll('body')[0]
+
+JQ
+  $('body')[0]...
+
+--------------------
+get document element
+--------------------
+JS
+  document // correct (or window.document)
+  document.querySelectorAll('document')[0] // <-- does *not* work
+
+JQ
+  $(document)[0]...
+
+--------------------
+get an element by id
+--------------------
+JS
+  var elm =  document.getElementById('someId');
+
+JQ
+  var elm = $('#someId');
+
+-----------------------
+get an element by class
+-----------------------
+JS
+  var elm =  document.querySelector('.someClass');
+
+JQ
+  var elm = $('.someClass');
+
+Note:
+  JQ returns a jQuery object where querySelector returns the first matching element
+  So... $('.someClass')[0] === document.querySelector('.someClass')
+
+------------------------------------------------------------------------------
+Select child elements
+------------------------------------------------------------------------------
+JS
+  var elms = elm[0].getElementsByTagName('*'); // returns HTMLCollection with a live node list
+  or
+  var elms = elm[0].querySelectorAll('*');
+
+JQ
+  var elms = elm.children(); // return jQuery object
+
+JQ docs The .children() method differs from .find() in that .children() only travels a 
+    single level down the DOM tree while .find() can traverse down multiple levels to 
+    select descendant elements (grandchildren, etc.) as well.
+-----------------------------------
+selector on document and on element
+-----------------------------------
+JS
+  document.querySelector('.someclass')    // First element that matches
+  document.querySelectorAll('.someclass') // All elements that match
+  elm.querySelector('.someclass')         // First matching element that is a descendent of elm
+  elm.querySelectorAll('.someclass')      // All matching elements that are a descendent of elm
+
+JQ
+  $('.someclass')[0]         // First element that matches
+  $('.someclass')            // All elements that match
+  $elm.find('.someclass')[0] // First matching element that is a descendent of elm
+  $elm.find('.someclass')    // All matching elements that are a descendent of elm
+
+----------------
+Set an attribute
+----------------
+JS
+  var elm = document.getElementById('container');
+  elm.getAttribute('someAttr');
+  elm.setAttribute('someAttr', 123);
+  or
+  elm.someAttr = 123;
+  also:
+  elm.removeAttribute('someAttr'); // You should use removeAttribute() instead of setting the attribute value to null using setAttribute.
+JQ
+  var elm = $('#container');
+  elm.attr('someAttr');
+  elm.attr('someAttr', 123);
+  also:
+  elm.removeAttr('someAttr');
+
+
+------------------------------
+Test if element contains class
+------------------------------
+JS 
+  elm.classList.contains('...')
+JQ 
+  $elm.hasClass('...')
+
+------------------
+Add / remove class
+------------------
+JS
+  var tokenList = elm.classList; // classList returns a tokenList that has methods contains, remove and add
+  elm.classList.contains('someClass');
+  elm.classList.add('someClass');
+  elm.classList.remove('someClass');
+  also
+  elm.classList.toggle('someClass');
+  elm.classList.toggle('someClass', true);
+  elm.classList.toggle('someClass', false);
+JQ
+  $('.selector').addClass('someClass');
+  $('.selector').removeClass('someClass');
+  also
+  $('.selector').toggleClass('someClass');
+
+-----------
+Parent node
+-----------
+JS
+    elmParent = elm.parentNode;
+
+JQ
+    $elmParent = $elm.parent();
+
+---------
+innerHTML
+---------
+Get / Set value of an div element
+
+  <div id='errormsg' style='color: red;'></div>
+
+JS
+  document.getElementById('errormsg').innerHTML = 'some javascript text here';
+  console.log( document.getElementById('errormsg').innerHTML );
+
+jQ
+  $('#errormsg').html('some JQ text here');
+  console.log( $('#errormsg').html() );
+
+-----------
+textContent
+-----------
+  <div id='errormsg' style='color: red;'></div>
+
+JS
+  document.getElementById('errormsg').textContent = '<div>literal javascript text</div>';
+  console.log( document.getElementById('errormsg').textContent );
+
+jQ
+  $('#errormsg').text('<div>literal JQ text</div>');
+  console.log( $('#errormsg').text() );
+
+-----
+value
+-----
+Get / Set value of an input element
+
+  <input id='errormsg' type="text" value="hey"/>
+
+JS
+  document.getElementById('errormsg').value = 'some javascript text here';
+  console.log( document.getElementById('errormsg').value );
+
+JQ
+  $('#errormsg').val('some JQ text here');
+  console.log( $('#errormsg').val() );
+
+
+
+------------------------------------------------------------
+value of selected radio button in radio group named 'rdoGrp'
+------------------------------------------------------------
+JS
+  var sel = document.querySelector('input[type="radio"][name="rdoGrp"]:checked').value;
+  also works without the quotes
+  var sel = document.querySelector('input[type=radio][name=rdoGrp]:checked').value;
+JQ
+  var sel = $("input:radio[name='rdoGrp']:checked").val();
+
+---------------------------------------
+Set value of a select option (picklist)
+---------------------------------------
+jquery Set selectedindex of a select element
+JS
+  var curVal = 'some option', // The option you want to select
+      selectElm = document.getElementById('#someID'), // Get the select element
+      optionElm = selectElm.querySelector('option[value="' + curVal + '"]'); // Get the option by its value (text)
+
+  selectElm.selectedIndex = optionElm.index; // Set the selected index
+
+JQ
+  var curVal = 'some option'; // The option you want to select
+
+  $('#someID').val(curVal);
+
+--------------------------------------------
+Get text value of a select option (picklist)
+--------------------------------------------
+JS
+  var elm document.getElementById('someID');
+  var selected = elm.options[elm.selectedIndex].value;
+
+JQ
+  var selected = $('#someID')val();
+
+---------------------------------
+Show / hide element
+---------------------------------
+JS
+    document.querySelector('.someclass').display = 'none'; // hide
+    document.querySelector('.someclass').display = '';     // show
+
+JQ
+    $('.someclass').hide();
+    $('.someclass').show();
+
+---------------------------------
+Access individual style attribute
+---------------------------------
+JS
+    parseInt(elm.style.left, 10));
+    parseInt(elm.style.top, 10));
+  Note elm.style will only return style info that is set inline.
+  If style comes from a style sheet you need to use window.getComputedStyle().
+  Return value of window.getComputedStyle() is read only. To set style use element.style.
+    ie
+    style = window.getComputedStyle(elm);
+    parseInt(style.left, 10));
+    parseInt(style.top, 10));
+
+JQ
+    $elm.css('left');
+    $elm.css('top');
+
+------------------------------------------------------------------------------
+Temporally add an element to document to measure some component (ie scrollbar)
+------------------------------------------------------------------------------
+JS
+  function measureScrollbarJS() {
+      var elm = document.createElement('div');
+      elm.setAttribute('style', 'position:absolute; top:-100px; left:-100px; width:100px; height:100px; overflow:scroll;');
+      document.body.appendChild(elm);
+      var dim = { width: 100 - elm.clientWidth, height: 100 - elm.clientHeight };
+      document.body.removeChild(elm);
+      return dim;
+  }
+JQ
+  function measureScrollbarJQ() {
+      var elm = $("<div style='position:absolute; top:-100px; left:-100px; width:100px; height:100px; overflow:scroll;'></div>").appendTo('body');
+      var dim = { width: 100 - elm[0].clientWidth, height: 100 - elm[0].clientHeight };
+      elm.remove();
+      return dim;
+  }
+
+-------------------------------------
+manually trigger event handler
+-------------------------------------
+JS
+  var elm = document.querySelector('.some-class'),
+      evt = document.createEvent('MouseEvents');
+
+  evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+  elm.dispatchEvent(evt);
+
+JQ
+  var $elm = $('.some-class');
+
+  $elm.triggerHandler('scroll');
+  or
+  $elm.trigger('scroll');
+
+-------------------------------------
+Example of adding elements to the DOM
+-------------------------------------
+JS
+  // Uses some jQuery for event handling
+
+  var contextMenu = ( function() {
+
+      'use strict';
+
+      var callback, popup;
+
+      function globalClick(e) {
+          if (e.target.parentNode !== popup) { contextMenuClose(); }
+      }
+
+      function contextMenuClick(e) {
+          if (e.target.hasAttribute('action')) { contextMenuClose(e.target.getAttribute('action')); }
+      }
+
+      function contextMenuClose(action) {
+          var list = document.getElementById('werlist');
+          $(popup).off('click');
+          $(document.body).off('click', globalClick);
+          popup.parentNode.removeChild(popup);
+          if (action && callback) { callback(action); }
+          callback = popup = null;
+      }
+
+      function contextMenuShow(event, menu, cb) {
+          callback = cb;
+          popup = document.createElement('ul');
+          popup.setAttribute('style', 'top: ' + event.clientY + 'px; left: ' + event.clientX + 'px;');
+          popup.setAttribute('class', 'wercontextmenu');
+          menu.forEach( function(item) {
+              var action = item.action ? item.action : item.label.toLowerCase();
+              var listitem = document.createElement('li');
+              listitem.setAttribute('class', item.cls ? item.cls : action  + (item.disabled ? ' disabled' : ''));
+              if (!item.disabled) { listitem.setAttribute('action', action); }
+              listitem.textContent = item.label;
+              popup.appendChild(listitem);
+          } );
+          $(popup).on('click', contextMenuClick);
+          document.body.appendChild(popup);
+          $(document.body).on('click', globalClick);
+      }
+
+      return { contextMenuShow: contextMenuShow }
+
+  })();
+
+JQ
+  var contextMenu = ( function() {
+
+      'use strict';
+
+      var callback, popup;
+
+      function globalClick(e) {
+          if (e.target.parentNode !== popup[0]) { contextMenuClose(); }
+      }
+
+      function contextMenuClick(e) {
+          if (e.target.hasAttribute('action')) { contextMenuClose(e.target.getAttribute('action')); }
+      }
+
+      function contextMenuClose(action) {
+          popup.off('click');
+          $('body').off('click', globalClick);
+          popup.remove();
+          if (action && callback) { callback(action); }
+          callback = popup = null;
+      }
+
+      function contextMenuShow(event, menu, cb) {
+          callback = cb;
+          popup = $('<ul></ul>')
+              .css({'top': event.clientY, 'left': event.clientX})
+              .addClass('wercontextmenu');
+          menu.forEach( function(item) {
+              var action = item.action ? item.action : item.label.toLowerCase();
+              ($('<li></li>'))
+                  .addClass(item.cls ? item.cls : action + (item.disabled ? ' disabled' : ''))
+                  .attr('action', !item.disabled ? action : null)
+                  .text(item.label)
+                  .appendTo(popup);
+          } );
+          popup.on('click', contextMenuClick).appendTo('body');
+          $('body').on('click', globalClick);
+      }
+
+      return { contextMenuShow: contextMenuShow }
+
+  })();
+
+-------------------------
+Build a select (picklist)
+-------------------------
+
+JS
+    editor = document.createElement('select');
+    editor.setAttribute('class', 'wergrid-editor');
+    editor.setAttribute('idx', colnum);
+    for (var iIdx = 0, ie = datatype.length; iIdx < ie; iIdx++) {
+        option = document.createElement('option');
+        option.setAttribute('value', iIdx);
+        if ((typeof(datatype[iIdx].active) === 'boolean') && !datatype[iIdx].active) {
+            option.setAttribute('hidden', true);
+            option.setAttribute('disabled', true);
+        }
+        option.textContent = datatype[iIdx].description;
+        editor.appendChild(option);
+    }
+
+JQ
+    $editor = $('<select></select>');
+    $editor.attr( { class: 'wergrid-editor', idx: colnum } );
+    for (var iIdx = 0, ie = datatype.length; iIdx < ie; iIdx++) {
+        if (!(typeof(datatype[iIdx].active) === 'boolean')) { datatype[iIdx].active = true; }
+        $editor.append( $('<option></option>')
+            .attr( { value: iIdx, hidden: !datatype[iIdx].active, disabled: !datatype[iIdx].active} )
+            .text(datatype[iIdx].description)
+        );
+    }
+
+----------------------
+Position of an element
+----------------------
+JS
+    var cellPos = {};
+    cellPos.lf = cell.offsetLeft;
+    cellPos.tp = cell.parentNode.offsetTop;
+    cellPos.rt = cellPos.lf + cell.offsetWidth;
+    cellPos.bt = cellPos.tp + cell.offsetHeight;
+
+JQ
+    var cellPos = {};
+    cellPos.lf = $cell.position().left;
+    cellPos.tp = $cell.parent().position().top;
+    cellPos.rt = cellPos.lf + $cell.width();
+    cellPos.bt = cellPos.tp + $cell.height();
+
+Notes:
+  JS has both clientHeight and offsetHeight
+
+  The JS example does not handle nested elements. In order to find the position of an element
+  relative to the document using JS you need to walk the element.offsetParent hierarchy.
+  Additionally you need to take into account the amount the document has scrolled.
+  The JQ offset() function take care of this for you.
+
+from http://www.quirksmode.org/js/findpos.html (untested))
+function findPos(obj) {
+	var curleft = curtop = 0;
+    do {
+        curleft += obj.offsetLeft;
+        curtop += obj.offsetTop;
+    } while (obj = obj.offsetParent);
+    return [curleft,curtop];
+}
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+JS
+JQ
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+JS
+JQ
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+JS
+JQ

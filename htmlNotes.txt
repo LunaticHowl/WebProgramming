@@ -1,0 +1,79 @@
+=============================================================================
+new <div> tags in HTML 5
+  article : An independent entry in a blog, magazine, compendium, and so forth
+  aside   : Defines content aside from the page content (side bar)
+  details : The details element represents further information that might not be shown by default.
+  figure  : The figure element represents a block-level image, along with a caption.
+  footer  : The page footer where the fine print goes; the signature in an e-mail message
+  header  : The page header shown on the page; not the same as the head element
+  hgroup  : Used to group headers, <h1> to <h6>, where the largest is the main heading of the section, and the others are sub-headings.
+  nav     : A collection of links to other pages
+  section : A part or chapter in a book, a section in a chapter, or essentially anything that has its own heading in HTML 4
+  summary : Details about the document. Use it together with the <details> tag to make your own header for the details.
+
+=============================================================================
+list of html 5 elements
+https://developer.mozilla.org/en-US/docs/HTML/HTML5/HTML5_element_list
+=============================================================================
+Boolean attributes:
+from http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#boolean-attribute
+
+The presence of a boolean attribute on an element represents the true value, and the absence of the attribute represents the false value.
+If the attribute is present, its value must either be the empty string or a value that is an ASCII case-insensitive
+match for the attribute's canonical name, with no leading or trailing whitespace.
+The values "true" and "false" are not allowed on boolean attributes. To represent a false value, the attribute has to be omitted altogether.
+
+Here is an example of a checkbox that is checked and disabled. The checked and disabled attributes are the boolean attributes.
+    <label><input type=checkbox checked name=cheese disabled> Cheese</label>
+
+This could be equivalently written as this:
+    <label><input type=checkbox checked=checked name=cheese disabled=disabled> Cheese</label>
+
+You can also mix styles; the following is still equivalent:
+    <label><input type='checkbox' checked name=cheese disabled=""> Cheese</label>
+
+=============================================================================
+Set attributes:
+  If its a standard attribute you can set it in 2 ways:
+    option.setAttribute('hidden', 'hidden');
+  or
+    option.hidden = true;
+
+  for non-standard attributes you need to use setAttribute()
+    option.setAttribute('someNonStdAttr', 'whatever');
+
+  The short hand does not work for the class attribute ie
+    option.class = 'some-class-here';
+  will *not* set the class
+=============================================================================
+tabIndex vs tabindex  (note upper case I)
+tabIndex is obsolete and has been replaced with tabindex (lowercase) in HTML5
+
+=============================================================================
+3 examples of associating label with input element
+    <label><input type='text' value=''/>Right Label</label>
+    <label>Left Label<input type='text' value=''/></label>
+    <label for='myInput'>For Label</label><input id='myInput' type='text' value=''/>
+
+=============================================================================
+<input type='button'...
+vs
+<button...
+
+Buttons created with the BUTTON element function just like buttons created with the INPUT
+element, but they offer richer rendering possibilities: the BUTTON element may have content.
+
+The basic difference is that in INPUT elements, the VALUE attribute
+specifies what is displayed (text only) in the button, whereas in BUTTON
+elements, the content of the element (HTML content) specifies what is
+displayed in the button. For example,
+
+<input type=submit value=Subscribe>
+
+are equivalent for most purposes, but
+
+<button type=submit>Subscribe to <font color=red>CoolNews</font></button>
+
+is something you can't do with <input>.
+=============================================================================
+=============================================================================

@@ -1,0 +1,188 @@
+jQuery Notes
+
+====================================================================================================
+event names are case sensitive
+    $('#hello').on('Click', showHello); // WRONG!
+    $('#hello').on('click', showHello); // right
+====================================================================================================
+Initialize a new page
+
+$(document).ready(function() {
+    // your code here
+});
+
+====================================================================================================
+example selectors
+  see cssNotes.txt
+
+If you want to make sure a jQuery selector is efficient make sure it will run using the standard DOM selectors
+    element.querySelectorAll
+    document.querySelector
+    element.querySelector
+
+====================================================================================================
+container.append(content)   // inserts the specified content as the
+content.appendTo(container) // last child of each element in the container
+
+====================================================================================================
+THIS:
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+  <script>
+    function OnClick(e)
+    {
+      alert("You clicked?");
+    }
+  </script>
+  </head>
+  <body>
+    <p onClick="OnClick(event)">Some text here. </p>
+  </body>
+</html>
+
+IS SAME AS:
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+  <script src="jquery.js"></script>
+  <script>
+    $(document).ready(function(){
+       $("p").click(function(event){
+         alert("You clicked?");
+       });
+    });
+  </script>
+  </head>
+  <body>
+    <p>Some text here. </p>
+  </body>
+</html>
+
+====================================================================================================
+what looks like an excellent client side validation plugin
+http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js
+http://www.developria.com/2010/10/form-validation-with-jquery.html
+====================================================================================================
+ajax calls
+
+// this is an ajax call using $ajax
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: '/RunAcctQuery',
+        data: JSON.stringify(objPayload),
+        dataType: 'json',
+        success: function(ajaxResult) {
+            ...
+        }
+    });
+
+// this is equivalent to the one above but uses the shorthand $post
+    $.post('/RunAcctQuery', JSON.stringify(objPayload),
+        function(ajaxResult) {
+            ...
+        },
+    'json');
+
+====================================================================================================
+.html() == innerHTML
+.text() == textContent  Note: When used to set a value .text() calls the DOM method .createTextNode()
+.val()  == value        Get / Set value of an input or textarea elements
+
+====================================================================================================
+.find() .children()
+
+both find elements contained by an existing element
+.children() only travels a single level down the DOM tree while .find()
+can traverse down multiple levels to select descendant elements (grandchildren, etc.)
+
+    var elm = $('.parentElm');
+    elm.children('.someChild').css(...);
+    elm.find('.someDescendent').css(...);
+
+====================================================================================================
+View all events attached to an element via .on()
+  $('.someClass').data('events')
+  syntax change ver 1.7+
+  $._data( $('.someClass')[0], 'events' );
+
+====================================================================================================
+Using $.extend to reset an object has problems.
+If you don't do a deep copy then you can end up with multiple objects sharing a single reference to something.
+In the example below, the array "picks" ends up shared by all object instances that are reset using $.extend.
+If you tell $.extend to do a deep copy then the array is not cleared.
+The contents of the empty array in "defaults" is added to the existing contents.
+What you really want to do is set the array's length to 0 to empty it and not invalidate any existing references to the array.
+Try the code below with both a shallow and deep copy to see the problem.
+
+For an alternative see JavaScriptNotes.txt emptyObject()
+
+var defaults = {op: '', picks: [], value: ''},
+    anObj1 = {op: '=', picks: [123, 45], value: ''},
+    anObj2 = {op: '>=', picks: [], value: 'someValue'};
+
+console.log(anObj1, anObj1.picks);
+console.log(anObj2, anObj2.picks);
+
+$.extend(true, anObj1, defaults);
+$.extend(true, anObj2, defaults);
+// $.extend(anObj1, defaults);
+// $.extend(anObj2, defaults);
+
+console.log('---------------------');
+console.log(anObj1, anObj1.picks);
+console.log(anObj2, anObj2.picks);
+
+anObj2.picks.push(789);
+
+console.log('---------------------');
+console.log(anObj1, anObj1.picks);
+console.log(anObj2, anObj2.picks);
+console.log(defaults, defaults.picks);
+
+====================================================================================================
+.append() vs .appendTo()
+
+Both can be used to build a new nested hierarchy
+
+Given a html page with an initial div of:
+    <div class="parent"></div>
+
+The following 2 lines both generate the same html of:
+<div class="parent">
+    <div class="hey">
+        <div class="DE">
+            <div class="Ho!"></div>
+        </div>
+    </div>
+</div>
+
+The difference is what is returned and the order you specify the divs
+
+// Returns the innermost div (Ho!)
+$elm = $('<div class="Ho!">').appendTo($('<div class="DE">').appendTo($('<div class="hey">').appendTo($('.parent'))));
+
+// Returns the outermost div (parent)
+$elm = $('.parent').append($('<div class="hey">').append($('<div class="DE">').append('<div class="Ho!">')));
+
+====================================================================================================
+deferred
+done() vs then()
+    both allow adding event handlers for success
+    done() can add single or multiple done events in 1 call
+    then() can add a single done, fail and/or progress functions
+    main difference is the return value
+    done() returns the same deferred
+    then() returns a *new* deferred
+    the terminology can be confusing
+    'chain' is used to mean both:
+        1) the sort of chaining common in jQuery ie ...done(...).fail(...)
+        2) queuing a series of asynchronous events
+        
+====================================================================================================
+====================================================================================================

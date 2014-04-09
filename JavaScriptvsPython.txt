@@ -1,0 +1,306 @@
+JavaScript vs Python
+
+------------------------------------------------------------------------------------
+ternary
+-------
+if a then v = b else v = c
+
+JS
+  v = a? b: c;
+Py
+  v = b if a else c
+
+------------------------------------------------------------------------------------
+iterating various objects
+
+JS
+
+// array
+var ary = ['some', 'test', 'data'];
+for (var i in ary) { //  iterate over the index
+  console.log(i, '-', ary[i]);
+}
+// 0 - some
+// 1 - test
+// 2 - data
+
+// object literal
+var obj = {some: 123, test: 456, data: 789}; // strings dont need to be quoted when used as keys
+for (var i in obj) { // iterate over the property name
+  console.log(i, '-', obj[i]);
+}
+// some - 123
+// test - 456
+// data - 789
+
+// array of objects
+var aryObj = [{some: 123, test: 456, data: 789}, {1: 'another', 2: 'object'}]; // strings need to be quoted when used as values
+for (var i in aryObj) {
+  console.log(i, '-', aryObj[i]);
+  for (var j in aryObj[i]) {
+    console.log(j, '-', aryObj[i][j]);
+  }
+}
+// 0 - Object { some=123, test=456, data=789}
+// some - 123
+// test - 456
+// data - 789
+// 1 - Object { 1="another", 2="object"}
+// 1 - another
+// 2 - object
+
+PY
+
+# list
+lst = ['some', 'test', 'data']
+for i in lst:  # iterate the value not an index
+  print(i)
+# some
+# test
+# data
+
+for i in range(len(lst)):
+  print(i, '-', lst[i])
+# 0 - some
+# 1 - test
+# 2 - data
+
+# dictionary
+dict = {'some': 123, 'test': 456, 'data': 789}  # strings must be quoted
+for i in dict:  # same as > for i in dict.keys():
+  print(i, '-', dict[i])  #  order of iteration not defined
+# test - 456
+# data - 789
+# some - 123
+
+for i in dict.values():
+  print(i)
+# 456
+# 789
+# 123
+
+for i in dict.items():
+  print(i)
+# ('test', 456)
+# ('data', 789)
+# ('some', 123)
+
+# list of dictionarys
+lstDict = [{'some': 123, 'test': 456, 'data': 789}, {1: 'another', 2: 'object'}]; # strings must be quoted
+for i in lstDict:
+  print(i)
+  for j in i:
+    print(j, '-', i[j])
+# {'test': 456, 'data': 789, 'some': 123}
+# test - 456
+# data - 789
+# some - 123
+# {1: 'another', 2: 'object'}
+# 1 - another
+# 2 - object
+
+------------------------------------------------------------------------------------
+clear array (or list) in place. Does not create a new array so any other references are still valid
+JS
+var a=[1,2,3]
+console.log(a); // [1, 2, 3]
+a.length = 0;
+console.log(a); // []
+
+PY
+l = [1,2,3]
+print(l)  # [1,2,3]
+del l[:]  # clears list in place
+print(l)  # []
+l[:] = [] # Also clears list in place
+
+------------------------------------------------------------------------------------
+Global vars
+
+JS
+
+function fun() {
+  x = 'test';  // without 'var' sets variable in global namespace. Get error in strict mode
+  console.log(x); // 'test'
+}
+fun();
+console.log(x); // 'test'
+
+---------
+function fun() {
+  var x = 'test';  // using 'var' keyword
+  console.log(x);  // 'test'
+}
+fun();
+console.log(x); // error
+
+PY
+
+def fun():
+  x = 'test'  # defaults to local scope
+  print(x)  # 'test'
+
+fun()
+print(x)  # 'x' is not defined error
+
+---------
+x = 'global'
+
+def fun():
+  x = 'test'  # defaults to local scope
+  print(x)  # 'test'
+
+fun()
+print(x)  # 'global'
+
+---------
+x = 'global'
+
+def fun():
+  global x  # force to use global
+  x = 'test'
+  print(x)  # 'test'
+
+fun()
+print(x)  # 'test'
+
+------------------------------------------------------------------------------------
+missing properties
+
+JS
+var o = {'testKey': 'value'};
+console.log(o.testKey);  // 'value'
+console.log(o.bogus);    // undefined - not an error
+
+PY
+d = {'testKey': 'value'}
+print(d['testKey']);  # 'value'
+print(d['bogus']);    # KeyError
+
+------------------------------------------------------------------------------------
+Truthy / Falsy
+
+JS
+The following values are false:
+  null
+  undefined
+  false
+  The number 0
+  The empty string ''
+  The number NaN
+All other values are true, including all objects.
+** An empty object or array is true **
+  var x = undefined;
+  x ? console.log('True-', x): console.log('False-', x); // False- undefined
+  x = {};
+  x ? console.log('True-', x): console.log('False-', x); // True- Object {}
+  x.some = 'value';
+  x ? console.log('True-', x): console.log('False-', x); // True- Object { some="value"}
+
+  var x = undefined;
+  x ? console.log('True-', x): console.log('False-', x); // False- undefined
+  x = [];
+  x ? console.log('True-', x): console.log('False-', x); // True- []
+  x[0] = 'value';
+  x ? console.log('True-', x): console.log('False-', x); // True- ["value"]
+
+  var x = undefined;
+  x ? console.log('True-', x): console.log('False-', x); // False- undefined
+  x = '';
+  x ? console.log('True-', x): console.log('False-', x); // False-
+  x = 'some string';
+  x ? console.log('True-', x): console.log('False-', x); // True- some string
+
+PY
+The following values are false:
+  None
+  False
+  zero of any numeric type, for example, 0, 0L, 0.0
+  any empty sequence, for example, '', (), []
+  any empty mapping, for example, {}
+  instances of user-defined classes, if the class defines a __nonzero__() or __len__() method, when that method returns the integer zero or bool value False
+All other values are true — so objects of many types are always true.
+** An empty sequence ie list, dict, tuple is false **
+  x = None
+  print('True-', x) if x else print('False-', x) # False- None
+  x = {}
+  print('True-', x) if x else print('False-', x) # False- {}
+  x['some'] = 'value'
+  print('True-', x) if x else print('False-', x) # True- {'some': 'value'}
+
+  x = None
+  print('True-', x) if x else print('False-', x) # False- None
+  x = []
+  print('True-', x) if x else print('False-', x) # False- []
+  x.append('value')
+  print('True-', x) if x else print('False-', x) # True- ['value']
+
+  x = None
+  print('True-', x) if x else print('False-', x) # False- None
+  x = ''
+  print('True-', x) if x else print('False-', x) # False-
+  x = 'some string'
+  print('True-', x) if x else print('False-', x) # True- some string
+
+------------------------------------------------------------------------------------
+calling an unbound method
+JS
+function c1(v1) {
+  this.v1 = v1;
+}
+c1.prototype = {
+  dump: function() {
+    console.log('from c1.dump() >', this.v1);
+  }
+}
+
+function c2(v1) {
+  this.v1 = v1;
+}
+
+var o = new c1('test');
+o.dump();                      // from c1.dump() > test
+                               
+var o2 = new c2('unbound');    
+var f = c1.prototype.dump;     
+console.log(f);                // function()
+f.call(o2);                    // from c1.dump() > unbound
+f.call({v1:'literal object'}); // from c1.dump() > literal object
+
+PY
+# not real sure why this works. PY3 makes this simpler
+# See: http://users.rcn.com/python/download/Descriptor.htm
+class c1(object):
+    def __init__(self, v1):
+        self.v1 = v1
+
+    def dump(self):
+        print('from c1.dump() >',self.v1)
+
+class c2(object):
+    def __init__(self, v1):
+        self.v1 = v1
+
+o = c1('test')
+o.dump()           # from c1.dump() > test
+
+o2 = c2('unbound')
+f = c1.dump
+# f(o2)            # TypeError: unbound method dump() must be called with c1 instance as first argument (got c2 instance instead)
+print(f)           # <unbound method c1.dump>
+bound_f = f.__get__(o2, c1)
+print(bound_f)     # <bound method c1.dump of <__main__.c2 object at 0x014BB1B0>>
+bound_f()          # from c1.dump() > unbound
+
+class c3(object): pass
+o3 = c3()
+o3.v1 = 'empty class'
+bound_f = f.__get__(o3, c1)
+print(bound_f)     # <bound method c1.dump of <__main__.c3 object at 0x014A9210>>
+bound_f()          # from c1.dump() > empty class
+
+bound_f = f.__get__(namedtuple('literal', 'v1')(v1='named tuple'), c1)
+print(bound_f)     # <bound method c1.dump of literal(v1=u'named tuple')>
+bound_f()          # from c1.dump() > named tuple
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------

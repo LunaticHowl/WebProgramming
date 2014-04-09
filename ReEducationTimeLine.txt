@@ -1,0 +1,71 @@
+5-17-2010 - 9-30-2010
+  Learned C#
+  Made FileView
+
+5-2010
+  delayed events C# and .net  
+
+11-2010
+  Using WPF inside a win forms app
+  data binding between C# and WPF
+  IronPython dynamic class creation at runtime
+  ADO.net with ironpython
+  python singleton
+  
+12-2010 
+  gave up on entity framework and ORMs in general
+
+In through here gave up on MS tech all together and started investigating other options finally landing on browser based  
+  
+06-2011
+  Ajax / asmx with diff techniques
+    using straight javascript
+    HTML request No SOAP No XML
+    JQuery instead of straight javascript
+
+7-2011
+  Pyramid
+    Chameleon and Mako templates
+    Ajax and Json
+    Access SQL Express database using adodbapi, pyODBC and Ado.net
+
+7-2011
+  studying javascript the definitive guide
+
+8-2011
+  CSS
+    Four different ways to style main page layout with CSS
+
+  most basic form handling without any AJAX or javascript.
+
+9-2011
+  Test a web service by passing SOAP calls
+  JSONP using straight javascript and pyramid
+
+10-2011
+  Looked at super simple python web server pythonweb
+  C language python extension that allows retrieving dynamic schema info from an ODBC result set
+  Started slickgrid rewrite
+
+11-2011
+  Python threading and queues
+  cTags for ultraedit
+
+01-2012
+  Wrapper around HTML 5 native Drag and Drop
+  Two versions: straight JS and jQuery versions
+
+1-6-2012 - 2-8-2012
+  javascript Modal dialog box and context menu
+  idle processing
+
+2-8-2012 - 2-18-2012
+  Notepad++
+  solid understanding of unicode
+
+7-20-2012
+  Started using
+    AngularJS
+    less
+    jsHint
+    Rewrote grid using above

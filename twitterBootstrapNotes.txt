@@ -1,0 +1,7 @@
+Bootstrap notes
+
+bootstrap-modal.js v2.0.4
+  No DnD
+  Allows focus off dialog back to form with tab
+  uses jQuery .delegate() instead of .on()
+  

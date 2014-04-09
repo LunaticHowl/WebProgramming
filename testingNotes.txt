@@ -1,0 +1,101 @@
+see also
+  D:\Notes\WebProgramming\jasmineJsNotes.txt
+
+As of 2-8-2014 I'm liking mocha for testing both node and in browser
+
+---------------------------------------------------------------------------------------------------
+see codebase
+  mochaInBrowser.zip
+  mocha.zip
+
+---------------------------------------------------------------------------------------------------
+assertion libraries
+http://stackoverflow.com/questions/10472152/standalone-assertion-libraries#answer-10480546
+
+---------------------------------------------------------------------------------------------------
+
+Testing private functions:
+
+The zealots out there say:
+  Don't test private functions they are implementation details only test the public interface.
+  If you want to test it then it should be a separate module/class
+  Various other dogmatic responses ...
+
+The only valid reason I saw for this is it can make re-factoring difficult if you have test code tightly bound to your private functions.
+The rational counter arguments are
+  just because its private doesn't mean it should have no test coverage.
+  I don't want a separate module or to re-structure my code just to test it.
+
+The approach I'm taking is:
+
+At the top of the test unit (before any requires) set a global var
+eg
+  global.runningTestSuites = true; // node
+  window.runningTestSuites = true; // browser
+
+In unit to be tested make any private functions visible for testing
+eg
+
+  node:
+  exports.somePublicFun1 = somePublicFun1;
+  exports.somePublicFun2 = somePublicFun2;
+
+  if (global.runningTestSuites) {
+    exports.somePrivateFunA = somePrivateFunA;
+  }
+
+  module:
+  var module = (function() {
+    ...
+    var api = {
+      publicFun1: publicFun1,
+      publicFun2: publicFun2
+    };
+    if (window.runningTestSuites) {
+      api.somePrivateFunA = somePrivateFunA
+    }
+
+    return api;
+  })();
+
+There is a special case that was tricky to handle.
+Private code running in a node "web worker"
+I didn't want to spawn a child and hassle with testing the code in the child so did the following:
+
+(function() {
+  'use strict';
+
+  var gethelpers = function() {
+    // put helper functions here so they can be used in child process or make available for testing
+    ...
+    return {
+      helperFun1: helperFun1,
+      helperFun2: helperFun2
+    };
+  };
+
+  if (global.runningTestSuites) {
+    // if testing then export private functions to test
+    var helpers = gethelpers();
+
+    exports.helperFun1 = helpers.helperFun1;
+    exports.helperFun2 = helpers.helperFun2;
+  }
+
+  if (process.argv[2] == 'fork') {
+    // code that runs on the child process
+    var helpers = gethelpers(); // get helper functions to use in child process
+    ...
+  } else {
+    // code that runs on the main node thread
+    exports.someLongRunningProcess = function(req, res){
+      var child = require('child_process').fork(__filename, [ 'fork' ]); // Fork a separate node process
+      child.on('message', function(msg) {
+        return msg; // return to caller
+      });
+      child.send(...); // kickoff child process
+    };
+  }
+})();
+
+---------------------------------------------------------------------------------------------------

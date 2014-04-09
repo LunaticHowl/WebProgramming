@@ -1,0 +1,72 @@
+http://pivotal.github.com/jasmine/
+https://github.com/pivotal/jasmine/wiki/Matchers
+
+===================================================================
+If you get an error from either jasmine-html.js or angular-mocks.js at start up
+ie
+    "reporterView is undefined" in jasmine-html.js
+or
+    "TypeError: spec is null" in angular-mocks.js
+
+The reason is there is no angular spec defined at the time of the error.
+Easy fix is to throw something like this at top of spec file or top of a describe() function
+
+    it("Dummy spec to kick off jasmine", function() {
+    });
+
+===================================================================
+Most jasmine / angular examples show init model and scope in a before each ie
+
+    beforeEach(inject(function($rootScope, $controller) {
+        scope = $rootScope.$new();
+        ctrl = $controller(myControler, {$scope: scope});
+    }));
+
+If you only want to init once for a group of specs put the following as the first "it" in a "describe"
+
+    it("Init scope and ctrl", inject(function($rootScope, $controller) {
+        scope = $rootScope.$new();
+        ctrl = $controller(myControler, {$scope: scope});
+        expect(scope).toBeDefined(); // Optionally test if
+        expect(ctrl).toBeDefined();  // both have initialized
+    }));
+
+===================================================================
+Testing private code in my function module
+
+Need to expose a proxy function:
+    function testProxy() {
+        var self = instances[this.instance];
+        return self[arguments[0]].apply(self, [].slice.call(arguments, 1));
+    }
+
+call like this:
+    var snc = someNameSpace.someNewClass.new('init stuff'),
+        result = snc.testProxy('privateFun');
+
+    expect(result).toBeDefined();
+
+===================================================================
+toBe() vs toEqual()
+
+    it("test toEqual (This Passes)", function() {
+        // Test equality. Order of the contents of the 2 objects should not matter
+        var anObj1 = {hey: 'hey', de: 123, ho: true},
+            anObj2 = {de: 123, ho: true, hey: 'hey'};
+        expect(anObj1).toEqual(anObj2);
+    });
+    it("test toBe (This Passes)", function() {
+        // Test identity. Both operands must reference the same instance of the same object
+        var anObj1 = {hey: 'hey', de: 123, ho: true};
+        expect(anObj1).toBe(anObj1);
+    });
+
+    it("test toBe (This Fails)", function() {
+        // This will fail. Both operands are the same but not the same instance.
+        var anObj1 = {hey: 'hey', de: 123, ho: true},
+            anObj2 = {hey: 'hey', de: 123, ho: true};
+        expect(anObj1).toBe(anObj2);
+    });
+
+===================================================================
+===================================================================
