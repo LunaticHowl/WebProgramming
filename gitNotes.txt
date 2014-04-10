@@ -1,0 +1,61 @@
+using git powershell interface
+==============================
+
+  need to cd to dir that holds repo
+
+  git status
+    shows current status eg
+      # On branch master
+      # Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+      #   (use "git pull" to update your local branch)
+      #
+      nothing to commit, working directory clean
+
+  git pull
+    merge changes into local repository eg
+      Updating ddfc804..9ab547c
+      Fast-forward
+       client/app/BMNext.sublime-workspace                | 104 ++++++++++++++-------
+       client/app/components/common/common.js             |   9 +-
+       .../app/components/common/test/commonNumFuns.html  |   2 +-
+       .../app/components/dataGrid/dataGrid_directive.js  |  15 +--
+       projectNotes.wer                                   |  18 ++--
+       5 files changed, 97 insertions(+), 51 deletions(-)
+
+  git clone
+    cd to parent dir
+    run get clone. makes a new dir with the repo name
+    eg to create repo in note/WebProgramming
+    cd to notes
+    type:
+      git clone git@github.com:LunaticHowl/WebProgramming.git
+    Creates new sub-dir (WebProgramming) with repo
+
+if you use the windows app it to clone a repo it will be put in the default dir which is user...documents
+you can set the default dir but not sure if you can force the windows app to prompt for dir where to put repo
+
+commit and push
+  commit is local only and commits changes to the local branch
+  push actually updates the repo on Github
+    git commit
+      git commit --allow-empty-message
+    or
+      git commit -m"some msg here"
+    or
+      git commit -a -m"some msg here"
+
+    git push
+
+git commit -a will add/remove files automatically so you dont need to do "git add" and or "get rm"
+
+To stop tracking a file that is currently tracked, use git rm --cached
+This removes the file from the repo to stop watching the files use the .gitignore file
+  eg
+    git rm --cached client/app/BMNext.sublime-workspace
+
+
+good summary of
+  tracked or untracked files
+  unmodified, modified, and staged files
+  add, commit, push, rm and diff commands
+    http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository
