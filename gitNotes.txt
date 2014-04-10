@@ -4,27 +4,16 @@ using git powershell interface
   need to cd to dir that holds repo
 
   git status
-    shows current status eg
-      # On branch master
-      # Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
-      #   (use "git pull" to update your local branch)
-      #
-      nothing to commit, working directory clean
+    shows current status of the local repo
+    there does not appear to be a way to check if the local repo is out of date other than git fetch or pull
 
   git pull
-    merge changes into local repository eg
-      Updating ddfc804..9ab547c
-      Fast-forward
-       client/app/BMNext.sublime-workspace                | 104 ++++++++++++++-------
-       client/app/components/common/common.js             |   9 +-
-       .../app/components/common/test/commonNumFuns.html  |   2 +-
-       .../app/components/dataGrid/dataGrid_directive.js  |  15 +--
-       projectNotes.wer                                   |  18 ++--
-       5 files changed, 97 insertions(+), 51 deletions(-)
+    merge changes into local repository
 
   git clone
+    creates a new local repo from a remote one
     cd to parent dir
-    run get clone. makes a new dir with the repo name
+    run git clone. makes a new dir with the repo name
     eg to create repo in note/WebProgramming
     cd to notes
     type:
@@ -35,23 +24,37 @@ if you use the windows app it to clone a repo it will be put in the default dir 
 you can set the default dir but not sure if you can force the windows app to prompt for dir where to put repo
 
 commit and push
+  watched files are in 1 of 3 states. unmodified, modified or staged
+    git add -> changes modified to staged
+    git commit -> staged to unmodified
+    git push -> updated remote repo
+  to skip the add step do
+    git commit -a
+  if you don't specify a message in the commit, git will open a file in your default text editor.
+  to avoid this do
+    git commit -a =m"some message here"
+  or
+    git commit --allow-empty-message
+
   commit is local only and commits changes to the local branch
   push actually updates the repo on Github
-    git commit
-      git commit --allow-empty-message
-    or
-      git commit -m"some msg here"
-    or
-      git commit -a -m"some msg here"
 
-    git push
-
-git commit -a will add/remove files automatically so you dont need to do "git add" and or "get rm"
+if you have added new files to the repo then you still need to call git add
+eg
+  git add some/new/file.txt
+(git add is used for multiple tasks)
+if you deleted files in the local you need "git rm" to remove them in the local repo
+  and the next push will remove them in the remote repo
 
 To stop tracking a file that is currently tracked, use git rm --cached
-This removes the file from the repo to stop watching the files use the .gitignore file
+This removes the file from the repo.
   eg
     git rm --cached client/app/BMNext.sublime-workspace
+
+To stop watching the file use the .gitignore or ...\.git\info\exclude file
+you should use ...\.git\info\exclude to ignore files that are unique to your work flow
+  eg project files created by  your editor
+the .gitignore file in the project root should be used to list files that should be ignored by all users
 
 
 good summary of
@@ -59,3 +62,7 @@ good summary of
   unmodified, modified, and staged files
   add, commit, push, rm and diff commands
     http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository
+
+Delete a local repository
+  Delete the .git directory in the root-directory of your repository if you only want to delete the git-related information (branches, versions).
+  If you want to delete everything (git-data, code, etc), just delete the whole directory.
