@@ -32,7 +32,7 @@ commit and push
     git commit -a
   if you don't specify a message in the commit, git will open a file in your default text editor.
   to avoid this do
-    git commit -a =m"some message here"
+    git commit -a -m"some message here"
   or
     git commit --allow-empty-message
 
