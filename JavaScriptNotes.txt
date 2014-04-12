@@ -81,6 +81,9 @@ Resources
     A scriptable browser for Web developers
     for testing. similar to PhantomJS but uses gecko
 
+  http://caniuse.com/#index
+    check if HTML5 feature has support
+
   http://maryrosecook.com/post/little-lisp-interpreter
     Little Lisp is an interpreter writtern to show how easy it is to write an interpreter. The code is 116 lines of JavaScript.
 
