@@ -78,8 +78,8 @@ JS
 JQ
   var elms = elm.children(); // return jQuery object
 
-JQ docs The .children() method differs from .find() in that .children() only travels a 
-    single level down the DOM tree while .find() can traverse down multiple levels to 
+JQ docs The .children() method differs from .find() in that .children() only travels a
+    single level down the DOM tree while .find() can traverse down multiple levels to
     select descendant elements (grandchildren, etc.) as well.
 -----------------------------------
 selector on document and on element
@@ -118,9 +118,9 @@ JQ
 ------------------------------
 Test if element contains class
 ------------------------------
-JS 
+JS
   elm.classList.contains('...')
-JQ 
+JQ
   $elm.hasClass('...')
 
 ------------------
@@ -279,6 +279,15 @@ JQ
       elm.remove();
       return dim;
   }
+
+-------------------------------------
+event handler
+-------------------------------------
+JS
+  addEventListener
+
+JQ
+  $on ($bind $live deprecated)
 
 -------------------------------------
 manually trigger event handler
