@@ -217,9 +217,14 @@ Two ways to get all children elements
 elm.querySelectorAll('*')
 elm.getElementsByTagName('*')
 =============================================================================
-node.parentNode vs node.parentElement ???
+node.parentNode vs node.parentElement
   Node.parentNode - Returns the parent. The parent of an element is an Element node, a Document node, or a DocumentFragment node (DOM level 2)
   Node.parentElement - Returns the DOM node's parent Element, or null if the node either has no parent, or its parent isn't a DOM Element (DOM level 4)
+
+  Old IE had parentElement but it wasn't standard. Other browsers added it. FF was last to add it in FF ver 9.
+  parentNode is the more standard
+  parentElement is not universally supported and does not introduce enough unique functionality to justify its use
+  as of 2014 it should be safe to use either in a modern browser
 
 =============================================================================
 Test if one node contains another
