@@ -79,6 +79,12 @@ http://herohog.com/CSScolorChart.html
 http://www.december.com/html/spec/color1.html
 
 ==========================================================================================
+unicode and css arrows
+http://en.wikipedia.org/wiki/Geometric_Shapes
+http://en.wikipedia.org/wiki/Arrow_%28symbol%29
+http://stackoverflow.com/questions/2701192/ascii-character-for-up-down-triangle-arrow-to-display-in-html
+
+==========================================================================================
 asterisk css ie
 *border-bottom-width
 
