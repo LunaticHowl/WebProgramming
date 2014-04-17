@@ -170,6 +170,13 @@ document.styleSheets
   Returns a list of stylesheet objects for stylesheets explicitly linked into or embedded in a document.
 
 =============================================================================
+querySelectorAll and document order
+from: http://www.w3.org/TR/selectors-api/#queryselectorall
+  The querySelectorAll() methods on the Document, DocumentFragment, and Element interfaces must return a NodeList
+  containing all of the matching Element nodes within the subtrees of the context node, in document order.
+  If there are no matching nodes, the method must return an empty NodeList.
+
+=============================================================================
 straight javascript DOM selectors
 Same as above. Didn't know was already documented
 

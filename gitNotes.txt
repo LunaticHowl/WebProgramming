@@ -70,3 +70,7 @@ Delete a local repository
 commands to clean up and shrink repo (.git dir)
   git gc --aggressive
   git repack
+
+test if a pull is needed
+  git remote update
+  git status
