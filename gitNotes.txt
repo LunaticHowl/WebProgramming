@@ -28,13 +28,15 @@ commit and push
     git add -> changes modified to staged
     git commit -> staged to unmodified
     git push -> updated remote repo
-  to skip the add step do
+  to skip the add step do (*1)
     git commit -a
   if you don't specify a message in the commit, git will open a file in your default text editor.
   to avoid this do
     git commit -a -m"some message here"
   or
     git commit --allow-empty-message
+
+  (*1) the -a switch will add new files but will not add a new directory. If you add a directory to the project you need to still run "git add dirName/"
 
   commit is local only and commits changes to the local branch
   push actually updates the repo on Github
@@ -50,6 +52,7 @@ To stop tracking a file that is currently tracked, use git rm --cached
 This removes the file from the repo.
   eg
     git rm --cached client/app/BMNext.sublime-workspace
+  without "--cached" git will remove the file from both the repo *and* the working directory (deletes the actual file)
 
 To stop watching the file use the .gitignore or ...\.git\info\exclude file
 you should use ...\.git\info\exclude to ignore files that are unique to your work flow
