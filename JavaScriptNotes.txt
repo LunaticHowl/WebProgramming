@@ -595,6 +595,13 @@ columns.some( function(col){runningWidth += col.width; if (runningWidth > maxWid
   // test : 25
 
 =============================================================================
+function timing
+  var t0 = performance.now();
+  doSomething();
+  var t1 = performance.now();
+  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+
+=============================================================================
 generator yield
     you can not use yield in a callback ie forEach.
     If you want to yield while iterating an array then use a traditional for loop
