@@ -77,3 +77,10 @@ commands to clean up and shrink repo (.git dir)
 test if a pull is needed
   git remote update
   git status
+
+get timestamp of most recent commit(s)
+  git log -N
+    where N is the count of log entries to display
+  eg
+  git log -1
+    show log for most recent commit
