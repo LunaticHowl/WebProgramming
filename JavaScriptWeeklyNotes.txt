@@ -200,3 +200,9 @@ issue 101
 issue 98
   JS string lib with list of others
     http://stringjs.com/?utm_source=javascriptweekly&utm_medium=email
+
+issue 90
+  using the D3 graph library in angular (javascriptweekly has a bunch of articles on D3)
+    http://briantford.com/blog/angular-d3.html
+  see also
+    http://codecondo.com/6-js-libraries-building-visualized-charts-graphs/

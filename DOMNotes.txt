@@ -229,3 +229,14 @@ from http://stackoverflow.com/questions/21064101/understanding-offsetwidth-clien
     scrollWidth, scrollHeight: The size of all of the box's content, including the parts that are currently hidden outside the scrolling area. Can not be calculated directly from CSS, depends on the content.
 
 =============================================================================
+HTML Tidy
+simple reformat html
+  better. does js or html  (has subtext plugin for js)
+    http://jsbeautifier.org/
+  ok
+    http://www.freeformatter.com/html-formatter.html
+
+looks for invalid html
+  http://infohound.net/tidy/tidy.pl
+
+=============================================================================

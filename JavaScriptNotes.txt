@@ -595,11 +595,11 @@ columns.some( function(col){runningWidth += col.width; if (runningWidth > maxWid
   // test : 25
 
 =============================================================================
-function timing
+function timing time
   var t0 = performance.now();
   doSomething();
   var t1 = performance.now();
-  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+  console.log('doSomething time',(t1 - t0));
 
 =============================================================================
 generator yield
