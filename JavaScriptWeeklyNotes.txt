@@ -1,3 +1,10 @@
+issue 177
+  pourOver
+    PourOver is a library for fast filtering and sorting of large collections – think 100,000s of items in the browser.
+    It’s similar to Crossfilter but supports aribitrary, chainable boolean combination of filters (http://square.github.com/crossfilter/)
+    http://newsdev.github.io/pourover/?utm_source=javascriptweekly&utm_medium=email
+      Looks too complex
+
 issue 174
   organize angular app
     http://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/?utm_source=javascriptweekly&utm_medium=email
