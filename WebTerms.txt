@@ -1,0 +1,41 @@
+http://www.advogato.org/article/1042.html
+http://www.ibm.com/developerworks/web/library/wa-aj-pyjamas/
+http://pyjs.org/wiki/installingpyjamasandpyjamasdesktopforwindows/
+
+DOM
+The Document Object Model (DOM) is a cross-platform and language-independent convention for representing and interacting with objects in HTML, XHTML and XML documents.
+
+Layout engines
+Web browsers rely on layout engines to parse HTML into a DOM. Some layout engines such as Trident/MSHTML and Presto are associated primarily or exclusively with a particular browser such as Internet Explorer and Opera respectively. Others, such as WebKit and Gecko, are shared by a number of browsers, such as Safari, Google Chrome, Firefox or Flock. The different layout engines implement the DOM standards to varying degrees of compliance.
+
+WebKit
+WebKit is a layout engine designed to allow web browsers to render web pages. The WebKit engine provides a set of classes to display web content in windows, and implements browser features such as following links when clicked by the user, managing a back-forward list, and managing a history of pages recently visited.
+WebKit was originally created as a fork of KHTML as the layout engine for Apple's Safari; it is portable to many other computing platforms. Mac OS X and Windows are supported by the project.
+
+HTML5
+Like its immediate predecessors, HTML 4.01 and XHTML 1.1, HTML5 is a standard for structuring and presenting content on the World Wide Web. The new standard incorporates features like video playback and drag-and-drop that have been previously dependent on third-party browser plug-ins such as Adobe Flash and Microsoft Silverlight.
+
+Ajax
+Ajax (shorthand for Asynchronous JavaScript and XML[1]) is a group of interrelated web development techniques used on the client-side to create interactive web applications. With Ajax, web applications can retrieve data from the server asynchronously in the background without interfering with the display and behavior of the existing page.
+
+Ajax is not a technology in itself, but a group of technologies. Ajax uses a combination of HTML and CSS to mark up and style information. The DOM is accessed with JavaScript to dynamically display, and to allow the user to interact with, the information presented. JavaScript and the XMLHttpRequest object provide a method for exchanging data asynchronously between browser and server to avoid full page reloads.
+
+Trident
+Trident (also known as MSHTML) is the name of the layout engine for the Microsoft Windows version of Internet Explorer.
+
+web browser engine
+A web browser engine (sometimes called layout engine or rendering engine), is a software component that takes marked up content (such as HTML, XML, image files, etc.) and formatting information (such as CSS, XSL, etc.) and displays the formatted content on the screen. 
+The first web browsers were monolithic. Later they adopted a more modular approach and were split into a user interface and an engine.
+
+Ruby on Rails
+Ruby on Rails, often shortened to Rails or RoR, is an open source web application framework for the Ruby programming language.
+Ruby on Rails relies on a web server to run it.
+
+GWT
+Google Web Toolkit (GWT) is an open source set of tools that allows web developers to create and maintain complex JavaScript front-end applications in Java. 
+
+Pyjamas
+Pyjamas is a tool and framework for developing Ajax applications in Python. It contains a stand-alone Python-to-JavaScript compiler, an Ajax framework and widget toolkit, and through use of these components, developers can write comprehensive applications, to run in all major web browsers, without writing a single line of JavaScript. 
+
+Dabo
+Desktop applications. That's what Dabo does. It's not YAWF (yet another web framework). There are plenty of excellent web frameworks out there, so if that's what you are looking for, Dabo isn't for you. But there are almost no desktop application frameworks out there, and if you want to create applications that run on Windows, OS X or Linux, Dabo is for you!
