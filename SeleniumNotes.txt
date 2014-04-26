@@ -14,7 +14,7 @@ To easily set a test: rt click on an element in the browser, at the bottom of th
 Running at full speed causes lots of false positives. Need to give angular a chance to update DOM.
 	One or two speeds slower than max seems to work.
 	Console log slows things down so don't use it
-Put a 'testResults' element on the DOM that you can write to and test with 'verifyText' / 'assertText'
+Put a 'testResult' element on the DOM that you can write to and test with 'verifyText' / 'assertText'
 	instead of using console log to show results
 To add a delay use 'pause' not 'setTimeout'. For 'pause' command put the delay in *target* not value
 To run single command
