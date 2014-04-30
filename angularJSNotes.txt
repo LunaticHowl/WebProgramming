@@ -315,6 +315,33 @@ for these 3 examples module in html would be:
   angular.module('dwcComponents', ['moduleOne', 'secondModule'])
 
 ========================================
+Manually injecting a service
+
+Assume a module "somemod" with the service "someserv"
+you would normally load it like:
+
+  var myModule = angular.module('myModule', ['somemod']);
+
+  myModule.directive('directiveName', function factory(someserv) {
+    use someserv here
+
+If you want to manually load the module and get an instance of the service you do this:
+
+  var someserv = angular.injector(['somemod']).get('someserv');
+    use someserv here
+
+This bypasses the normal angular bootstrap of the module.
+If someserv in somemod has dependencies they will not be loaded correctly.
+angular.injector() creates a new injector. You would normally use the injector that already exists for your app by injecting the injector.
+Simple right?
+  myModule.whatever(function($injector...
+  $injector.get('someserv')...
+
+Another way to get the current apps injector if from any angular element
+  var ngElm = some angular element
+  ngElm.injector().get('someserv');
+
+========================================
 -----------------------------
 Inner directive communication
 -----------------------------
