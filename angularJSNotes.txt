@@ -584,5 +584,23 @@ Pete Bacon Darwin
 The original driver for the 'service' version was to support things like coffee script classes, which do need to be instantiated rather than simply called.
 
 ========================================
+$apply
+I was calling $apply wrong
+eg
+  scope.$apply(this.sortRowMap(this.arg1, this.arg2));
+This was working but what is actually happening is:
+  sortRowMap() is invoked and returns undefined
+  scope.$apply() is called with undefined
+The intent was:
+  scope.$apply(function() { this.sortRowMap(this.arg1, this.arg2); });
+However; to do this correctly we need a copy of "this" due to the new scope formed by the wrapper function
+eg
+  var this_ = this;
+  scope.$apply(function() { this_.sortRowMap(this_.arg1, this_.arg2); });
+
+This is a PIA
+as of 4-30-2014 I am not passing anything to $apply and writing this example like:
+  this.sortRowMap(this.arg1, this.arg2);
+  scope.$apply();
 ========================================
 ========================================
