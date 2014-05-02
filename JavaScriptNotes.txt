@@ -2323,6 +2323,12 @@ when the mouse enters the main container element
 Pair mouseenter with mouseleave
 
 =============================================================================
+event capturing
+  http://javascript.info/tutorial/bubbling-and-capturing
+In real-life the capturing phase is rarely used. But..
+There are events which don’t bubble, but can be captured. For example, onfocus/onblur.
+
+=============================================================================
 Key trapping
 if you need to detect a particular typed character, only the keypress event will do.
 If you want to detect physical keystrokes (ie arrow keys), only keyup and keydown will do.
