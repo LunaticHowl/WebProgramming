@@ -230,7 +230,7 @@ node.parentNode vs node.parentElement
 Test if one node contains another
   parent.contains(child) // returns true if child is contained by parent
 ie
-  someNode.contains(document.activeElement)) // test if someNode contains the currently focused element
+  someNode.contains(document.activeElement) // test if someNode contains the currently focused element
 
 =============================================================================
 variable declaration:
