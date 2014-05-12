@@ -235,8 +235,8 @@ JQ
 Show / hide element
 ---------------------------------
 JS
-    document.querySelector('.someclass').display = 'none'; // hide
-    document.querySelector('.someclass').display = '';     // show
+    document.querySelector('.someclass').style.display = 'none'; // hide
+    document.querySelector('.someclass').style.display = '';     // show
 
 JQ
     $('.someclass').hide();
@@ -465,6 +465,11 @@ function findPos(obj) {
     } while (obj = obj.offsetParent);
     return [curleft,curtop];
 }
+
+update 5-2014
+  see
+    http://javascript.info/tutorial/coordinates
+  for correct way to get element postion without jQuery. The code above from quirksmode is no good.
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
