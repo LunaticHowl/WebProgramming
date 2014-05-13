@@ -603,4 +603,20 @@ as of 4-30-2014 I am not passing anything to $apply and writing this example lik
   this.sortRowMap(this.arg1, this.arg2);
   scope.$apply();
 ========================================
+orderBy filter
+orderBy only works on arrays *not* on object of objects
+eg
+  <div ng-repeat='item in somedata | orderBy:"order"' >{{item.order}} {{item.description}}</div>
+Note "order" is wrapped in quotes
+data:
+    $scope.somedata =  [
+       {key:213, description: 'Engineering', order:1},
+       {key:321, description: 'Manufacturing', order:2, active: true},
+       {key:123, description: 'Sales', order:0, active: false},
+       {key:987, description: 'Management', order:4, active: false},
+       {key:789, description: 'HR', order:5, active: false},
+       {key:456, description: 'Tech Support', order:3}
+  ];
+
+
 ========================================
