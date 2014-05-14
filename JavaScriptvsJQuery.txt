@@ -471,6 +471,14 @@ update 5-2014
     http://javascript.info/tutorial/coordinates
   for correct way to get element postion without jQuery. The code above from quirksmode is no good.
 
+  version which assumes modern browser
+    function getElmPosition(elm) {
+      // http://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
+      // http://javascript.info/tutorial/coordinates
+      var box = elm.getBoundingClientRect();
+      return { top: Math.round(box.top +  window.pageYOffset), left: Math.round(box.left + window.pageXOffset) };
+    }
+
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 JS
