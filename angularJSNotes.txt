@@ -620,3 +620,23 @@ data:
 
 
 ========================================
+$watch vs $observe
+  http://stackoverflow.com/questions/14876112/difference-between-observers-and-watchers
+    $observe() is a method on the Attributes object, and as such, it can only be used to observe/watch the value change of a DOM attribute.
+    It is only used/called inside directives. Use $observe when you need to observe/watch a DOM attribute that
+    contains interpolation (i.e., {{}}'s).
+    E.g., attr1="Name: {{name}}", then in a directive: attrs.$observe('attr1', ...).
+    (If you try scope.$watch(attrs.attr1, ...) it won't work because of the {{}}s -- you'll get undefined.) Use $watch for everything else.
+
+  It is critical to note that $observe will only work on attributes that contain interpolation
+  To watch/observe an attribute without interpolation you can use $watch with a function
+  eg
+    scope.$watch(function() {return element[0].dataset.myAttr; }, function(newVal){ ...; });
+
+========================================
+attrs param in directive link() function vs element[0].dataset
+  element.dataset gives a live list but its initial value is the attribute pre-interpolation eg: data-action='{{someVar}}'
+  The link() function "attrs" param is stale after initial call to link.
+  If the attribute does not contain interpolation then element.dataset will always give the current value.
+
+========================================
