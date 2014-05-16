@@ -84,3 +84,9 @@ get timestamp of most recent commit(s)
   eg
   git log -1
     show log for most recent commit
+
+"(END)" prompt
+  When there is a long result powershell trys to page the text and displays "(END)" for the prompt.
+  You should be able to get the next page by pressing the space bar. Doesn't work.
+  Only way out is to press 'q' for quit.
+  Can also press 'h' to get several pages of help showing a bunch of other commands that also don't work.
