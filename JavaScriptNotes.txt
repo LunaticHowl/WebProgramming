@@ -601,6 +601,8 @@ function timing time
   var t1 = performance.now();
   console.log('doSomething time',(t1 - t0));
 
+see also console.time and console.timeEnd
+
 =============================================================================
 generator yield
     you can not use yield in a callback ie forEach.
