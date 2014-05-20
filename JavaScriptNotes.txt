@@ -227,6 +227,13 @@ node.parentNode vs node.parentElement
   as of 2014 it should be safe to use either in a modern browser
 
 =============================================================================
+which element has current focus
+currently focused element
+  document.activeElement
+
+Returns the currently focused element, that is, the element that will get keystroke events if the user types any. This attribute is read only.
+
+=============================================================================
 Test if one node contains another
   parent.contains(child) // returns true if child is contained by parent
 ie
@@ -2292,13 +2299,6 @@ document.elementFromPoint() is the key
     hitElmUL = document.elementFromPoint(upX, upY); // test upper left corner
     hitElmBR = document.elementFromPoint(dnX, dnY); // test lower right corner
     console.log('hit?', hitElmUL === $testElm[0], hitElmBR === $testElm[0] );
-
-=============================================================================
-which element has current focus
-currently focused element
-  document.activeElement
-
-Returns the currently focused element, that is, the element that will get keystroke events if the user types any. This attribute is read only.
 
 =============================================================================
 Position of an element relative to document
