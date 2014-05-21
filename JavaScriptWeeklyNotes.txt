@@ -1,3 +1,14 @@
+issue 181
+  http://flippinawesome.org/2014/05/12/rethinking-dom-traversal/
+    Alternatives to jQuery
+
+  http://dev.opera.com/articles/introduction-to-indexeddb/
+    good article on IndexedDB
+
+  https://github.com/joewalnes/filtrex
+    A simple, safe, JavaScript expression engine, allowing end-users to enter safe arbitrary expressions
+
+
 issue 177
   pourOver
     PourOver is a library for fast filtering and sorting of large collections – think 100,000s of items in the browser.
