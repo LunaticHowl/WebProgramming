@@ -1,3 +1,7 @@
+issue 182
+  http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/
+    Communicating Large Objects with Web Workers in javascript
+
 issue 181
   http://flippinawesome.org/2014/05/12/rethinking-dom-traversal/
     Alternatives to jQuery
