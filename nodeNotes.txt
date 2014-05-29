@@ -81,6 +81,12 @@ if express is installed globally you can create a skeleton app
 
     will create a new dir 'newApp' as the root of project
     for options type express --help
+
+version of express installed
+  express --version
+
+Determine current express version
+  npm info express version
 ------------------------------------------------------------------------------------------------
 __dirname vs  process.cwd()
 If you cd to the dir and run a script in that dir then __dirname == process.cwd()
@@ -283,6 +289,48 @@ http://stackoverflow.com/questions/5156806/node-js-and-microsoft-sql-server
 notes on ms driver not working on node v 1 +
   https://github.com/WindowsAzure/node-sqlserver/issues/126
   http://stackoverflow.com/questions/19661811/unable-to-download-msnodesql-0-2-1-v0-10-x64-msi
+------------------------------------------------------------------------------------------------
+Tedious
+
+Steps to connect to DWC DB.
+Setup login at server level under Security | logins
+  configure to use sql authentication
+  turn off password enforcement policy
+Add new user at database level under Security | Users
+  set as db owner
+
+Using "SQL Server Configuration Manager" on the server (Gandalf) make sure the SQL server uses a static Port
+See: D:\DotNetProjects\CSharpProjects\TeleWorks\Notes\IVRSummaryNotes.txt
+Build a config object like:
+
+config = {
+  userName: 'DevUser',
+  password: 'letmein',
+  server: 'Gandalf',
+  options: {
+    port: 1844,
+    rowCollectionOnRequestCompletion: true
+  }
+}
+
+Where userName/password is for user created above
+Valid server examples: '69.39.28.82' '10.4.205.7' 'Gandalf'
+Port; use correct number set with "SQL Server Configuration Manager"
+The same server can have multiple instances of SQL with same IP but different ports
+
+-------
+example config object for local sql express
+
+  config = {
+  userName: 'sa',
+  password: 'lmyh',
+  server: 'localhost',
+  options: {
+    port: 1433,
+    rowCollectionOnRequestCompletion: true
+    }
+  };
+
 ------------------------------------------------------------------------------------------------
 nodeJs NoSQL notes
 MongoDB - runs on windows
