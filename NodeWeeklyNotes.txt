@@ -1,0 +1,3 @@
+Issue 37
+  http://joshmock.github.io/boilerplate-free-promises-in-node/
+    library to wrap asynch node functions in a promise without any boilerplate

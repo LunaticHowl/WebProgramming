@@ -1,3 +1,11 @@
+issue 183
+  http://odetocode.com/blogs/scott/archive/2014/05/28/compile-pre-and-post-linking-in-angularjs.aspx
+    Compile, Pre, and Post Linking in AngularJS. Short and clear article.
+  http://numeraljs.com/?utm_source=javascriptweekly
+    A javascript library for formatting and manipulating numbers. eg: var string = numeral(1000).format('0,0'); // '1,000'
+  http://www.sitepoint.com/html5-forms-javascript-constraint-validation-api/
+  part 3 of 3 part series on HTML5 Forms
+
 issue 182
   http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/
     Communicating Large Objects with Web Workers in javascript
