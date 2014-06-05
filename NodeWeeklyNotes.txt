@@ -1,3 +1,17 @@
 Issue 37
   http://joshmock.github.io/boilerplate-free-promises-in-node/
     library to wrap asynch node functions in a promise without any boilerplate
+
+Issue 32
+  node error handling
+    https://www.youtube.com/watch?v=p-2fzgfk9AA
+  Only single place throw / catch is useful is around JSON.parse()
+  Pass error objects not simple strings or number. At the very least do new Error('your err msg here')
+  Make custom error objects for different types of errors
+
+Issue 27
+  browserify
+    re-package node modules for use in the browser.
+    Allows
+      var package = require(...);
+    in the browser

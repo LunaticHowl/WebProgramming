@@ -213,6 +213,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 You definitely need express.bodyParser() above app.router or req.files is undefined when uploading a file
 
 ------------------------------------------------------------------------------------------------
+dump out a large object
+when you console.log() a large object only the last bit shows up in the command window
+fix is to just send the object back to the browser as text
+If you stringify the the object with JSON.stringify() it will complain if there are cyclic references
+instead use util.inspect(obj)
+eg
+  util = require('util'),
+  ...
+  app.get('/*', function(req, res) { res.send(util.inspect(req)); });
+Then in the debug console of the browser go to the net tab and drill down to response
+
+------------------------------------------------------------------------------------------------
 node file IO
 ------------
 
