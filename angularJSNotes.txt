@@ -640,3 +640,33 @@ attrs param in directive link() function vs element[0].dataset
   If the attribute does not contain interpolation then element.dataset will always give the current value.
 
 ========================================
+detect angular errors angular exceptions in selenium
+  this didn't work. may be ok for non-angular app but did not work with standard angular error handling
+    http://stackoverflow.com/questions/4189312/capturing-javascript-error-in-selenium
+
+  what *did* work is this
+    http://stackoverflow.com/questions/13595469/how-to-override-exceptionhandler-implementation
+  shows 2 options. override angular exception handling OR augment it.
+
+  Here is what I did:
+
+  someModule.factory('$exceptionHandler', function () {
+    return function (exception, cause) {
+      document.getElementById('test-errmsg').innerHTML = exception.message;
+    };
+  });
+
+  Puts the message in a DOM element and then you can have selenium look for it there
+
+    Tried putting the message on the scope and having angular display it in the DOM so selenium could find it but:
+      Had an issue getting hold of $scope or $rootScope in the overridden $exceptionHandler
+      when required $rootScope got the error "Circular dependency found: $exceptionHandler <- $rootScope"
+      if just try and use $rootScope without requiring it got the error "ReferenceError: $rootScope is not defined"
+      kluge was to make a module wide var "_globalScope_" set it to $scope in the controller
+      Even after all that there were issues with needing to call apply() to make sure the msg displayed
+      It turns out to be *much* easier to just manually put the message on the DOM without angular
+
+  The reason this overrides the exception handling is: in angular if there are multiple services with the same name
+    ($exceptionHandler in this case), the last service loaded "wins"
+
+========================================
