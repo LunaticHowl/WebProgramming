@@ -1,3 +1,8 @@
+issue 184:
+  http://sahatyalkabov.com/create-a-tv-show-tracker-using-angularjs-nodejs-and-mongodb/
+    A superbly thorough and well-presented tutorial. It goes all the way from starting a new Express project through to deploying it on Heroku.
+    MEAN app. uses bootstrap. good section on routing. *LONG*. covers authentication using passport. Info on some possible 3rd party modules
+
 issue 183
   http://odetocode.com/blogs/scott/archive/2014/05/28/compile-pre-and-post-linking-in-angularjs.aspx
     Compile, Pre, and Post Linking in AngularJS. Short and clear article.
