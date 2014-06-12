@@ -385,6 +385,29 @@ nodemon
         nodemon --delay 10 server.js
     The delay figure is number of seconds to delay before restarting. So nodemon will only restart your app the given number of seconds after the *last* file change.
 
+    notes:
+      watch
+      -----
+        the as of ver 1.2.0 --watch option DOES NOT WORK at least on windows
+          should be able to do this:
+            nodemon --watch ../../../ app.ja
+          and watch any js files 3 dirs above the current dir including sub-dirs
+          tried on command line and in nodemon.json of:
+            {
+              "verbose": true,
+              "watch": ["../../../"]
+            }
+          the output indicated it was watching the correct dir but it did not work
+        Fix:
+          just launch nodemon for higher dir and specify path to app eg
+            >>nodemon ./test/node/SQL_IO/app.js
+
+        nodemon.json
+        ------------
+          some of the options take an array of strings eg "watch": ["this", "that"]
+          others take a string with white space to separate options eg "ext": "js py jade"
+
+
 
 node-inspector
     https://github.com/node-inspector/node-inspector
