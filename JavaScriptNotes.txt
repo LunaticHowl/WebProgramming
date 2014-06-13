@@ -601,6 +601,30 @@ columns.some( function(col){runningWidth += col.width; if (runningWidth > maxWid
   // isa : another
   // test : 25
 
+
+=============================================================================
+object keys are always strings
+
+  you may create an object like:
+    { 1:'this', 2:'that', 3:'other' }
+  The keys returned by for...in or obj.keys() will be strings
+  eg:
+
+    var obj = { 1:'this', 2:'that', 3:'other' };
+
+    for (var key in obj) {
+      console.log(key, ':', obj[key], typeof key);
+    }
+
+    Object.keys(obj).forEach(function(key) {
+      console.log(key, ':', obj[key], typeof key);
+    });
+
+    both return:
+      1 : this string
+      2 : that string
+      3 : other string
+
 =============================================================================
 function timing time
   var t0 = performance.now();

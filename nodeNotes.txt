@@ -175,6 +175,12 @@ call the code directly in the generator
         yield is.pipe(os);
 
 ------------------------------------------------------------------------------------------------
+some good articles on dealing with asynch code in node
+  http://metaduck.com/01-asynchronous-iteration-patterns.html
+  http://www.richardrodger.com/2011/04/21/node-js-how-to-write-a-for-loop-with-callbacks/#.U5jsC4U_7cc
+
+
+------------------------------------------------------------------------------------------------
 app.route middleware and static files
     http://stackoverflow.com/questions/12695591/node-js-express-js-how-does-app-router-work
 
