@@ -1,3 +1,8 @@
+Issue 39
+  https://github.com/dreyacosta/somewhere.js
+    somewhere.js
+      Small JSON file database for Node.js
+
 Issue 37
   http://joshmock.github.io/boilerplate-free-promises-in-node/
     library to wrap asynch node functions in a promise without any boilerplate
