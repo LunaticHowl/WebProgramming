@@ -2419,7 +2419,7 @@ Object.keys(obj).forEach(function(key) {
 });
 
 =============================================================================
-two ways to do a replace all
+two ways to do a replace all spaces
     someStr = someStr.replace(/\s+/g, '');
     or
     someStr = someStr.split(' ').join('');
