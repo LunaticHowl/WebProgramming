@@ -15,6 +15,10 @@ resources
   https://www.youtube.com/watch?v=L4FJ_kuO9Rc
     using angular filters to make a dataset of 300K records performant.
     All data in in memory but only show the top N in the browser
+
+  http://tech.small-improvements.com/2013/09/10/angularjs-performance-with-large-lists/
+    optimization tips
+
 ========================================
 jqLite docs:
   http://docs.angularjs.org/api/ng/function/angular.element

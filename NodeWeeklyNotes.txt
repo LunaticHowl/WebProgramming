@@ -1,3 +1,7 @@
+Issue 41
+  http://vimeo.com/96425312
+    excellent talk on how JS event loop, call stack and callback queue all interact
+
 Issue 39
   https://github.com/dreyacosta/somewhere.js
     somewhere.js
