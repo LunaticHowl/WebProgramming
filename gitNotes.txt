@@ -59,6 +59,12 @@ you should use ...\.git\info\exclude to ignore files that are unique to your wor
   eg project files created by  your editor
 the .gitignore file in the project root should be used to list files that should be ignored by all users
 
+move a file:
+  does actual file move on hard drive and update local repo
+  -n switch == Do nothing; only show what would happen
+    git mv -n path\tosource\filename.exe dest\path
+  eg:
+   git mv -n client\app\components\common\test\enhanceResultSet_serviceTest.js shared\test
 
 good summary of
   tracked or untracked files
