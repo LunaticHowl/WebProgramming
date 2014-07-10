@@ -173,10 +173,6 @@ Naming input elements on the form is not required to retrieve the data since you
 however; if the elements are not named the browser can not save the MRU for then elements
 
 ========================================
-Examples of different ways to define AngularJS controllers, factories, services, filters, and directives.
-  http://weblogs.asp.net/dwahlin/archive/2013/12/01/structuring-angularjs-code.aspx
-
-========================================
 $compile example
 
   // htmlText - simple text eg; <div><span>{{somevar}}</span></div>
@@ -435,9 +431,13 @@ Problem with a <datalist>
 </html>
 
 ========================================
+Examples of different ways to define AngularJS controllers, factories, services, filters, and directives.
+  http://weblogs.asp.net/dwahlin/archive/2013/12/01/structuring-angularjs-code.aspx
+
+========================================
 --------------------------------------------------------
 factory Vs service
-Highlights from the google group thread
+Below are highlights from the google group thread
 https://groups.google.com/forum/#!msg/angular/56sdORWEoqg/HuZsOsMvKv4J
   What is the difference between module.factory and module.service and how might both be applied?
 see also
@@ -445,6 +445,7 @@ see also
   http://stackoverflow.com/questions/13762228/confused-about-service-vs-factory
   https://gist.github.com/Mithrandir0x/3639232
 
+  see also >> ** serviceVsFactory.zip in codebase ** << see also
 --------------------------------------------------------
 Igor Minar
 4/19/12
