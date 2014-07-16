@@ -1,0 +1,14 @@
+D:\Notes\WebProgramming\Books\CSSandDocuments
+  formatting a XML document with CSS
+  media descriptor
+
+D:\Notes\WebProgramming\Books\DevelopingAnAngularJSEdge
+  module functions
+  value(): Allows you to set some “global” (injectable) values within an object; good for “defaults”.
+  constant(): Much like value, except the object you supply is expected to not change, and is available to the config function.
+  run()
+  config()
+
+  $provide service decorator pg 124
+
+  angular html template in script tag tied to ng-template
