@@ -240,3 +240,10 @@ looks for invalid html
   http://infohound.net/tidy/tidy.pl
 
 =============================================================================
+CSS Tidy
+reformat CSS
+both use csstidy 1.3
+  http://www.codebeautifier.com/
+  http://cleancss.com/
+
+=============================================================================
