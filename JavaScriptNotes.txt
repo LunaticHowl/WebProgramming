@@ -2464,7 +2464,7 @@ REST web service resources
 
 =============================================================================
 -- jsHint --
-Top fo file settings
+Top of file settings
 /*jshint forin:true,noarg:true,noempty:true,eqeqeq:true,bitwise:true,strict:true,undef:true,curly:true,latedef:true,newcap:true,immed:true,indent:2,maxerr:50 */
 
 suppress missing var warning
