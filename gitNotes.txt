@@ -66,6 +66,10 @@ move a file:
   eg:
    git mv -n client\app\components\common\test\enhanceResultSet_serviceTest.js shared\test
 
+rename file. Same as move a file:
+  eg:
+   git mv -n client\app\components\common\oldname.js client\app\components\common\NewName.js
+
 good summary of
   tracked or untracked files
   unmodified, modified, and staged files

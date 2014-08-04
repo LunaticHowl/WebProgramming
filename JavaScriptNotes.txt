@@ -2478,5 +2478,13 @@ ignore section of code (*)
 ignore single line (*)
   ...; // jshint ignore:line
 
+suppress "'document' is not defined" warning
+add "browser:true" to top of file
+
+suppress "'console' is not defined" warning
+add "devel:true" to top of file
+
+
+
 (*) === requires version >= Oct 2013
 =============================================================================
