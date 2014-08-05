@@ -254,6 +254,16 @@ fs.rename
 fs.unlink / fs.unlinkSync
     delete a file
 
+read entire file into a string
+  *NOTE*: be sure to specify the encoding ('utf8', 'ascii' or 'base64') or you get a raw buffer
+
+  var fs = require('fs');
+
+  fs.readFile('some/path/here.txt', 'utf8', function (err, data) {
+    if (err) return res.send(404);
+    res.json( {msg: 'success from server!', controller:data} );
+  });
+
 ------------------------------------------------------------------------------------------------
 npm search for 'sql server'
 C:\>npm search sql server

@@ -229,6 +229,47 @@ from http://stackoverflow.com/questions/21064101/understanding-offsetwidth-clien
     scrollWidth, scrollHeight: The size of all of the box's content, including the parts that are currently hidden outside the scrolling area. Can not be calculated directly from CSS, depends on the content.
 
 =============================================================================
+Dynamically load a script
+-------------------------
+  // see: http://www.html5rocks.com/en/tutorials/speed/script-loading/
+  function loadfile(url) {
+    var elmScript = document.createElement('script'),
+      deferred = $q.defer();
+
+    elmScript.setAttribute('src', url);
+    elmScript.onload = function() { deferred.resolve(); };
+    elmScript.onerror = function(evt) { deferred.reject('Unable to load file: ' + url); };
+    document.head.appendChild(elmScript);
+
+    return deferred.promise;
+  }
+
+
+Dynamically load some HTML
+--------------------------
+Not as nifty as loading a script shown above
+  function loadHtml(url) {
+    var elmHTML = document.createElement('object'),
+      htmlText,
+      deferred = $q.defer();
+
+    elmHTML.setAttribute('type', 'text/html');
+    elmHTML.setAttribute('data', url);
+    elmHTML.style = 'display:none';
+    elmHTML.onload = function() {
+      htmlText = elmHTML.contentDocument.body.innerHTML;
+      document.body.removeChild(elmHTML);
+      deferred.resolve(htmlText);
+    };
+    elmHTML.onerror = function() { deferred.reject('Unable to load file: ' + url); }; // there is no onerror event for <object> element. this never fires and promise is never resolved or rejected
+    document.body.appendChild(elmHTML);
+
+    return deferred.promise;
+  }
+
+
+
+=============================================================================
 HTML Tidy
 simple reformat html
   better. does js or html  (has subtext plugin for js)
