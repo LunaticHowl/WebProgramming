@@ -1,3 +1,11 @@
+Issue 44
+  http://nerdventure.io/sql-server-and-node-js/
+    Windows auth for tedious
+  https://github.com/leankit-labs/seriate
+    on top of node-mssql and Microsoft SQL Server
+    Allows building a series of asynch steps in a finite state machine. Steps can be SQL CRUD and JS functions to process the data
+      (node-mssql is the unified interface for multiple MSSQL TDS modules)
+
 Issue 41
   http://vimeo.com/96425312
     excellent talk on how JS event loop, call stack and callback queue all interact
