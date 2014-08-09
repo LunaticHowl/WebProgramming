@@ -267,8 +267,6 @@ Not as nifty as loading a script shown above
     return deferred.promise;
   }
 
-
-
 =============================================================================
 HTML Tidy
 simple reformat html
@@ -286,5 +284,11 @@ reformat CSS
 both use csstidy 1.3
   http://www.codebeautifier.com/
   http://cleancss.com/
+
+=============================================================================
+Online regex testers
+  https://www.debuggex.com/
+  http://regexpal.com/
+  http://regex101.com/
 
 =============================================================================
