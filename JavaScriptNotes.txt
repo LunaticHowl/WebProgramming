@@ -240,6 +240,10 @@ ie
   someNode.contains(document.activeElement) // test if someNode contains the currently focused element
 
 =============================================================================
+focus an element
+  someElm.focus();
+
+=============================================================================
 variable declaration:
 The var declaration allows you to chain definitions in a comma separated list
 what’s more that list can reference variables declared earlier in the same list.
