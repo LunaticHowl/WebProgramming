@@ -6,6 +6,7 @@ Only available in sql server 2012
   http://lennilobel.wordpress.com/2012/05/29/new-metadata-discovery-features-in-sql-server-2012/
 
 Uses sp_describe_first_result_set and sys.dm_exec_describe_first_result_set to get meta data from sql server for ad-hoc queries.
+** note: ** if you have a left join then each field involved in that left join will have "is_nullable" = True
 
 The test query is:
   select
@@ -20,7 +21,7 @@ The test query is:
 
 notice how every field and table are aliased and there is a calculated column
 
-sp_describe_first_result_set and sys.dm_exec_describe_first_result_set both work. 
+sp_describe_first_result_set and sys.dm_exec_describe_first_result_set both work.
 The examples below use sys.dm_exec_describe_first_result_set
 sys.dm_exec_describe_first_result_set allow returning just a sub-set of the meta data columns
 The syntax for sp_describe_first_result_set is:
