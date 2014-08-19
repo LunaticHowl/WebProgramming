@@ -95,6 +95,18 @@ get timestamp of most recent commit(s)
   git log -1
     show log for most recent commit
 
+undo a commit before its pushed
+  git reset --mixed HEAD~1
+    revert a single commit. Leave modified files alone. git status will show un-commited changes
+
+  git reset --hard HEAD~1
+    revert a single commit. Any changes to tracked files in the working tree since <commit> are discarded. git status will report there are no un-commited changes
+
+  there is also
+    git reset --soft HEAD~1
+      Not real clear on how this one works
+
+
 "(END)" prompt
   When there is a long result powershell trys to page the text and displays "(END)" for the prompt.
   You should be able to get the next page by pressing the space bar. Doesn't work.
