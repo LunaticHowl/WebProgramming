@@ -2,6 +2,7 @@
 javascript style guides
 http://javascript.crockford.com/code.html
 http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+https://github.com/felixge/node-style-guide
   indent: crockford 4 space, google 2 space. Seems the community consensus is 2 spaces
 https://github.com/airbnb/javascript
 http://seravo.fi/2013/javascript-the-winning-style
