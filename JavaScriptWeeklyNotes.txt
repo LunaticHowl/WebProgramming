@@ -1,3 +1,19 @@
+Issue 193
+  https://andywalpole.me/#!/blog/140739/using-javascript-create-guid-from-users-browser-information
+    Using JavaScript to create a GUID from a user’s browser information
+    Uses a mix if browser info such as:
+      window.navigator.userAgent, window.navigator.plugins.length, window.navigator.mimeTypes.length, window.screen.height, window.screen.width and window.screen.pixelDepth.
+
+Issue 192
+  http://engineering.clever.com/2014/07/29/testing-private-functions-in-javascript-modules/
+    Testing Private Functions in JavaScript Modules (examples are specific to Node)
+
+  http://www.binpress.com/tutorial/speeding-up-angular-js-with-simple-optimizations/135
+    Speeding up AngularJS apps with simple optimizations
+
+  https://github.com/audreyt/500lines/blob/master/spreadsheet/chapter.md?
+    Web Spreadsheet in 99 lines - built on top of angular. Looks very interesting. Didn't look at the code
+
 issue 187:
   http://pixelhunter.me/post/89643270589/ngactivityindicator-js-preloaders-for-angular-js-apps
     angular service with loading indicators to use while waiting for ajax response

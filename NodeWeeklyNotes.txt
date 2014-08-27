@@ -1,3 +1,12 @@
+Issue 48
+  https://github.com/dbashford/textract
+    node module to extract text from a variety of file types including:
+    pdf, doc, docx, xls, xlsx
+
+Issue 46
+  http://chaosevoker.github.io/programming/2014/07/16/pdf-generation-in-node-part-1.html
+    PDF Generation in Node. did not read
+
 Issue 44
   http://nerdventure.io/sql-server-and-node-js/
     Windows auth for tedious

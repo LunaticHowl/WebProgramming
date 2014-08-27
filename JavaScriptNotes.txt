@@ -2488,6 +2488,12 @@ add "browser:true" to top of file
 suppress "'console' is not defined" warning
 add "devel:true" to top of file
 
+suppress "Possible strict violation" warning
+function someFun() {
+  /*jshint validthis:true */
+  var ...
+  ...
+}
 
 
 (*) === requires version >= Oct 2013
