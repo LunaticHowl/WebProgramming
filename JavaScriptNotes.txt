@@ -2468,6 +2468,9 @@ REST web service resources
   http://diveintopython3.org/http-web-services.html
 
 =============================================================================
+for a list of validator / formatters (HTML CSS regex CSV)
+see bottom of DOMNotes.txt
+=============================================================================
 -- jsHint --
 Top of file settings
 /*jshint forin:true,noarg:true,noempty:true,eqeqeq:true,bitwise:true,strict:true,undef:true,curly:true,latedef:true,newcap:true,immed:true,indent:2,maxerr:50 */

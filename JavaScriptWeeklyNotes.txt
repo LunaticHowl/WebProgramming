@@ -1,3 +1,14 @@
+Issue 194
+  http://scotch.io/tutorials/javascript/the-many-ways-to-use-ngclass
+    using angular ngClass to style elements
+    When using classes with hyphens (like text-success or btn-lg) make sure you put single quotes around the class.
+
+  http://jonathancreamer.com/adding-clarity-to-scope-inheritance-in-angular/?utm_source=javascriptweekly&utm_medium=email
+    Talks about angular scope inheritance.
+    Has an interesting bit when talking about JS inheritance in general. He uses Object.create() then:
+      resets the Child.prototype.constructor so it still points to the Child function.
+      You have to do this because if you don't, then Child.prototype.constructor would point to the function Root() {}.
+
 Issue 193
   https://andywalpole.me/#!/blog/140739/using-javascript-create-guid-from-users-browser-information
     Using JavaScript to create a GUID from a user’s browser information
