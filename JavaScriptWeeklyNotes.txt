@@ -1,3 +1,7 @@
+Issue 197
+  http://mgcrea.github.io/angular-strap/
+    another bootstrap wrapper for angular
+
 Issue 194
   http://scotch.io/tutorials/javascript/the-many-ways-to-use-ngclass
     using angular ngClass to style elements

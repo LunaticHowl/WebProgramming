@@ -1,3 +1,7 @@
+Issue 51
+  http://thejackalofjavascript.com/file-browser-with-jstree-angularjs-and-expressjs/
+  Building a Web Based File Browser with jsTree, Angularjs and Expressjs
+  jsTree is a jQuery plugin
 
 Issue 50
   http://jxcore.com/turn-node-applications-into-executables
