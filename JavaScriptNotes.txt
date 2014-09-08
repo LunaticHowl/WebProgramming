@@ -2460,6 +2460,14 @@ String\
 There is some argument whether this is allowed by the ECMA standard. You end up with an ugly code block.
 
 =============================================================================
+as of 9-7-2014 the File API: Directories and System is dead
+The file api where the user selects files and you do something with them *is* implemented.
+The abandoned api is the one where there was a sand boxed file system the browser could use.
+Only Chrome ever implemented it.
+  http://stackoverflow.com/questions/23560090/is-the-fileapi-in-html5-dead
+  https://hacks.mozilla.org/2012/07/why-no-filesystem-api-in-firefox/
+
+=============================================================================
 REST web service resources
   http://www.xfront.com/REST-Web-Services.html
   http://www.ajaxonomy.com/2008/xml/web-services-part-1-soap-vs-rest
