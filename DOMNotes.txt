@@ -286,6 +286,17 @@ both use csstidy 1.3
   http://cleancss.com/
 
 =============================================================================
+CSS linting
+http://csslint.net/
+http://blog.codacy.com/2014/06/25/review-of-css-linting-tools/
+http://stackoverflow.com/questions/644644/are-there-any-css-lint-tools
+
+settings for http://csslint.net/
+  deselect:
+    Disallow adjoining classes (IE6 only)
+    Disallow box-sizing (IE6, IE7 only)
+
+=============================================================================
 Online regex testers
   https://www.debuggex.com/
   http://regexpal.com/
