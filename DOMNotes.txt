@@ -47,6 +47,15 @@ inline
   <input type="text" id="txt3" textInput ="unsignedInt(event)" /><br /> // Event handler does *not* get added using in-line syntax
 
 =============================================================================
+stop event bubbling bubble
+
+e.stopPropagation();   // W3C standard. stops event bubbling up
+e.cancelBubble = true; // MS only
+returning false from an event handler is a non-standard way to stop bubbling used by some old browsers and jQuery
+
+event.preventDefault(); // Cancels the event if it is cancelable, without stopping further propagation of the event. eg. in a click handler on a link would stop the link being followed
+
+=============================================================================
 
 ------------------------------
 moving elements around the DOM
