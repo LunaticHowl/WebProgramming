@@ -438,4 +438,54 @@ CSS
 }
 
 ==========================================================================================
+transition vs animation
+  you almost always want to use a transition
+  http://www.kirupa.com/html5/css3_animations_vs_transitions.htm
+  transition is used to move from one state to another and stop after setting a class on an element (eg width 0 to widht 50%)
+  animation is used to loop through some effect
+
+==========================================================================================
+CSS drawer effect
+Simple approach
+  just set Display none/block, position absolute and z-index
+  works but will obscure the underlaying screen and be instant (not animated)
+
+Complex drawer slide with animation
+  Can't use display to set visibility. Will not animate
+  Options:
+  1) Use width (or height) of 0 to reduce container to nothing
+    width will animate if you use a number or percent (width = 'auto' or width = 'inherit' will not animate)
+    X problem: with setting dimension to 0 is you can still tab to any focusable element in the 0 width container
+    problem: you can still tab to any focusable element in the 0 width container
+  2) Fade in / out using opacity : 1 to show and opacity : 0 to hide
+    problem: can tab to focus or mouse over any 'hidden' element and click on it
+  3) set visibility attribute
+    Normally the visibility attribute is not recommended because it does not hide the element from screen readers
+    According to the spec visibility is not animate-able but in fact it does work (may just be a fluke that the visibility is not reset until the animation finishes)
+
+Issues with any approach:
+  You want to prevent any scroll bar from appearing when the drawer is closed
+    Fix: set overflow :hidden;
+  You don't want the contents of the drawer to re-flow as the drawer is opened
+   Fix: set white-space :nowrap;
+
+Current solution:
+  use visibility attribute to show/hide the container and use opacity 1/0 to fade in and out
+  (still need a way to prevent tabbing *off* the drawer into the main screen when drawer is open)
+
+.drawer-container {
+  opacity:0;
+  visibility:hidden;
+  white-space: nowrap;
+  overflow:hidden;
+  transition: opacity .8s, visibility .4s;
+}
+
+.drawer-container.drawer-open {
+  opacity:1;
+  visibility:visible;
+}
+
+Note: all references to 'animate' above is the CSS3 transition
+==========================================================================================
 
