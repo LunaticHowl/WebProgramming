@@ -389,6 +389,10 @@ JavaScript eval
 
 ---------------
 ==========================================================================================
+shrink wrap shrinkwrap a parent div to fit its children
+use display: inline-block;
+
+==========================================================================================
 Using border settings to make simple arrow heads. Ripped off from bootstrap.js
 The original bootstrap 'caret' uses the additional styles:
   display: inline-block;
