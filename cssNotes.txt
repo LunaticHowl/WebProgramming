@@ -97,6 +97,9 @@ Therefore, a property that is preceded by an non-alphanumeric character other th
 an asterisk, is applied exclusively in Internet Explorer 7 and below.
 
 ==========================================================================================
+z-index only has an effect if an element is positioned. (position other than static)
+
+==========================================================================================
 automatically position a div centered in screen like for a dialog.
 Will not work if you want to do drag N drop of the div
 
