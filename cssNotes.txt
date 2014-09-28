@@ -495,5 +495,8 @@ Current solution:
 }
 
 Note: all references to 'animate' above is the CSS3 transition
+
+see: D:\Notes\CodeBase\WebProgCodeBase\drawerEffect.zip
+
 ==========================================================================================
 
