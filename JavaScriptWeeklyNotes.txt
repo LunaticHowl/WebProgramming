@@ -1,3 +1,8 @@
+Issue 198
+  http://jlongster.com/Taming-the-Asynchronous-Beast-with-CSP-in-JavaScript
+    long article on CSP (Communicating sequential processes) a channel based pattern for dealing with asynchronous code
+    requires JS generators. perhaps the coolest thing ever
+
 Issue 197
   http://mgcrea.github.io/angular-strap/
     another bootstrap wrapper for angular
