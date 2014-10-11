@@ -499,4 +499,7 @@ Note: all references to 'animate' above is the CSS3 transition
 see: D:\Notes\CodeBase\WebProgCodeBase\drawerEffect.zip
 
 ==========================================================================================
+css shapes. div and css3. arrows tabs circle Pentagon etc
+  http://css-tricks.com/examples/ShapesOfCSS/
 
+==========================================================================================
