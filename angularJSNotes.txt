@@ -675,3 +675,11 @@ detect angular errors angular exceptions in selenium
     ($exceptionHandler in this case), the last service loaded "wins"
 
 ========================================
+if you need some init code use the run() method
+or
+use angular's jqLite ready() method instead of window.onload
+  angular.element(document).ready(function() {
+    // bootstrap code here
+  });
+
+========================================
