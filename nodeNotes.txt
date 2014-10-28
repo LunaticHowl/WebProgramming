@@ -22,8 +22,21 @@ npm
 
         update all outdated local packages
             npm update
+        update single outdated package
+            npm update <module>
         update all global packages
             npm update -g.
+
+    check package versions
+        display current available package version
+          npm info <module> version
+        display versions of installed local packages (cd to correct node_modules dir)
+          npm list
+        display versions of installed global packages
+          npm list -g
+        display version of single installed package
+          npm list <module>
+
 
 npm cheatsheet with all commands
   http://blog.nodejitsu.com/npm-cheatsheet/#Uninstalling_a_package_globally
@@ -45,8 +58,7 @@ display node's V8 version
     C:\>node -e console.log(process.versions.v8)
     3.14.5.9
 
-display current module version
-  npm info <module> version
+for package version info see above npm section
 
 using generators in node requires min V8 version of 3.19
     as of 10-30-2013 only unstable versions have that V8

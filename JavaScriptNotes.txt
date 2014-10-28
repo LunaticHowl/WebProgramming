@@ -2460,6 +2460,14 @@ String\
 There is some argument whether this is allowed by the ECMA standard. You end up with an ugly code block.
 
 =============================================================================
+current tab visible active tab
+https://developer.mozilla.org/en-US/docs/Web/Guide/User_experience/Using_the_Page_Visibility_API
+
+The Page Visibility API lets you know when a webpage is visible or in focus.
+With tabbed browsing, there is a reasonable chance that any given webpage is in the background and thus not visible to the user.
+When the user minimizes the webpage or moves to another tab, the API sends a visibilitychange event regarding the visibility of the page
+
+=============================================================================
 as of 9-7-2014 the File API: Directories and System is dead
 The file api where the user selects files and you do something with them *is* implemented.
 The abandoned api is the one where there was a sand boxed file system the browser could use.
