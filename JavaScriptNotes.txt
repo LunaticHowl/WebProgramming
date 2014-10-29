@@ -2518,3 +2518,23 @@ function someFun() {
 
 (*) === requires version >= Oct 2013
 =============================================================================
+Need to reliable way to clean up server side resources when a browser tab is closed.
+The browsers beforeunload event is fired before a tab is closed. Problem with beforeunload is its unreliable for an Ajax call to the server.
+The browser may ignore an asynchronous request. You can configure the Ajax call to be synchronous, but that slows down the tab close and is
+still not guaranteed to get the data to the server.
+The fix is to use navigator.sendBeacon() in the beforeunload event handler.
+  http://stackoverflow.com/questions/15479103/can-beforeunload-unload-be-used-to-send-xmlhttprequests-reliably
+  https://developer.mozilla.org/en-US/docs/Web/API/navigator.sendBeacon
+  http://updates.html5rocks.com/2014/10/Send-beacon-data-in-Chrome-39
+
+Another approach is to have a heartbeat from the browser and time to live on the session.
+Would need to decide if the heartbeat should fire when ever the tab is open or only when the user is active in the tab
+  http://community.sitepoint.com/t/detect-browser-or-tab-close-event-using-javascript-and-perform-operation/41268/2
+=============================================================================
+chrome: how to set flags ig: enable-experimental-web-platform-features
+  enter url of: chrome://flags/
+  search for flag
+  click Enable/Disable
+  relaunch
+
+=============================================================================
