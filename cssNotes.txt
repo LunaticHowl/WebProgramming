@@ -503,3 +503,7 @@ css shapes. div and css3. arrows tabs circle Pentagon etc
   http://css-tricks.com/examples/ShapesOfCSS/
 
 ==========================================================================================
+convert hex/decimal
+  http://www.evotech.net/articles/testjsentities.html
+
+==========================================================================================
