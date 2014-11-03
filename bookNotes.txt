@@ -2,6 +2,7 @@ D:\Notes\WebProgramming\Books\CSSandDocuments
   formatting a XML document with CSS
   media descriptor
 
+-------------------------------------------------------------------------------------------
 D:\Notes\WebProgramming\Books\DevelopingAnAngularJSEdge
   module functions
   value(): Allows you to set some “global” (injectable) values within an object; good for “defaults”.
@@ -12,3 +13,29 @@ D:\Notes\WebProgramming\Books\DevelopingAnAngularJSEdge
   $provide service decorator pg 124
 
   angular html template in script tag tied to ng-template
+
+-------------------------------------------------------------------------------------------
+D:\Notes\WebProgramming\Books\CSS3TheMissingManual
+  23 list of html5 tags and when to use
+  71 ::selection pseudo element
+  77 :first-of-type :last-of-type :NTH-OF-TYPE
+  132 using web fonts
+  140 web font as icons (tip above dealing with bold...)
+  154 color resource www.colourlovers.com
+  161 CSS3 includes a new measurement unit named rem. Root EM
+  163 text-transform: uppercase
+  165 letter-spacing: -1px;
+  176 free icons and bullets, check out this page: www.cssjuice.com/38-freeicon-checkpoints/
+  265 Repeating Linear Gradients.
+      CSS3 pattern gallery at http://lea.verou.me/css3patterns/
+      www.standardista.com/cssgradients/
+      www.standardista.com/ (use of gradients to create flags of the world)
+  CSS3gradients/flags.html.
+  300 styling buttons
+  386 figure 10-10 button 'pop'
+  425 "finding order in the grid" DIY grid
+  501 pop-up tool
+  600 online CSS References
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------

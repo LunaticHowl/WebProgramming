@@ -32,6 +32,32 @@ This could be equivalently written as this:
 You can also mix styles; the following is still equivalent:
     <label><input type='checkbox' checked name=cheese disabled=""> Cheese</label>
 
+wer Note:
+The standard shows disabled=disabled with no quotes. If you use that syntax the browser rewrites it as disabled="disabled" *with* quotes.
+All examples I've found also use quotes
+=============================================================================
+HTML has attributes. The DOM has properties.
+Many HTML attributes get translated to DOM element properties.
+
+HTML boolean attribute
+eg disabled:
+  <input disabled />
+  <input disabled="" />
+  <input disabled="disabled" />
+  <input disabled="true" />
+  <input disabled="false" /> <!-- still disabled! -->
+each of the above  are valid however; (see above) correct way according to standard is:
+  disabled OR disabled="" OR disabled="disabled"
+
+When setting in JS set the element's property which is a boolean
+eg:
+  elm.disabled = true;
+
+When you set the DOM property Chrome updates the HTML attribute to be:
+  disabled
+while FF updates the HTML attribute to be:
+  disabled=""
+
 =============================================================================
 Set attributes:
   If its a standard attribute you can set it in 2 ways:
