@@ -429,6 +429,11 @@ ary.length = 0;   // truncate in place. Do this instead of ary = []; to avoid br
 console.log(ary);
 
 =============================================================================
+get last element in array without popping it
+1) ary[ary.length - 1]  // *MUCH* faster according to http://jsperf.com/get-last-item-from-array/13
+2) ary.slice(-1)[0]
+
+=============================================================================
 remove empty objects from array
 ary = ary.filter(function(e){return e;})
 if element is falsy then 'return e' will return false and the element is excluded
