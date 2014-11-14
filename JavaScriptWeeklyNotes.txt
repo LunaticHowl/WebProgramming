@@ -1,3 +1,11 @@
+Issue 206
+  https://shellycloud.com/blog/2014/11/five-functions-of-the-console-object-you-didnt-know
+    5 functions of the Console object you didn’t know
+
+Issue 204
+  http://cwestblog.com/2014/10/21/javascript-creating-a-downloadable-file-in-the-browser/
+    Creating a downloadable file in the browser
+
 Issue 198
   http://jlongster.com/Taming-the-Asynchronous-Beast-with-CSP-in-JavaScript
     long article on CSP (Communicating sequential processes) a channel based pattern for dealing with asynchronous code
