@@ -240,6 +240,9 @@ Test if one node contains another
 ie
   someNode.contains(document.activeElement) // test if someNode contains the currently focused element
 
+contains is inclusive so:
+  someNode.contains(someNode) === true
+
 =============================================================================
 focus an element
   someElm.focus();

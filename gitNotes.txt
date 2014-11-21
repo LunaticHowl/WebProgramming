@@ -112,3 +112,11 @@ undo a commit before its pushed
   You should be able to get the next page by pressing the space bar. Doesn't work.
   Only way out is to press 'q' for quit.
   Can also press 'h' to get several pages of help showing a bunch of other commands that also don't work.
+
+====================================================================================================
+if after updating git you get the error when launch shell:
+  "WARNING: git command could not be found. Please create an alias or add it to your PATH."
+launch the full desktop version of git and let it finish the install then you can open the shell
+
+====================================================================================================
+====================================================================================================
