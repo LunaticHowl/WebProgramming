@@ -1,3 +1,8 @@
+Issue 63
+  Installing Node.js on Windows
+    http://strongloop.com/strongblog/install-node-js-windows/
+      step by step for node and all optional dependencies for packages that need to be compiled (python visual studio)
+
 Issue 53
   http://nairteashop.org/getting-started-with-stripe-part-2/
     online payment with node express and stripe

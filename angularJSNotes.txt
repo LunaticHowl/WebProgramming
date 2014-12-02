@@ -683,3 +683,9 @@ use angular's jqLite ready() method instead of window.onload
   });
 
 ========================================
+simple ngModel example. angular.js checkboxInputType
+search for "function checkboxInputType("
+shows how to use $render/$formatters/$parsers etc
+note: checkboxInputType() is the link function that is abstracted out of inputDirective
+
+========================================
