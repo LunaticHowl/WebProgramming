@@ -1,3 +1,7 @@
+Issue 209
+  excellent slide deck on functional programming using library named Ramda
+    http://scott.sauyet.com/Javascript/Talk/2014/01/FuncProgTalk/
+
 Issue 206
   https://shellycloud.com/blog/2014/11/five-functions-of-the-console-object-you-didnt-know
     5 functions of the Console object you didn’t know
