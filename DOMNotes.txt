@@ -204,6 +204,12 @@ Notes:
 3 Available on Document, DocumentFragment, and Element
 
 =============================================================================
+Manipulating attributes (should use dataset when possible see below)
+  elm.setAttribute('someAttr', value)
+  var value = elm.getAttribute('someAttr')
+  elm.removeAttribute('someAttr'); // You should use removeAttribute() instead of setting the attribute value to null using setAttribute.
+
+=============================================================================
 Element.getAttribute(), HTMLElement.dataset
 see "access element attributes" in angularJSNotes.txt for notes on getAttribute and dataset
 
