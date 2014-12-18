@@ -283,6 +283,21 @@ Not as nifty as loading a script shown above
   }
 
 =============================================================================
+can a span contain a div?
+
+http://stackoverflow.com/questions/11314668/what-elements-can-a-span-tag-contain-in-html5
+
+Only inline elements may be contained within inline elements. span is an inline element.
+So, tags like a, img, sup, etc. can go within a span, but block level elements like div and p cannot.
+
+If you're interested in what an HTML tag may contain, your most official source is the WHATWG page on HTML elements.
+You can check any HTML element and see what content is permitted (see 'Content Model' for each element):
+  http://www.whatwg.org/specs/web-apps/current-work/multipage/#auto-toc-4
+
+Here's the definition of the span tag, which indicates that only 'phrasing' content is allowed.
+  http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element
+
+=============================================================================
 HTML Tidy
 simple reformat html
   better. does js or html  (has subtext plugin for js)
