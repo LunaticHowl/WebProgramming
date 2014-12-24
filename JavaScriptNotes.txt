@@ -959,7 +959,7 @@ console.log(obj);
 console.log(obj.getAge(), obj.getBreed(), obj.getName());
 
 =============================================================================
-Getter / Setter in object literals
+Getter / Setter in object literals instead of using defineProperty
 
 var Book = {
   title: "The JavaScript Cookbook",

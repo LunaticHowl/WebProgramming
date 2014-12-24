@@ -106,17 +106,22 @@ Example:
 </html>
 
 =============================================================================
-Set the style attribute ie:
+Set the style attribute:
 
   var pos = 123;
   elm.style.top = pos + 'px';
 
   need to set style attribute as a string not number
-  Do *not* add a semicolon to the end of the string ie
+  Do *not* add a semicolon to the end of the string
   right
     elm.style.top = '123px';
   *wrong*
     elm.style.top = '123px;';
+
+  invalid javascript identifiers eg line-height
+    elm.style['line-height'] = '123px';  // works on chrome but not FF   \ as of 12-2014
+    elm.style.lineHeight = '123px';      // works on both chrome and FF  /
+
 
 =============================================================================
 Boolean attributes:

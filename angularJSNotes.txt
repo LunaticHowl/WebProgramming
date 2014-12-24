@@ -689,3 +689,7 @@ shows how to use $render/$formatters/$parsers etc
 note: checkboxInputType() is the link function that is abstracted out of inputDirective
 
 ========================================
+write angular js code today that should ease pain of porting to 2.0 when its out
+  https://www.airpair.com/angularjs/posts/preparing-for-the-future-of-angularjs
+
+========================================
