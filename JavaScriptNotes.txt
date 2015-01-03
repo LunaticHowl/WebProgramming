@@ -504,13 +504,14 @@ array iteration methods
     reduce -- reduces an array to a single value. You can pass in the initial value after the callback.              callback args: previousValue, currentValue, index and Array
     every -- reduces an array to boolean. return bool in callback. unassigned elements are skipped.                  callback args: element, index and Array
     some  -- reduces an array to boolean. return bool in callback. unassigned elements are skipped.                  callback args: element, index and Array
-    forEach -- itterates over array                                                                                  callback args: element, index and Array
+    forEach -- iterates over array                                                                                   callback args: element, index and Array
     see also
         reduceRight
 
     reduce returns a single value however that value can be a new array ie:
         return arr.reduce(function(result, item, idx) { if (item === target) result.push(idx); return result; }, []);
     trick is to pass in an empty array for initial value and return the array each time in the callback
+    Note: often you could just use filter instead
 
 =============================================================================
 array methods on 'array like' objects
