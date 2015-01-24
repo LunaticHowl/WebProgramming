@@ -1,3 +1,7 @@
+Issue 213
+  good article on whats wrong with js today. eg " a jungle of libraries that kind of repeat functionality, contain copy-pasted code, or depend on libraries that they perhaps don’t need at all"
+    http://manuel.bernhardt.io/2014/12/30/generation-javascript/
+
 Issue 211
   An arbitrary-precision Decimal type for JavaScript
     https://github.com/MikeMcl/decimal.js
