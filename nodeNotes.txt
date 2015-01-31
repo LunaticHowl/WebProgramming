@@ -25,7 +25,9 @@ npm
         update single outdated package
             npm update <module>
         update all global packages
-            npm update -g.
+            npm update -g
+        update single global package
+            npm update -g <module>
 
     check package versions
         display current available package version
@@ -36,6 +38,8 @@ npm
           npm list -g
         display version of single installed package
           npm list <module>
+        display version of single global package
+          npm list -g node-inspector <module>
 
 
 npm cheatsheet with all commands
@@ -523,4 +527,19 @@ packages that were installed and discarded
   no mention of the dependences required. What a waste of time
   Both karma and batarang are shit. Its amazing that angular works considering the rest of the tools developed by the group are crap on windows.
 
+------------------------------------------------------------------------------------------------
+https://coderwall.com/p/0eds7q/detecting-64-bit-windows-in-node-js
+
+
+
+Recently, I found myself needing to determine whether a node.js application is running on 64-bit Windows. If your node runtime is 64-bit, then it's all quite straight forward, process.arch will be x64. My particular case, however, is a node-webkit application, using the pre-built binary, which is 32-bit, so it runs through WoW64 and process.arch is ia32.
+
+The way to tell in this case is through the environment variable PROCESSOR_ARCHITEW6432 (accessible through process.env), which will be AMD64 when the process is running in WoW64 on a 64-bit Windows installation, and absent otherwise. Basically, in code, you'd go with something like
+
+function isOSWin64() {
+  return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
+}
+
+As of 1-28-2015
+  I am running 32 bit node binary on 64 bit windows
 ------------------------------------------------------------------------------------------------
