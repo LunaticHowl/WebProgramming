@@ -264,6 +264,30 @@ Dynamically load a script
     return deferred.promise;
   }
 
+  // loadfile() Version 2 pass .js or .css file url. also tests if resource is already loaded.
+  // could lowercase url so the existing resource test is no longer case sensitive but would then be windows specific
+  function loadResourceFile(url, reload) {
+    var isCss = url.slice(-4).toLowerCase() === '.css',
+      elm = document.querySelector((isCss ? 'link[href="' : 'script[src="') + url + '"]'),
+      attrs = isCss ? {href:url, rel:'stylesheet', type:'text/css'} : {src:url},
+      deferred = $q.defer();
+
+    if (elm && reload) {
+      elm.parentNode.removeChild(elm);
+      elm = null;
+    }
+
+    if (!elm) {
+      elm = document.createElement(isCss ? 'link' : 'script');
+      Object.keys(attrs).forEach(function(key) {elm.setAttribute(key, attrs[key]); });
+      elm.onload = function() {deferred.resolve(); };
+      elm.onerror = function(evt) {deferred.reject('Unable to load file: ' + url); };
+      document.head.appendChild(elm);
+    } else {deferred.resolve(); }
+
+    return deferred.promise;
+  }
+
 
 Dynamically load some HTML
 --------------------------
