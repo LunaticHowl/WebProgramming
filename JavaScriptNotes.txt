@@ -353,6 +353,8 @@ There are a couple of workarounds which can be used in order make number literal
 string to int cast
 i = parseInt(s); // stop on first non numeric char
 i = +s; // if s is not numeric returns NaN. empty string returns 0
++null -> 0
++undefined -> NaN
 
 int to string cast
 var n = 123;
