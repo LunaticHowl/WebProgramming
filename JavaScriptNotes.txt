@@ -2549,3 +2549,29 @@ chrome: how to set flags ig: enable-experimental-web-platform-features
   relaunch
 
 =============================================================================
+// Dual API promise Chain without Q.nodeify()
+  function newAddress(args, callback) {
+    return sql.newConnection(configObj)
+    .then(function(conn) {
+      return sql.execSingleValue(conn, insertStmt);
+    })
+    .then(function(data) {
+      return callback ? callback(null, data) : data;
+    })
+    .catch(function(err) {
+      return callback ? callback(err) : err;
+    }).done();
+  }
+
+// Dual API promise Chain with Q.nodeify()
+  function newAddress(args, callback) {
+    return sql.newConnection(configObj)
+    .then(function(conn) {
+      return sql.execSingleValue(conn, insertStmt);
+    })
+    .then(function(data) {
+      return data;
+    }).nodeify(callback);
+  }
+
+=============================================================================
