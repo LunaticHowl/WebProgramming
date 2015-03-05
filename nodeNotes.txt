@@ -82,6 +82,9 @@ POSIX error codes
     EXDEV           Improper link (POSIX.1)
 
 ------------------------------------------------------------------------------------------------
+joyent best practices for Error Handling in Node
+http://www.joyent.com/developers/node/design/errors
+------------------------------------------------------------------------------------------------
 correct way to deploy a node app. DONT use npm for deployment
   http://www.letscodejavascript.com/v3/blog/2014/03/the_npm_debacle
 
