@@ -2575,3 +2575,26 @@ chrome: how to set flags ig: enable-experimental-web-platform-features
   }
 
 =============================================================================
+example function using circuit with try/catch/finally to commit/rollback transactin
+
+  function someFun(args, callback) {
+
+    circuit.series(function* (resume) {
+      var data1, data2, conn;
+
+      try {
+        conn = yield sql.newConnection(configObj, resume);
+        yield conn.beginTransaction(resume);
+        data1 = yield sql.execSingleValue(conn, 'select 123 as fld1', resume);
+        data2 = yield sql.execSingleValue(conn, "select 'abc' as fld2", resume);
+        yield conn.commitTransaction(resume);
+        callback(null, { data1:data1, data2:data2 });
+      } catch(e) {
+        yield conn.rollbackTransaction(resume);
+        callback(e);
+      } finally {
+        sql.closeConnection(conn);
+      }
+    })();
+  }
+=============================================================================

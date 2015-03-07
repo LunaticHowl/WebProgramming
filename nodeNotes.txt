@@ -39,7 +39,7 @@ npm
         display version of single installed package
           npm list <module>
         display version of single global package
-          npm list -g node-inspector <module>
+          npm list -g <module>
 
 
 npm cheatsheet with all commands
@@ -341,6 +341,10 @@ http://stackoverflow.com/questions/5156806/node-js-and-microsoft-sql-server
 notes on ms driver not working on node v 1 +
   https://github.com/WindowsAzure/node-sqlserver/issues/126
   http://stackoverflow.com/questions/19661811/unable-to-download-msnodesql-0-2-1-v0-10-x64-msi
+
+A more recent article on MS SQL drivers for node
+  http://www.infragistics.com/community/blogs/mihail_mateev/archive/2014/07/18/dealing-with-node-js-and-microsoft-sql-server-part-1.aspx
+  http://www.infragistics.com/community/blogs/mihail_mateev/archive/2014/07/24/dealing-with-node-js-and-microsoft-sql-server-part-2.aspx
 ------------------------------------------------------------------------------------------------
 Tedious
 
