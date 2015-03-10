@@ -1,0 +1,35 @@
+-------------
+postman notes
+-------------
+
+example postman request
+url:
+  http://localhost:3010/acct/moveout/
+verb
+  put
+data
+  set to 'raw' 'json/application json'
+  { "premise":1003000 , "tenant":1, "outDate": "2015-04-01Z" }
+
+Note: must be json not js literal
+
+To save a collection
+  hover over collection on left side of screen
+  click on share collection
+  pick "download as file"
+  naming convention:
+    postman_<title>.json
+    where <title> is the collection's description
+
+can also back up in Settings > Data > Export all
+
+hover over individual requests to edit title, copy or delete
+
+** be sure and click on "Save" button when change individual request **
+
+Can reorder requests with drag and drop
+
+reorder collection? not sure
+
+other notes:
+Postman uses IndexedDB to store all collections etc.
