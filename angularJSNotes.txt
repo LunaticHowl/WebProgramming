@@ -693,3 +693,13 @@ write angular js code today that should ease pain of porting to 2.0 when its out
   https://www.airpair.com/angularjs/posts/preparing-for-the-future-of-angularjs
 
 ========================================
+    function someFun(someData) {
+      return $http.post('/acct/newpremise', JSON.stringify(someData)).then(function(result) {
+        return result.data.error ? $q.reject(new Error(result.data.msg)) : result.data.data;
+      }, function(result) {
+        // get here if http call fails such as invalid URL OR http status code other that a 200
+        return $q.reject(new Error(result.data.error ? result.data.msg : result.data));
+      });
+    }
+
+========================================
