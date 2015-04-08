@@ -2574,6 +2574,22 @@ chrome: how to set flags ig: enable-experimental-web-platform-features
     }).nodeify(callback);
   }
 
+-------------------------------------
+http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/
+Making APIs that support both callbacks and promises
+
+You can make APIs that provide both a promise and callback interface.
+For example, let’s turn fs.readFile into an API that supports both callbacks and promises:
+
+function fs_readFile (file, encoding, callback) {
+  var deferred = Q.defer()
+  fs.readFile(function (err, data) {
+    if (err) deferred.reject(err) // rejects the promise with `er` as the reason
+    else deferred.resolve(data) // fulfills the promise with `data` as the value
+  })
+  return deferred.promise.nodeify(callback) // the promise is returned
+}
+
 =============================================================================
 example function using circuit with try/catch/finally to commit/rollback transactin
 
