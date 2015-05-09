@@ -366,6 +366,10 @@ Online csv validator
   http://csvlint.io/
 
 =============================================================================
+online tool to build HMAC tokens
+https://quickhash.com/
+
+=============================================================================
 FF dev tools warning
   "The Web Console logging API (console.log, console.info, console.warn, console.error) has been disabled by a script on this page."
 happens when firebug console is active
