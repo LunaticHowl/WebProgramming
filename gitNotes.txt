@@ -106,6 +106,11 @@ undo a commit before its pushed
     git reset --soft HEAD~1
       Not real clear on how this one works
 
+  change commit message *BEFORE* pushing
+    git commit --amend -m "New commit message"
+    See also:
+      http://stackoverflow.com/questions/179123/edit-an-incorrect-commit-message-in-git
+
 
 "(END)" prompt
   When there is a long result powershell trys to page the text and displays "(END)" for the prompt.
