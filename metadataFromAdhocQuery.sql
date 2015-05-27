@@ -21,7 +21,10 @@ The test query is:
 
 notice how every field and table are aliased and there is a calculated column
 
-sp_describe_first_result_set and sys.dm_exec_describe_first_result_set both work.
+sp_describe_first_result_set and sys.dm_exec_describe_first_result_set both work and both return the same meta data.
+In addition to meta data:
+  sp_describe_first_result_set - returns some error info eg "error_number", "error_severity"
+  sys.dm_exec_describe_first_result_set - returns some tds data eg "tds_type_id", "tds_length"
 The examples below use sys.dm_exec_describe_first_result_set
 sys.dm_exec_describe_first_result_set allow returning just a sub-set of the meta data columns
 The syntax for sp_describe_first_result_set is:
