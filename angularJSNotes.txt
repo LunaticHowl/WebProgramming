@@ -607,6 +607,17 @@ This is a PIA
 as of 4-30-2014 I am not passing anything to $apply and writing this example like:
   this.sortRowMap(this.arg1, this.arg2);
   scope.$apply();
+
+========================================
+$digest() vs $apply()
+
+scope.$digest() will only fire watchers on current scope, scope.$apply will evaluate passed function and run $rootScope.$digest().
+
+First one is faster, as needs to evaluate watchers for current scope, second one is slower (needs to evaluate watchers for$rootScope and all it's child scopes).
+
+When error occurs in one of the watchers and you use scope.$digest, it's not handled via $exceptionHandler service,
+so you need to handle exception yourself. scope.$apply uses try catch block internally and passes all exceptions to $exceptionHandler.
+
 ========================================
 orderBy filter
 orderBy only works on arrays *not* on object of objects
