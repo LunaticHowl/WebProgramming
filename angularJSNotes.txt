@@ -714,3 +714,15 @@ write angular js code today that should ease pain of porting to 2.0 when its out
     }
 
 ========================================
+using $rootScope.$eval to convert a string passed as an attribute to an object
+
+html:
+  <div data-some-info='{this:123, that:"ok"}'></div>
+
+js:
+  var myData
+  try {myData = $rootScope.$eval(attrs.someInfo); }
+  catch(e) {}
+  console.log(myData.this, myData.that);
+
+========================================
