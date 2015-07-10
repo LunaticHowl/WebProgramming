@@ -41,6 +41,11 @@ npm
         display version of single global package
           npm list -g <module>
 
+    list outdated packages (cd to correct dir)
+        npm outdated
+
+    list outdated global packages
+        npm outdated -g
 
 npm cheatsheet with all commands
   http://blog.nodejitsu.com/npm-cheatsheet/#Uninstalling_a_package_globally
@@ -107,7 +112,7 @@ if express is installed globally you can create a skeleton app
     for options type express --help
 
 version of express installed
-  express --version
+  npm list express
 
 Determine current express version
   npm info express version
