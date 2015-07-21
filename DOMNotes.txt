@@ -327,6 +327,10 @@ Here's the definition of the span tag, which indicates that only 'phrasing' cont
   http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element
 
 =============================================================================
+display:table-cell does not work on input element
+  table-cell on input elements is treated experimental. Try to avoid it, use wrapper-elements for the positioning for example.
+
+=============================================================================
 HTML Tidy
 simple reformat html
   better. does js or html  (has subtext plugin for js)

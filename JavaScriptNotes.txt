@@ -474,6 +474,12 @@ If there are other references to the array they will still be valid which is not
     ary2 = JSON.parse(JSON.stringify(ary1));
 
 =============================================================================
+JSON.stringify removes any property that is undefined
+  obj {p1:123, p2:undefined}
+  pass back obj over wire where it is serialized
+  the object on other side of wire does not have property p2
+
+=============================================================================
 array tips
     Use slice to convert "Array-Like" Objects to true array
     ie:
