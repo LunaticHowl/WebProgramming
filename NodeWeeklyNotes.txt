@@ -1,3 +1,10 @@
+Issue 85
+  https://github.com/KyleRoss/modclean
+
+Issue 83
+  http://www.future-processing.pl/blog/on-problems-with-threads-in-node-js/
+  Node (libuv) has a thread pool that defaults to 4 threads. Issues and solution
+
 Issue 63
   Installing Node.js on Windows
     http://strongloop.com/strongblog/install-node-js-windows/
